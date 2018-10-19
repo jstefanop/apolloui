@@ -113,66 +113,43 @@ We will need following API to manage system and miner functions:
 
 ### Auth:
 
--   /auth    
-
--   /login
-    
--   /logout
+* /auth
+  * /login
+  * /logout
     
 
 ### System:
 
--   /mcu
-
--   /shutdown
-    
--   /reboot
-    
--   /stats
-    
--   /wifi
-
--   /scan
-    
--   /connect
+* /mcu
+  * /shutdown
+  * /reboot
+  * /stats 
+  * /wifi
+    * /scan
+    * /connect
 
 ### Miner:
 
--   /miner
-
--   /start
-    
--   /stop
-    
--   /restart
-    
--   /stats
+* /miner
+  * /start
+  * /stop
+  * /restart
+  * /stats
 
 ### Settings:
 
--   /settings
-
--   /pool
-
--   /add
-    
--   /edit/:id
-    
--   /delete/:id
-    
--   /list
-    
--   /get/:id
-
--   /miner
-
--   /configure
-
--   /auth
-
--   /password
-
--   /change
+* /settings
+  * /pool
+    * /add
+    * /edit/:id
+    * /delete/:id
+    * /list
+    * /get/:id
+  * /miner
+    * /configure
+  * /auth
+    * /password
+      * /change
 
 ## References
 
