@@ -3,11 +3,7 @@ export default {
     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'success',
-        text: 'ONLINE',
-      },
+      icon: 'icon-speedometer'
     },
     {
       name: 'Settings',

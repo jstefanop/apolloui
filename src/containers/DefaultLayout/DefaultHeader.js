@@ -29,7 +29,10 @@ class DefaultHeader extends Component {
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
-            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">135MH/s</span>
+            <Badge color="success">ONLINE</Badge>
+          </NavItem>
+          <NavItem className="px-3">
+            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">135.87 MH/s</span>
           </NavItem>
           <NavItem className="px-3">
             <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">67°c</span>
