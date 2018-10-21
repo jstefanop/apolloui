@@ -10,6 +10,8 @@ import {
   CardTitle,
   CardSubtitle,
   Progress,
+  ListGroup,
+  ListGroupItem,
   Col,
   Row,
   Form,
@@ -201,16 +203,16 @@ class Settings extends Component {
           <Card>
             <CardHeader>
               <CardTitle>Change lockscreen password</CardTitle>
-              <CardSubtitle className="text-muted">Manage dashboard specific configurations</CardSubtitle>
+              <CardSubtitle className="text-muted">Change the password to access the dashboard</CardSubtitle>
             </CardHeader>
             <CardBody>
+              <p class="help-block form-text text-muted">Changing the password will lock the dashboard. You will need to use the new password to unlock it.</p>
               <Form>
                 <Row form>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="password">Password</Label>
                       <Input type="password" name="password" id="password" placeholder="" bsSize="lg" />
-                      <small class="help-block form-text text-muted">Changing the password will lock the dashboard. You will need to use the new password to unlock it.</small>
                     </FormGroup>
                   </Col>
                   <Col md={6}>
@@ -235,27 +237,29 @@ class Settings extends Component {
               <Form>
                 <Row form>
                   <Col md={12}>
-                    <FormGroup>
-                      <div className="clearfix">
-                        <AppSwitch className="float-left mr-2" variant={'pill'} dataOn="°C" dataOff="°F" label color={'success'} defaultChecked size={'md'}/>
-                        <div>Temperature unit</div>
-                      </div>
-                      <div class="mt-1 small text-muted">Change temperature unit from Celsius to Fahrenheit</div>
-                    </FormGroup>
-                    <FormGroup>
-                      <div className="clearfix">
-                        <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={'md'}/>
-                        <div>Sidebar</div>
-                      </div>
-                      <div class="mt-1 small text-muted">Keep left sidebar open or closed by default</div>
-                    </FormGroup>
-                    <FormGroup>
-                      <div className="clearfix">
-                        <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={'md'}/>
-                        <div>Sidenav</div>
-                      </div>
-                      <div class="mt-1 small text-muted">Keep right sidebar open or closed by default</div>
-                    </FormGroup>
+                    <ListGroup flush>
+                      <ListGroupItem>
+                        <div className="clearfix">
+                          <AppSwitch className="float-left mr-2" variant={'pill'} dataOn="°C" dataOff="°F" label color={'success'} defaultChecked size={'md'}/>
+                          <div>Temperature unit</div>
+                        </div>
+                        <div class="mt-1 small text-muted">Change temperature unit from Celsius to Fahrenheit</div>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        <div className="clearfix">
+                          <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={'md'}/>
+                          <div>Sidebar</div>
+                        </div>
+                        <div class="mt-1 small text-muted">Keep left sidebar open or closed by default</div>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        <div className="clearfix">
+                          <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={'md'}/>
+                          <div>Sidenav</div>
+                        </div>
+                        <div class="mt-1 small text-muted">Keep right sidebar open or closed by default</div>
+                      </ListGroupItem>
+                    </ListGroup>
                   </Col>
                 </Row>
               </Form>
@@ -264,36 +268,39 @@ class Settings extends Component {
           <Card>
             <CardHeader>
               <CardTitle>Backup & Reset</CardTitle>
-              <CardSubtitle className="text-muted">Manage dashboard specific configurations</CardSubtitle>
+              <CardSubtitle className="text-muted">Use this tools to backup, restore and reset configurations</CardSubtitle>
             </CardHeader>
             <CardBody>
               <Form>
                 <Row form>
                   <Col md={12}>
-                    <FormGroup>
-                      <div className="">
-                        <Button className="mr-2" color={'primary'} size="sm">BACKUP</Button>
-                        <div class="mt-1 small text-muted">Create a backup file of dashboard, miner and pools configurations</div>
-                      </div>
-                    </FormGroup>
-                    <FormGroup>
-                      <div className="">
-                        <Button className="mr-2" color={'primary'} size="sm">RESTORE</Button>
-                        <div class="mt-1 small text-muted">Restore all configurations from a backup file</div>
-                      </div>
-                    </FormGroup>
-                    <FormGroup>
-                      <div className="">
-                        <Button className="mr-2" color={'danger'} size="sm">RESET</Button>
-                        <div class="mt-1 small text-muted">Reset all configurations to factory default</div>
-                      </div>
-                    </FormGroup>
+                    <ListGroup flush>
+                      <ListGroupItem>
+                        <div className="">
+                          <Button className="mr-2" color={'primary'} size="sm">BACKUP</Button>
+                          <div class="mt-1 small text-muted">Create a backup file of dashboard, miner and pools configurations</div>
+                        </div>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        <div className="">
+                          <Button className="mr-2" color={'primary'} size="sm">RESTORE</Button>
+                          <div class="mt-1 small text-muted">Restore all configurations from a backup file</div>
+                        </div>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        <div className="">
+                          <Button className="mr-2" color={'danger'} size="sm">RESET</Button>
+                          <div class="mt-1 small text-muted">Reset all configurations to factory default</div>
+                        </div>
+                      </ListGroupItem>
+                    </ListGroup>
                   </Col>
                 </Row>
               </Form>
             </CardBody>
           </Card>
         </CardDeck>
+        <p></p>
       </div>
     );
   }
