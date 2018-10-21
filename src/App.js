@@ -10,8 +10,9 @@ import { Login, Page404, Page500, Register } from './views/Pages';
 // import { renderRoutes } from 'react-router-config';
 
 import { I18nProvider } from '@lingui/react'
+import catalogEn from './locales/en/messages.js'
 
-const catalogs = {};
+const catalogs = { en: catalogEn };
 
 class App extends Component {
   render() {
