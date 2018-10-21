@@ -19,6 +19,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
+import { Trans } from '@lingui/macro';
 
 class Settings extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class Settings extends Component {
           <Col lg="12">
             <Card>
               <CardHeader className="bg-dark">
-                <Button size="sm" className="btn-warning">RESTART</Button>
+                <Button size="sm" className="btn-warning"><Trans>RESTART</Trans></Button>
                 <span className="ml-2">You need to restart your miner to apply changes.</span>
               </CardHeader>
             </Card>
