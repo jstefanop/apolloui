@@ -1,0 +1,6 @@
+{
+  "name": "SettingsGeneral",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SettingsGeneral.js"
+}
