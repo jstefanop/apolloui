@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 import DefaultLayout from './containers/DefaultLayout';
 
 function Loading() {
-  return <div>Loading...</div>;
+  return <div><i className="fa fa-spinner spinner mr-2"></i>Loading...</div>;
 }
 
 const Dashboard = Loadable({

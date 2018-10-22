@@ -88,16 +88,16 @@ class SettingsGeneral extends Component {
                               <ListGroupItem>
                                 <div className="clearfix">
                                   <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={''}/>
-                                  <div><Trans>Sidebar</Trans></div>
+                                  <div><Trans>Sidebar visibility</Trans></div>
                                 </div>
-                                <div className="mt-1 small text-muted"><Trans>Keep left sidebar open or closed by default</Trans></div>
+                                <div className="mt-1 small text-muted"><Trans>Set left sidebar default visibility</Trans></div>
                               </ListGroupItem>
                               <ListGroupItem>
                                 <div className="clearfix">
                                   <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={''}/>
-                                  <div><Trans>Sidenav</Trans></div>
+                                  <div><Trans>Extended sidebar</Trans></div>
                                 </div>
-                                <div className="mt-1 small text-muted"><Trans>Keep right sidebar open or closed by default</Trans></div>
+                                <div className="mt-1 small text-muted"><Trans>Keep left sidebar with text an icons or only icons</Trans></div>
                               </ListGroupItem>
                             </ListGroup>
                           </Col>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AppSwitch } from '@coreui/react'
 import {
   Button,
   Card,
@@ -38,7 +39,12 @@ class SettingsPools extends Component {
                   <CardBody>
                     <Form>
                       <Row form>
-                        <Col md={4}>
+                        <Col md={1}>
+                          <FormGroup>
+                            <div className="text-right" style={{ marginTop: '36px' }}><AppSwitch className="" variant={'pill'} label color={'success'} defaultChecked size={'lg'}/></div>
+                          </FormGroup>
+                        </Col>
+                        <Col md={3}>
                           <FormGroup>
                             <Label for="poolUrl"><Trans>Pool Url</Trans></Label>
                             <Input type="text" name="poolUrl" id="poolUrl" placeholder={i18n._(t`stratum+tcp://us.litecoinpool.org:3333`)} bsSize="lg" />
