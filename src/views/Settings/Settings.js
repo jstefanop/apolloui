@@ -19,8 +19,28 @@ import {
   Label,
   Input
 } from 'reactstrap';
+import 'rc-slider/assets/index.css';
+import Slider from 'rc-slider';
 import { Trans, t } from '@lingui/macro';
 import { I18n } from "@lingui/react"
+
+const voltages = {
+  '-10': '-10°C',
+  0: <strong>0°C</strong>,
+  26: '26°C',
+  37: '37°C',
+  50: '50°C',
+  100: {
+    style: {
+      color: 'red',
+    },
+    label: <strong>100°C</strong>,
+  },
+};
+
+function log(value) {
+  console.log(value);
+}
 
 class Settings extends Component {
   constructor(props) {
@@ -57,13 +77,15 @@ class Settings extends Component {
               <Col lg="12">
                 <Card>
                   <CardHeader className="bg-dark">
-                    <Button size="sm" className="btn-warning text-uppercase"><Trans>Restart</Trans></Button>
+                    <Button size="sm" className="btn-success text-uppercase mr-2"><Trans>Save</Trans></Button>
+                    <Button size="sm" className="btn-warning text-uppercase"><Trans>Save & Restart</Trans></Button>
                     <span className="ml-2"><Trans>You need to restart your miner to apply changes.</Trans></span>
                   </CardHeader>
                 </Card>
               </Col>
             </Row>
 
+          { /* Pools */ }
             <Row>
               <Col lg="12">
                 <Card>
@@ -110,6 +132,7 @@ class Settings extends Component {
               </Col>
             </Row>
 
+          { /* Miner conf */ }
             <Row>
               <Col lg="12">
                 <Card>
@@ -166,6 +189,77 @@ class Settings extends Component {
               </Col>
             </Row>
 
+            { /* Custom mode */ }
+            <Row>
+              <Col lg="12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle><Trans>Custom mode</Trans></CardTitle>
+                    <CardSubtitle className="text-muted"><Trans>Personalise your miner configurations</Trans></CardSubtitle>
+                  </CardHeader>
+                  <CardBody>
+                    <Form>
+                      <Row form>
+                        <Col md={4}>
+                          <div>
+                            <div className="clearfix">
+                              <h4><Trans>Voltage</Trans></h4>
+                            </div>
+                            <div>
+                              <p className="text-muted ">
+                                <Trans>You can set your miner custom voltage or <a href="">reset</a> to default value.</Trans>
+                              </p>
+                              <Card className="border-0">
+                                <CardBody>
+                                  <Slider min={-10} marks={voltages} step={null} onChange={log} defaultValue={20} />
+                                </CardBody>
+                              </Card>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col md={4}>
+                          <div>
+                            <div className="clearfix">
+                              <h4><Trans>Frequency</Trans></h4>
+                            </div>
+                            <div>
+                              <p className="text-muted ">
+                                <Trans>You can set your miner custom frequency or <a href="">reset</a> to default value.</Trans>
+                              </p>
+                              <Card className="border-0">
+                                <CardBody>
+                                  <Slider min={-10} marks={voltages} step={null} onChange={log} defaultValue={20} />
+                                </CardBody>
+                              </Card>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col md={4}>
+                          <div>
+                            <div className="clearfix">
+                              <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} checked={true} />
+                              <h4><Trans>Auto adjust fan</Trans></h4>
+                            </div>
+                            <div>
+                              <p className="text-muted ">
+                                <Trans>Keep fan speed at auto mode or turn of it to manually set the fan speed.</Trans>
+                              </p>
+                              <Card className="border-0">
+                                <CardBody>
+                                  <Slider min={-10} marks={voltages} step={null} onChange={log} defaultValue={20} />
+                                </CardBody>
+                              </Card>
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+
+          { /* Wifi */ }
             <Row>
               <Col lg="12">
                 <Card>
@@ -208,6 +302,7 @@ class Settings extends Component {
             </Row>
 
             <CardDeck>
+              { /* Lockscreen */ }
               <Card>
                 <CardHeader>
                   <CardTitle><Trans>Change lockscreen password</Trans></CardTitle>
@@ -238,6 +333,8 @@ class Settings extends Component {
                   </Form>
                 </CardBody>
               </Card>
+
+            { /* Layout */ }
               <Card>
                 <CardHeader>
                   <CardTitle><Trans>Layout options</Trans></CardTitle>
@@ -275,6 +372,8 @@ class Settings extends Component {
                   </Form>
                 </CardBody>
               </Card>
+
+            { /* Backup/Reset */ }
               <Card>
                 <CardHeader>
                   <CardTitle><Trans>Backup & Reset</Trans></CardTitle>
