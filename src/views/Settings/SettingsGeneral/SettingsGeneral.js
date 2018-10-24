@@ -29,8 +29,6 @@ class SettingsGeneral extends Component {
       <I18n>
         {({ i18n }) => (
           <div className="animated fadeIn">
-            <Row>
-              <Col lg="12">
                 <CardDeck>
                   { /* Lockscreen */ }
                   <Card>
@@ -72,20 +70,13 @@ class SettingsGeneral extends Component {
                     </CardHeader>
                     <CardBody>
                       <Form>
-                        <Row form>
-                          <Col md={12}>
+                        <Row >
+                          <Col md={12} lg={6}>
                             <ListGroup flush>
                               <ListGroupItem>
                                 <div className="clearfix">
-                                  <AppSwitch className="float-left mr-2" variant={'pill'} dataOn="°C" dataOff="°F" label color={'success'} defaultChecked size={''}/>
-                                  <div><Trans>Temperature unit</Trans></div>
-                                </div>
-                                <div className="mt-1 small text-muted"><Trans>Change temperature unit from Celsius to Fahrenheit</Trans></div>
-                              </ListGroupItem>
-                              <ListGroupItem>
-                                <div className="clearfix">
                                   <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={''}/>
-                                  <div><Trans>Sidebar visibility</Trans></div>
+                                  <div><Trans>Left Sidebar visibility</Trans></div>
                                 </div>
                                 <div className="mt-1 small text-muted"><Trans>Set left sidebar default visibility</Trans></div>
                               </ListGroupItem>
@@ -94,7 +85,25 @@ class SettingsGeneral extends Component {
                                   <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} defaultChecked size={''}/>
                                   <div><Trans>Extended sidebar</Trans></div>
                                 </div>
-                                <div className="mt-1 small text-muted"><Trans>Keep left sidebar with text an icons or only icons</Trans></div>
+                                <div className="mt-1 small text-muted"><Trans>Keep left sidebar extended or only icons</Trans></div>
+                              </ListGroupItem>
+                              <ListGroupItem>
+                                <div className="clearfix">
+                                  <AppSwitch className="float-left mr-2" variant={'pill'} dataOn="°C" dataOff="°F" label color={'success'} defaultChecked size={''}/>
+                                  <div><Trans>Temperature unit</Trans></div>
+                                </div>
+                                <div className="mt-1 small text-muted"><Trans>Set it to Celsius or Fahrenheit</Trans></div>
+                              </ListGroupItem>
+                            </ListGroup>
+                          </Col>
+                          <Col md={12} lg={6}>
+                            <ListGroup flush>
+                              <ListGroupItem>
+                                <div className="clearfix">
+                                  <AppSwitch className="float-left mr-2" variant={'pill'} label color={'success'} size={''}/>
+                                  <div><Trans>Right sidebar visibility</Trans></div>
+                                </div>
+                                <div className="mt-1 small text-muted"><Trans>Set right sidebar default visibility</Trans></div>
                               </ListGroupItem>
                             </ListGroup>
                           </Col>
@@ -139,8 +148,7 @@ class SettingsGeneral extends Component {
                     </CardBody>
                   </Card>
                 </CardDeck>
-              </Col>
-            </Row>
+
           </div>
         )}
       </I18n>

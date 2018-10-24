@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Badge, Nav, NavItem } from 'reactstrap';
+import { Button, Badge, Nav, NavItem } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.png'
@@ -36,6 +37,9 @@ class DefaultHeader extends Component {
           </NavItem>
           <NavItem className="px-3">
             <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">67°c</span>
+          </NavItem>
+          <NavItem className="px-3">
+            <Button size="sm" className="btn-warning text-uppercase"><Trans>Restart</Trans></Button>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>

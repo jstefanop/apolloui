@@ -61,7 +61,7 @@ class SettingsMiner extends Component {
                           <div>
                             <div className="clearfix">
                               <AppSwitch className="float-left mr-2" variant={'pill'} label color={'primary'} defaultChecked size={''}/>
-                              <h4><i className="fa fa-paper-plane mr-2 initialism text-secondary"></i><Trans>ECO mode</Trans></h4>
+                              <h4><i className="fa fa-leaf mr-2 initialism text-secondary"></i><Trans>ECO mode</Trans></h4>
                             </div>
                             <div>
                               <p className="text-muted ">
