@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
+import { Badge, Nav, NavItem } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.png'
 import sygnet from '../../assets/img/brand/favicon.png'
 

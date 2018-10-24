@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { AppSwitch } from '@coreui/react'
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -9,22 +7,15 @@ import {
   CardSubtitle,
   Col,
   Row,
-  Form,
-  FormGroup,
-  Label,
-  Input
+  Form
 } from 'reactstrap';
 
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { I18n } from "@lingui/react"
 
 import SettingsPoolItem from './SettingsPoolItem';
 
 class SettingsPools extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
 
     return (

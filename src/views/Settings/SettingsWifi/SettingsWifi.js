@@ -11,13 +11,10 @@ import {
   Form
 } from 'reactstrap';
 
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { I18n } from "@lingui/react"
 
 class SettingsWifi extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
 
