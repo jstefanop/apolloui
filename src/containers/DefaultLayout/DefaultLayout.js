@@ -23,6 +23,13 @@ import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 
 class DefaultLayout extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      sidebarLeft: false
+    };
+  }
+
   render() {
     return (
       <div className="app">

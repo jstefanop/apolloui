@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import { AppSwitch } from '@coreui/react'
 import { Trans } from '@lingui/macro';
 
+import SystemUtil from '../../views/SystemUtil';
+
 const propTypes = {
   children: PropTypes.node,
 };
@@ -83,27 +85,9 @@ class DefaultAside extends Component {
               </div>
             </div>
 
-            <hr className="mb-4 mt-4"/>
+            <hr className="mt-4 mb-4>" />
 
-            <h6>System Utilization</h6>
-
-            <div className="text-uppercase mb-1 mt-4">
-              <small><b>CPU Usage</b></small>
-            </div>
-            <Progress className="progress-xs" color="info" value="25" />
-            <small className="text-muted">348 Processes. 1/4 Cores.</small>
-
-            <div className="text-uppercase mb-1 mt-2">
-              <small><b>Memory Usage</b></small>
-            </div>
-            <Progress className="progress-xs" color="warning" value="70" />
-            <small className="text-muted">11444GB/16384MB</small>
-
-            <div className="text-uppercase mb-1 mt-2">
-              <small><b>SSD 1 Usage</b></small>
-            </div>
-            <Progress className="progress-xs" color="danger" value="95" />
-            <small className="text-muted">243GB/256GB</small>
+            <SystemUtil></SystemUtil>
           </TabPane>
         </TabContent>
       </React.Fragment>
