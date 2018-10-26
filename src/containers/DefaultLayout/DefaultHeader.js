@@ -34,11 +34,6 @@ class DefaultHeader extends Component {
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <Badge color="success">ONLINE</Badge>
-            <AppContext.Consumer>
-              {localeVal =>
-                localeVal.locale === 'en' ? <h1>Welcome!</h1> : <h1>Bienvenue!</h1>
-              }
-            </AppContext.Consumer>
           </NavItem>
           <NavItem className="px-3">
             <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">135.87 MH/s</span>

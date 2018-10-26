@@ -7,3 +7,9 @@
 .badge {
 	line-height: inherit;
 }
+
+@media (min-width: 1380px) {
+	.modal-lg {
+		max-width: 1200px;
+	}
+}
