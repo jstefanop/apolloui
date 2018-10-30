@@ -42,6 +42,13 @@ export default {
         url: '/theme/colors',
         icon: 'fa fa-power-off',
       }]
-    }
+    },
+    {
+      name: 'Logout',
+      url: '',
+      icon: 'fa fa-sign-out-alt',
+      class: 'mt-auto',
+      variant: 'info',
+    },
   ],
 };
