@@ -29,6 +29,7 @@ class SettingsGeneral extends Component {
       <I18n>
         {({ i18n }) => (
           <div className="animated fadeIn">
+
                 <CardDeck>
                   { /* Lockscreen */ }
                   <Card>
@@ -71,7 +72,7 @@ class SettingsGeneral extends Component {
                     <CardBody>
                       <Form>
                         <Row >
-                          <Col md={12} lg={6}>
+                          <Col lg={12} xl={6}>
                             <ListGroup flush>
                               <ListGroupItem>
                                 <div className="clearfix">
@@ -96,7 +97,7 @@ class SettingsGeneral extends Component {
                               </ListGroupItem>
                             </ListGroup>
                           </Col>
-                          <Col md={12} lg={6}>
+                          <Col lg={12} xl={6}>
                             <ListGroup flush>
                               <ListGroupItem>
                                 <div className="clearfix">
