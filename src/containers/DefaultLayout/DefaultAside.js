@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { AppSwitch } from '@coreui/react'
 import { Trans } from '@lingui/macro';
 
-import SystemUtil from '../../views/SystemUtil';
+import SystemUtil from '../../views/SystemUtil/SystemUtil';
 
 const propTypes = {
   children: PropTypes.node,

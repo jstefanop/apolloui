@@ -1,6 +1,0 @@
-{
-  "name": "SystemUtil",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./SystemUtil.js"
-}

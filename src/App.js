@@ -5,7 +5,7 @@ import './App.scss';
 // Containers
 import { DefaultLayout } from './containers';
 
-import Login from './views/Login';
+import Login from './views/Login/Login';
 
 import { Page404, Page500 } from './views/Errors';
 

@@ -1,6 +1,0 @@
-{
-  "name": "SettingsWifi",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./SettingsWifi.js"
-}

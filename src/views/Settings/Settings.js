@@ -10,10 +10,10 @@ import {
 
 import { Trans } from '@lingui/macro';
 
-import SettingsPools from './SettingsPools';
-import SettingsMiner from './SettingsMiner';
-import SettingsWifi from './SettingsWifi';
-import SettingsGeneral from './SettingsGeneral';
+import SettingsPools from './SettingsPools/SettingsPools';
+import SettingsMiner from './SettingsMiner/SettingsMiner';
+import SettingsWifi from './SettingsWifi/SettingsWifi';
+import SettingsGeneral from './SettingsGeneral/SettingsGeneral';
 
 class Settings extends Component {
 
