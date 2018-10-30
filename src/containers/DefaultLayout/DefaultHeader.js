@@ -7,8 +7,6 @@ import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/reac
 import logo from '../../assets/img/brand/logo.png'
 import sygnet from '../../assets/img/brand/favicon.png'
 
-import { AppContext } from '../../context/AppContext';
-
 const propTypes = {
   children: PropTypes.node,
 };

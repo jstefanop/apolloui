@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
@@ -31,6 +32,10 @@ class DefaultLayout extends Component {
   }
 
   render() {
+    const {
+      isLoggedIn
+    } = this.props
+
     return (
       <div className="app">
         <AppHeader fixed>
@@ -47,16 +52,21 @@ class DefaultLayout extends Component {
           <main className="main">
             <AppBreadcrumb className="bg-light" appRoutes={routes}/>
             <Container fluid>
-              <Switch>
-                {routes.map((route, idx) => {
-                    return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
-                        <route.component {...props} />
-                      )} />)
-                      : (null);
-                  },
-                )}
-                <Redirect from="/" to="/login" />
-              </Switch>
+              {
+                isLoggedIn 
+                  ? <Switch>
+                      {routes.map((route, idx) => {
+                          return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
+                              <route.component {...props} />
+                            )} />)
+                            : (null);
+                        },
+                      )}
+                      <Redirect from="/" to="/dashboard" />
+                    </Switch>
+                  : <Redirect to="/login" />
+              }
+              
             </Container>
           </main>
           <AppAside fixed>
@@ -71,4 +81,8 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.accessToken != null
+})
+
+export default connect(mapStateToProps)(DefaultLayout);
