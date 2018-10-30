@@ -73,3 +73,9 @@ export function login ({ password }) {
     dispatch(push('/'))
   }
 }
+
+export function logout () {
+  return async function (dispatch) {
+    dispatch(setAuthAccessToken(null))
+  }
+}

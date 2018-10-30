@@ -45,7 +45,7 @@ export default {
     },
     {
       name: 'Logout',
-      url: '',
+      url: '/logout',
       icon: 'fa fa-sign-out-alt',
       class: 'mt-auto',
       variant: 'info',
