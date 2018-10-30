@@ -1,10 +1,42 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import ModalsSetup from '../Modals/ModalsSetup';
 import logo from '../../assets/img/brand/logo.png'
 
+import { login } from '../../actions/auth'
+
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      password: ''
+    }
+
+    this.handleLogin = this.handleLogin.bind(this)
+    this.onChange = this.onChange.bind(this)
+  }
+
+
+  handleLogin () {
+    const {
+      password,
+    } = this.state
+
+    this.props.login({ password })
+  }
+
+  onChange (event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
   render() {
+    const {
+      password
+    } = this.state
+
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -22,11 +54,11 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" placeholder="Password" autoComplete="current-password" name="password" value={password} onChange={this.onChange} />
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4" href="/dashboard">Login</Button>
+                          <Button color="primary" className="px-4" onClick={this.handleLogin}>Login</Button>
                         </Col>
                       </Row>
                     </Form>
@@ -50,4 +82,16 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  show: state.auth.status !== 'done'
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: ({ password }) => {
+      dispatch(login({ password }))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

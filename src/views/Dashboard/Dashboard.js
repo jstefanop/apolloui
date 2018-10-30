@@ -4,18 +4,10 @@ import {
   Button,
   Card,
   CardBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
   Col,
   Progress,
   Row,
   Table,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
 } from 'reactstrap';
 
 import { Trans } from '@lingui/macro';
