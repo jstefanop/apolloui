@@ -11,27 +11,11 @@ import {
 
 import { Trans } from '@lingui/macro';
 
-import SettingsMiner from './SettingsMiner/SettingsMiner';
-import SettingsWifi from './SettingsWifi/SettingsWifi';
-import SettingsGeneral from './SettingsGeneral/SettingsGeneral';
+import SettingsPools from './SettingsPools/SettingsPools';
 
 class Settings extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      oldSettings: this.props.settings,
-      settings: { ...this.props.settings }
-    }
-  }
 
   render() {
-    const {
-      minerMode,
-      voltage,
-      frequency,
-      fan
-    } = this.state.settings
 
     return (
       <div className="animated fadeIn">
@@ -47,15 +31,8 @@ class Settings extends Component {
           </Col>
         </Row>
 
-        { /* Miner conf */ }
-        <SettingsMiner { ...{ minerMode, voltage, frequency, fan } } />
-
-        { /* Wifi */ }
-
-        <SettingsWifi></SettingsWifi>
-
-        { /* General options */ }
-        <SettingsGeneral></SettingsGeneral>
+        { /* Pools */ }
+        <SettingsPools></SettingsPools>
         
         <p></p>
       </div>

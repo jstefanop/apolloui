@@ -23,12 +23,18 @@ const Settings = Loadable({
   loading: Loading,
 });
 
+const Pools = Loadable({
+  loader: () => import('./views/Pools'),
+  loading: Loading,
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/login', name: 'Login', component: Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/settings', name: 'Settings', component: Settings },
+  { path: '/pools', name: 'Pools', component: Pools },
   { path: '/logout', name: 'Logout', component: Logout }
 ];
 

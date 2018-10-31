@@ -27,7 +27,8 @@ async function create (input, { accessToken }) {
     variables: {
       input
     },
-    path: 'Pool.create'
+    path: 'Pool.create',
+    accessToken
   })
 
   return { error }

@@ -3,6 +3,8 @@ import { push } from 'connected-react-router'
 
 import AuthAPI from '../api/auth'
 import PoolAPI from '../api/pool'
+import SettingsAPI from '../api/settings'
+import { setSettings } from './settings'
 import { setError } from './error'
 
 export const SET_AUTH_STATUS = 'SET_AUTH_STATUS'
@@ -62,14 +64,24 @@ export function saveInitialSetup ({ password, poolSetup }) {
 
 export function login ({ password }) {
   return async function (dispatch) {
-    let { result, error } = await AuthAPI.login({ password })
+    const { result, error } = await AuthAPI.login({ password })
 
     if (error) {
       dispatch(setError({ message: error.message }))
       return
     } 
 
-    dispatch(setAuthAccessToken(result.accessToken))
+    const accessToken = result.accessToken
+
+    const { result: result2, error: error2 } = await SettingsAPI.fetchSettings({ accessToken })
+
+    if (error2) {
+      dispatch(setError({ message: error2.message }))
+      return
+    } 
+
+    dispatch(setSettings(result2.settings))
+    dispatch(setAuthAccessToken(accessToken))
     dispatch(push('/'))
   }
 }

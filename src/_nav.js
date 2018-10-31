@@ -11,6 +11,11 @@ export default {
       icon: 'fa fa-cog '
     },
     {
+      name: 'Pools',
+      url: '/pools',
+      icon: 'fa fa-cog '
+    },
+    {
       name: 'Miner',
       icon: 'fa fa-hdd',
       children: [{
