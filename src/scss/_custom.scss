@@ -8,6 +8,10 @@
 	line-height: inherit;
 }
 
+.small-width {
+	max-width: 200px;
+}
+
 @media (min-width: 1380px) {
 	.modal-lg {
 		max-width: 1200px;
