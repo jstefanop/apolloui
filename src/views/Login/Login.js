@@ -18,12 +18,14 @@ class Login extends Component {
   }
 
 
-  handleLogin () {
+  handleLogin (event) {
     const {
       password,
     } = this.state
 
     this.props.login({ password })
+
+    event.preventDefault();
   }
 
   onChange (event) {
@@ -45,7 +47,7 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form>
+                    <Form onSubmit={this.handleLogin}>
                       <h1>Lockscreen</h1>
                       <p className="text-muted">Sign In to unlock the dashboard</p>
                       <InputGroup className="mb-4">
