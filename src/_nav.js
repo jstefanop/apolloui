@@ -8,12 +8,12 @@ export default {
     {
       name: 'Settings',
       url: '/settings',
-      icon: 'fa fa-cog '
+      icon: 'fa fa-cog'
     },
     {
       name: 'Pools',
       url: '/pools',
-      icon: 'fa fa-cog '
+      icon: 'fa fa-database'
     },
     {
       name: 'Miner',

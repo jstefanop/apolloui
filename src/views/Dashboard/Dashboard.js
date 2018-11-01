@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -13,9 +14,11 @@ import {
 
 import { Trans } from '@lingui/macro';
 
+import { fetchMcu } from '../../actions/mcu'
+
 class Dashboard extends Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
       widgetClasses: 'd-inline-block text-muted text-truncate'
     }
@@ -34,6 +37,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchMcu();
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
   }
@@ -43,6 +47,11 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { loading, mcu } = this.props;
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
 
     return (
       <div ref="main">
@@ -67,7 +76,7 @@ class Dashboard extends Component {
                   <div className="h4 m-0">67°C</div>
                   <div><Trans>Miner temperature</Trans></div>
                   <Progress className="progress-xs my-3" color="success" value="67" />
-                  <small className={this.state.widgetClasses}><Trans>MCU temperature</Trans>: <b>57°C</b></small>
+                  <small className={this.state.widgetClasses}><Trans>MCU temperature</Trans>: <b>{mcu.cpu.threads}°C</b></small>
                 </CardBody>
               </Card>
             </Col>
@@ -223,4 +232,20 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    loading: state.mcu.loading,
+    mcu: state.mcu.data
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchMcu: () => {
+      dispatch(fetchMcu())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
@@ -36,8 +37,8 @@ class DefaultAside extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
-
+    const { settings, children, ...attributes } = this.props;
+console.log(settings);
     return (
       <React.Fragment>
         <Nav tabs>
@@ -98,4 +99,11 @@ class DefaultAside extends Component {
 DefaultAside.propTypes = propTypes;
 DefaultAside.defaultProps = defaultProps;
 
-export default DefaultAside;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    settings: state.settings
+  }
+}
+
+export default connect(mapStateToProps)(DefaultAside);
