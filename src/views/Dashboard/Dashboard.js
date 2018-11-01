@@ -19,25 +19,27 @@ class Dashboard extends Component {
     this.state = {
       widgetClasses: 'd-inline-block text-muted text-truncate'
     }
+
   }
 
-  updateDimensions() { 
+  updateDimensions = () => { 
     const widgets = ReactDOM.findDOMNode(this.refs.main).getElementsByClassName('widget');
     const smallWidth = (widgets[0] && widgets[0].offsetWidth && widgets[0].offsetWidth <= 280) || false;
     let widgetClasses = this.state.widgetClasses;
 
     if (smallWidth) widgetClasses += ' small-width'
+    else widgetClasses = 'd-inline-block text-muted text-truncate';
 
     this.setState({ widgetClasses: widgetClasses });
   }
 
   componentDidMount() {
     this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions.bind(this));
+    window.addEventListener('resize', this.updateDimensions);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions.bind(this));
+    window.removeEventListener('resize', this.updateDimensions);
   }
 
   render() {
