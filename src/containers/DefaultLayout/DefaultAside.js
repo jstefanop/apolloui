@@ -38,7 +38,7 @@ class DefaultAside extends Component {
 
     // eslint-disable-next-line
     const { settings, children, ...attributes } = this.props;
-console.log(settings);
+
     return (
       <React.Fragment>
         <Nav tabs>
@@ -100,7 +100,6 @@ DefaultAside.propTypes = propTypes;
 DefaultAside.defaultProps = defaultProps;
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     settings: state.settings
   }

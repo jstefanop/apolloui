@@ -2,9 +2,6 @@
 import McuAPI from '../api/mcu'
 import { setError } from './error'
 
-// export const SET_MCU = 'SET_MCU'
-// export const setMcu = (data) => ({ type: SET_MCU, data })
-
 export const FETCH_MCU_BEGIN   = 'FETCH_MCU_BEGIN';
 export const FETCH_MCU_SUCCESS = 'FETCH_MCU_SUCCESS';
 
@@ -25,7 +22,6 @@ export function fetchMcu () {
 	    if (error) {
 	      dispatch(setError({ message: error.message }))
 	    } else {
-	    	console.log(result);
 	      dispatch(fetchMcuSuccess(result))
 	    }
   	}
