@@ -11,10 +11,7 @@ const initialState = {
 		uptime: null,
 		loadAverage: null,
 		architecture: null,
-		temperature: {
-			celsius: null,
-			fahrenheit: null
-		},
+		temperature: null,
 		memory: {
 			total: 0,
 			used: 0,

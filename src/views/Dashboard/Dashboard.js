@@ -7,7 +7,6 @@ import {
   Card,
   CardBody,
   Col,
-  Progress,
   Row,
   Table,
 } from 'reactstrap';
@@ -24,40 +23,16 @@ import { fetchMcu } from '../../actions/mcu';
 import { fetchMiner } from '../../actions/miner';
 
 class Dashboard extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      widgetClasses: 'd-inline-block text-muted text-truncate'
-    }
-
-  }
-
-  updateDimensions = () => { 
-    const widgets = ReactDOM.findDOMNode(this.refs.main).getElementsByClassName('widget');
-    const smallWidth = (widgets[0] && widgets[0].offsetWidth && widgets[0].offsetWidth <= 280) || false;
-    let widgetClasses = this.state.widgetClasses;
-
-    if (smallWidth) widgetClasses += ' small-width'
-    else widgetClasses = 'd-inline-block text-muted text-truncate';
-
-    this.setState({ widgetClasses: widgetClasses });
-  }
 
   componentDidMount() {
     this.props.fetchMcu();
     this.props.fetchMiner();
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
   }
 
   render() {
     const { loadingMcu, mcu, loadingMiner, miner, settings } = this.props;
 
-    if (loadingMcu || loadingMiner) {
+    if (loadingMiner) {
       return <div>Loading...</div>;
     }
 
@@ -114,7 +89,7 @@ class Dashboard extends Component {
                 progressColor="success"
                 progressValue={miner.stats.summary.data.temperature}
                 secondaryTitle="MCU temperature"
-                secondaryValue={(mcu.temperature.celsius / 1000).toFixed(2) + ' C°'}
+                secondaryValue={(mcu.temperature / 1000).toFixed(2) + ' C°'}
               ></DashboardWidget>
             </Col>
 
@@ -273,10 +248,10 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    loadingMcu: state.mcu.loading,
-    mcu: state.mcu.data,
-    loadingMiner: state.miner.loading,
-    miner: state.miner.data,
+    loadingMcu: state.mcuStats.loading,
+    mcu: state.mcuStats.data,
+    loadingMiner: state.minerStats.loading,
+    miner: state.minerStats.data,
     settings: state.settings
   }
 }

@@ -1,4 +1,5 @@
 
+import { push } from 'connected-react-router'
 import MinerAPI from '../api/miner'
 import { setError } from './error'
 
@@ -23,6 +24,51 @@ export function fetchMiner () {
 	      dispatch(setError({ message: error.message }))
 	    } else {
 	      dispatch(fetchMinerSuccess(result))
+	    }
+  	}
+}
+
+export const ONLINE_MINER_BEGIN   = 'ONLINE_MINER_BEGIN';
+export const ONLINE_MINER_SUCCESS = 'ONLINE_MINER_SUCCESS';
+
+export const onlineMinerBegin = () => ({
+	type: ONLINE_MINER_BEGIN
+});
+
+export const onlineMinerSuccess = data => ({
+	type: ONLINE_MINER_SUCCESS,
+	payload: { data }
+});
+
+export function onlineMiner () {
+  	return async function (dispatch, getState) {
+  		dispatch(onlineMinerBegin());
+    	const { result, error } = await MinerAPI.onlineMiner({ accessToken: getState().auth.accessToken })
+
+	    if (error) {
+	      dispatch(setError({ message: error.message }))
+	    } else {
+	      dispatch(onlineMinerSuccess(result))
+	    }
+  	}
+}
+
+export const START_MINER_SUCCESS = 'START_MINER_SUCCESS';
+
+export const startMinerSuccess = data => ({
+	type: START_MINER_SUCCESS,
+	payload: { data }
+});
+
+export function startMiner () {
+  	return async function (dispatch, getState) {
+    	const { result, error } = await MinerAPI.startMiner({ accessToken: getState().auth.accessToken })
+
+	    if (error) {
+	      dispatch(setError({ message: error.message }))
+	    } else {
+	      dispatch(startMinerSuccess())
+	      dispatch(push('/'))
 	    }
   	}
 }

@@ -1,45 +1,46 @@
-
 import { ERROR_QUERY } from './shared'
 import { query } from './apiClient'
 
 async function fetchMcu ({ accessToken }) {
-  const result = await {
-    "hostname": "orangepizero",
-    "operatingSystem": "Ubuntu 18.04 bionic",
-    "uptime": "2018-10-31 12:36:12",
-    "loadAverage": "0.00 0.05 0.06 1/108 1607",
-    "architecture": "armv7l",
-    "temperature": {
-      celsius: "39930",
-      fahrenheit: ""
-    },
-    "memory":
-    {
-      "total": 245760,
-      "used": 201620,
-      "cache": 119712,
-      "swap": 0
-    },
-    "cpu":
-    {
-      "threads": 4,
-      "usedPercent": 0,
-      test: {
-        test: true
+  const { result, error } = await query({
+    query: `
+      query Miner { 
+        Mcu {
+          stats {
+            result {
+              stats {
+                timestamp
+                hostname
+                operatingSystem
+                uptime
+                loadAverage
+                architecture
+                temperature
+                memory {
+                  total
+                  used
+                  cache
+                  total
+                }
+                cpu {
+                  threads
+                  usedPercent
+                }
+                disks {
+                  total
+                  used
+                  mountPoint
+                }
+              }
+            }
+            ${ERROR_QUERY}
+          }
+        }
       }
-    },
-    "disks": [{
-      "total":7678936,
-      "used":1759428,
-      "mountPoint":"/"
-    }, {
-      "total":49584,
-      "used":2536,
-      "mountPoint":"/var/log"
-    }]
-  }
-
-  const error = null
+    `,
+    path: 'Mcu.stats',
+    accessToken
+  })
 
   return { result, error }
 }

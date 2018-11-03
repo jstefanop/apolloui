@@ -121,6 +121,88 @@ async function fetchMiner ({ accessToken }) {
   return { result, error }
 }
 
+async function startMiner ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Miner { 
+        Miner {
+          start {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Miner.start',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+async function restartMiner ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Miner { 
+        Miner {
+          restart {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Miner.restart',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+async function stopMiner ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Miner { 
+        Miner {
+          stop {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Miner.stop',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+async function onlineMiner ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Miner { 
+        Miner {
+          online {
+            result {
+              online {
+                timestamp
+                status
+              }
+            }
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Miner.online',
+    accessToken
+  })
+
+  return { result, error }
+}
+
 export default {
   fetchMiner,
+  startMiner,
+  stopMiner,
+  restartMiner,
+  onlineMiner
 }

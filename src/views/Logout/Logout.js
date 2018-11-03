@@ -5,7 +5,6 @@ import { logout } from '../../actions/auth'
 
 class Logout extends Component {
   componentDidMount () {
-    console.log('here')
     this.props.logout()
   }
 

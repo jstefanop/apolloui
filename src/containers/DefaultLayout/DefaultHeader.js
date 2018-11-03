@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import { Button, Badge, Nav, NavItem } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -7,6 +8,10 @@ import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/reac
 import logo from '../../assets/img/brand/logo.png'
 import sygnet from '../../assets/img/brand/favicon.png'
 
+import DisplayHashrate from '../../views/Filters/DisplayHashrate';
+
+import { onlineMiner } from '../../actions/miner';
+
 const propTypes = {
   children: PropTypes.node,
 };
@@ -15,10 +20,14 @@ const defaultProps = {};
 
 class DefaultHeader extends Component {
 
+  componentDidMount() {
+    this.props.onlineMiner();
+  }
+
   render() {
 
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
+    const { loadingMiner, miner, loadingOnline, online, children, ...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -31,13 +40,13 @@ class DefaultHeader extends Component {
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
-            <Badge color="success">ONLINE</Badge>
+            <Badge color={ online.status ? 'success' : 'danger' }>{ online.status ? 'ONLINE' : 'OFFLINE' }</Badge>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">135.87 MH/s</span>
+            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ online.status ? DisplayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">67°c</span>
+            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ online.status ? miner.stats.summary.data.temperature || 0 + ' C°' : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
             <Button size="sm" className="btn-warning text-uppercase"><Trans>Restart</Trans></Button>
@@ -55,4 +64,21 @@ class DefaultHeader extends Component {
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
-export default DefaultHeader;
+const mapStateToProps = state => {
+  return {
+    loadingMiner: state.minerStats.loading,
+    miner: state.minerStats.data,
+    loadingOnline: state.minerOnline.loading,
+    online: state.minerOnline.data,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onlineMiner: () => {
+      dispatch(onlineMiner())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultHeader);

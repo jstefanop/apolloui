@@ -2,13 +2,17 @@ import { combineReducers } from 'redux'
 import auth from './auth'
 import error from './error'
 import settings from './settings'
-import mcu from './mcu'
-import miner from './miner'
+import mcuStats from './mcuStats'
+import minerStats from './minerStats'
+import minerOnline from './minerOnline'
+import minerStart from './minerStart'
 
 export default combineReducers({
   auth,
   error,
   settings,
-  mcu,
-  miner
+  mcuStats,
+  minerStats,
+  minerOnline,
+  minerStart
 })

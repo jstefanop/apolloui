@@ -20,15 +20,15 @@ export default {
       icon: 'fa fa-hdd',
       children: [{
         name: 'Start',
-        url: '/theme/colors',
+        url: '/miner/start',
         icon: 'fa fa-play',
       }, {
         name: 'Stop',
-        url: '/theme/colors',
+        url: '/miner/stop',
         icon: 'fa fa-stop',
       }, {
         name: 'Restart',
-        url: '/theme/colors',
+        url: '/miner/restart',
         icon: 'fa fa-redo',
       }]
     },

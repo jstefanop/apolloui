@@ -125,7 +125,7 @@ const initialState = {
   	loading: false
 };
 
-export default function minerReducer(state = initialState, action) {
+export default function minerStatsReducer(state = initialState, action) {
   switch(action.type) {
     case FETCH_MINER_BEGIN:
       return {
