@@ -14,8 +14,11 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 
+import { Loading } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
 import DisplayHashrate from '../Filters/DisplayHashrate';
+import ModalsRawStats from '../Modals/ModalsRawStats';
+import PoolsTable from '../Pools/PoolsTable';
 
 import { Trans } from '@lingui/macro';
 
@@ -23,23 +26,35 @@ import { fetchMcu } from '../../actions/mcu';
 import { fetchMiner } from '../../actions/miner';
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalsRawStats: false
+    }
+  }
 
   componentDidMount() {
     this.props.fetchMcu();
     this.props.fetchMiner();
   }
 
+  openModalsRawStats = () => {
+    this.setState({
+      modalsRawStats: !this.state.modalsRawStats
+    });
+  }
+
   render() {
     const { loadingMcu, mcu, loadingMiner, miner, settings } = this.props;
 
     if (loadingMiner) {
-      return <div>Loading...</div>;
+      return <Loading />;
     }
 
     // Miner shares
     const minerTotalShares = (miner.stats.summary.data.hardwareErrors + miner.stats.summary.data.accepted + miner.stats.summary.data.rejected);
-    const minerpercentageRejected = miner.stats.summary.data.rejected * minerTotalShares / 100
-    const minerpercentageError = miner.stats.summary.data.hardwareErrors * minerTotalShares / 100
+    const minerpercentageRejected = Math.round(miner.stats.summary.data.rejected * 100 / minerTotalShares * 100) / 100
+    const minerpercentageError = Math.round(miner.stats.summary.data.hardwareErrors * 100 / minerTotalShares * 100) / 100
     let errorsColor = 'success';
     if (minerpercentageError >= 10 && minerpercentageError <= 20) errorsColor = 'warning';
     else if (minerpercentageError > 20) errorsColor = 'danger';
@@ -51,7 +66,7 @@ class Dashboard extends Component {
     const mainPool = _.find(miner.stats.pools.data, { stratumActive: true });
 
     // Last share
-    let lastShare = 0,
+    let lastShare = 'Not available',
         lastShareTime = 0,
         lastShareColor = 'success';
     const timestamp = moment().format('X');
@@ -65,6 +80,7 @@ class Dashboard extends Component {
 
     return (
       <div ref="main">
+        <ModalsRawStats isOpen={this.state.modalsRawStats} toggle={this.openModalsRawStats}></ModalsRawStats>
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6" xl="3">
@@ -89,7 +105,7 @@ class Dashboard extends Component {
                 progressColor="success"
                 progressValue={miner.stats.summary.data.temperature}
                 secondaryTitle="MCU temperature"
-                secondaryValue={(mcu.temperature / 1000).toFixed(2) + ' C°'}
+                secondaryValue={(Number(mcu.stats.temperature) / 1000).toFixed(2) + ' C°'}
               ></DashboardWidget>
             </Col>
 
@@ -168,79 +184,12 @@ class Dashboard extends Component {
             <Col>
               <h4><Trans>Pools</Trans></h4>
               <div>
-                <Table  responsive className="table-outline d-none d-sm-table">
-                  <thead className="bg-light">
-                  <tr>
-                    <th className="text-center"><i className="fa fa-tasks"></i></th>
-                    <th><Trans>Url</Trans></th>
-                    <th><Trans>Type</Trans></th>
-                    <th><Trans>Status</Trans></th>
-                    <th><Trans>Hashrate</Trans></th>
-                    <th>CS</th>
-                    <th>CA</th>
-                    <th>PS</th>
-                    <th>PA</th>
-                    <th>CR</th>
-                    <th>PR</th>
-                    <th><Trans>Username</Trans></th>
-                  </tr>
-                  </thead>
-                  <tbody className="bg-white">
-                  <tr>
-                    <td className="text-center">
-                      <Button><Trans>Select</Trans></Button>
-                    </td>
-                    <td>
-                      <div className="font-weight-bold text-muted">stratum+tcp://us.litecoinpool.org:3333</div>
-                    </td>
-                    <td className="text-center">
-                      <h5 className="mb-0"><Badge color="primary">Main</Badge></h5>
-                    </td>
-                    <td>
-                      <h5 className="mb-0"><Badge color="success">Alive</Badge></h5>
-                    </td>
-                    <td className="text-center">
-                      <h6 className="mb-0 font-weight-bold">140.56 MH/s</h6>
-                    </td>
-                    <td>123</td>
-                    <td>0</td>
-                    <td>45</td>
-                    <td>0</td>
-                    <td>67</td>
-                    <td>9</td>
-                    <td>futurebit.1</td>
-                  </tr>
-                  <tr>
-                    <td className="text-center">
-                      <Button><Trans>Select</Trans></Button>
-                    </td>
-                    <td>
-                      <div className="font-weight-bold text-muted">stratum+tcp://eu.multipool.us:3123</div>
-                    </td>
-                    <td className="text-center">
-                      <h5 className="mb-0"><Badge color="light">Failover</Badge></h5>
-                    </td>
-                    <td>
-                      <h5 className="mb-0"><Badge color="success">Alive</Badge></h5>
-                    </td>
-                    <td className="text-center">
-                      <h6 className="mb-0">0 MH/s</h6>
-                    </td>
-                    <td>123</td>
-                    <td>0</td>
-                    <td>45</td>
-                    <td>0</td>
-                    <td>67</td>
-                    <td>9</td>
-                    <td>futurebit.1</td>
-                  </tr>
-                  </tbody>
-                </Table>
+                <PoolsTable pools={miner.stats.pools} utility={miner.stats.summary.data.workUtility}></PoolsTable>
               </div>
             </Col>
           </Row>
         </div>
-
+        <Button color="link" onClick={this.openModalsRawStats}>Raw stats</Button>
       </div>
     );
   }

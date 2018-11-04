@@ -27,7 +27,7 @@ class DefaultHeader extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { loadingMiner, miner, loadingOnline, online, children, ...attributes } = this.props;
+    const { loadingMiner, miner, loadingOnline, minerCheck, children, ...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -40,13 +40,13 @@ class DefaultHeader extends Component {
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
-            <Badge color={ online.status ? 'success' : 'danger' }>{ online.status ? 'ONLINE' : 'OFFLINE' }</Badge>
+            <Badge color={ minerCheck.online.status ? 'success' : 'danger' }>{ minerCheck.online.status ? 'ONLINE' : 'OFFLINE' }</Badge>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ online.status ? DisplayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
+            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? DisplayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ online.status ? miner.stats.summary.data.temperature || 0 + ' C°' : '...' }</span>
+            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? miner.stats.summary.data.temperature || 0 + ' C°' : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
             <Button size="sm" className="btn-warning text-uppercase"><Trans>Restart</Trans></Button>
@@ -69,7 +69,7 @@ const mapStateToProps = state => {
     loadingMiner: state.minerStats.loading,
     miner: state.minerStats.data,
     loadingOnline: state.minerOnline.loading,
-    online: state.minerOnline.data,
+    minerCheck: state.minerOnline.data,
   }
 }
 

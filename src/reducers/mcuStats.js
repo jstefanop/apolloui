@@ -5,24 +5,26 @@ import {
 
 const initialState = {
 	data: {
-		initial: true,
-		hostname: null,
-		operatingSystem: null,
-		uptime: null,
-		loadAverage: null,
-		architecture: null,
-		temperature: null,
-		memory: {
-			total: 0,
-			used: 0,
-			cache: 0,
-			swap: 0
-		},
-		cpu: {
-			threads: 0,
-			usedPercent: 0
-		},
-		disks: []
+		stats: {
+			initial: true,
+			hostname: null,
+			operatingSystem: null,
+			uptime: null,
+			loadAverage: null,
+			architecture: null,
+			temperature: null,
+			memory: {
+				total: 0,
+				used: 0,
+				cache: 0,
+				swap: 0
+			},
+			cpu: {
+				threads: 0,
+				usedPercent: 0
+			},
+			disks: []
+		}
 	},
   	loading: false
 };

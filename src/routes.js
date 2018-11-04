@@ -1,13 +1,10 @@
 import React from 'react';
-import Loadable from 'react-loadable'
+import Loadable from 'react-loadable';
 
+import { Loading } from './views/Loading';
 import DefaultLayout from './containers/DefaultLayout';
-import { Logout } from './views/Logout'
-import { MinerStart } from './views/Miner'
-
-function Loading() {
-  return <div><i className="fa fa-spinner spinner mr-2"></i>Loading...</div>;
-}
+import { Logout } from './views/Logout';
+import { MinerStart } from './views/Miner';
 
 const Login = Loadable({
   loader: () => import('./views/Login'),

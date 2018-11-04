@@ -4,11 +4,13 @@ import {
 } from '../actions/miner';
 
 const initialState = {
-	data: {
-		timestamp: null,
-		status: false
-	},
-  	loading: false
+  data: {
+  	online: {
+  		timestamp: null,
+  		status: false
+  	},
+    loading: false
+  }
 };
 
 export default function minerOnlineReducer(state = initialState, action) {
