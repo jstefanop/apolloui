@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <I18nProvider language="en" catalogs={catalogs}>
-        <ErrorAlert/>
+        <Alert/>
         <ConnectedRouter history={history}>
           <Switch>
             <Route exact path="/login" name="Login Page" component={Login} />
