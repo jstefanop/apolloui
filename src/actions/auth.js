@@ -91,3 +91,17 @@ export function logout() {
     dispatch(setAuthAccessToken(null));
   };
 }
+
+export function changePassword({ password }) {
+  return async (dispatch, getState) => {
+    const {
+      error,
+    } = await AuthAPI.changePassword({ password, accessToken: getState().auth.accessToken });
+
+    if (error) {
+      dispatch(setError({ message: error.message }));
+    } else {
+      dispatch(setAuthAccessToken(null));
+    }
+  };
+}

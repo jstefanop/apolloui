@@ -1,8 +1,8 @@
 
-import { ERROR_QUERY } from './shared'
-import { query } from './apiClient'
+import { ERROR_QUERY } from './shared';
+import { query } from './apiClient';
 
-async function fetchStatus () {
+async function fetchStatus() {
   const { result, error } = await query({
     query: `
       query Auth {
@@ -16,13 +16,13 @@ async function fetchStatus () {
         }
       }
     `,
-    path: 'Auth.status'
-  })
+    path: 'Auth.status',
+  });
 
-  return { result, error }
+  return { result, error };
 }
 
-async function saveSetup ({ password }) {
+async function saveSetup({ password }) {
   const { error } = await query({
     query: `
       query Auth ($input: AuthSetupInput!) {
@@ -35,16 +35,16 @@ async function saveSetup ({ password }) {
     `,
     variables: {
       input: {
-        password
-      }
+        password,
+      },
     },
-    path: 'Auth.setup'
-  })
+    path: 'Auth.setup',
+  });
 
-  return { error }
+  return { error };
 }
 
-async function login ({ password }) {
+async function login({ password }) {
   const { result, error } = await query({
     query: `
       query Auth ($input: AuthLoginInput!) {
@@ -60,17 +60,41 @@ async function login ({ password }) {
     `,
     variables: {
       input: {
-        password
-      }
+        password,
+      },
     },
-    path: 'Auth.login'
-  })
+    path: 'Auth.login',
+  });
 
-  return { result, error }
+  return { result, error };
+}
+
+async function changePassword({ password, accessToken }) {
+  const { error } = await query({
+    query: `
+      query Auth ($input: AuthChangePasswordInput!) {
+        Auth {
+          changePassword (input: $input) {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        password,
+      },
+    },
+    path: 'Auth.changePassword',
+    accessToken,
+  });
+
+  return { error };
 }
 
 export default {
+  changePassword,
   fetchStatus,
   saveSetup,
-  login
-}
+  login,
+};

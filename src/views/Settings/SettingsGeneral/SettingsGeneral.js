@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { AppSwitch } from '@coreui/react';
 import {
@@ -21,7 +22,44 @@ import {
 import { Trans } from '@lingui/macro';
 import { I18n } from '@lingui/react';
 
+import { changePassword as changePasswordAction } from '../../../actions/auth';
+
 class SettingsGeneral extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      password: '',
+      repeatPassword: '',
+    };
+
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value,
+    });
+  }
+
+  handlePasswordChange() {
+    const {
+      password,
+      repeatPassword,
+    } = this.state;
+
+    const {
+      changePassword,
+    } = this.props;
+
+    if (password.length > 0 && password === repeatPassword) {
+      changePassword(password);
+    } else {
+      // TODO
+    }
+  }
+
   render() {
     const {
       leftSidebarVisibility,
@@ -30,6 +68,11 @@ class SettingsGeneral extends Component {
       temperatureUnit,
       onChange,
     } = this.props;
+
+    const {
+      password,
+      repeatPassword,
+    } = this.state;
 
     return (
       <I18n>
@@ -51,17 +94,32 @@ class SettingsGeneral extends Component {
                       <Col md={6}>
                         <FormGroup>
                           <Label for="password"><Trans>Password</Trans></Label>
-                          <Input type="password" name="password" id="password" placeholder="" bsSize="lg" />
+                          <Input
+                            type="password"
+                            name="password"
+                            id="password"
+                            bsSize="lg"
+                            value={password}
+                            onChange={this.onChange}
+                          />
                         </FormGroup>
                       </Col>
                       <Col md={6}>
                         <FormGroup>
                           <Label for="repeatPassword"><Trans>Repeat password</Trans></Label>
-                          <Input type="password" name="repeatPassword" id="repeatPassword" placeholder="" bsSize="lg" />
+                          <Input
+                            type="password"
+                            name="repeatPassword"
+                            id="repeatPassword"
+                            placeholder=""
+                            bsSize="lg"
+                            value={repeatPassword}
+                            onChange={this.onChange}
+                          />
                         </FormGroup>
                       </Col>
                       <Col md={12}>
-                        <Button className="mr-2 text-uppercase" color="primary" size="sm"><Trans>Change</Trans></Button>
+                        <Button className="mr-2 text-uppercase" color="primary" size="sm" onClick={this.handlePasswordChange}><Trans>Change</Trans></Button>
                       </Col>
                     </Row>
                   </Form>
@@ -196,4 +254,10 @@ class SettingsGeneral extends Component {
   }
 }
 
-export default SettingsGeneral;
+const mapDispatchToProps = dispatch => ({
+  changePassword: (password) => {
+    dispatch(changePasswordAction({ password }));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SettingsGeneral);
