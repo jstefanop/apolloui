@@ -1,3 +1,3 @@
-import ErrorAlert from './ErrorAlert'
+import Alert from './Alert';
 
-export { ErrorAlert }
+export { Alert };

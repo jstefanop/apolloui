@@ -1,20 +1,19 @@
-import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { ConnectedRouter } from 'connected-react-router'
-import './App.scss'
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import './App.scss';
 
 // Containers
-import { DefaultLayout } from './containers'
+import { I18nProvider } from '@lingui/react';
+import { DefaultLayout } from './containers';
 
-import Login from './views/Login/Login'
+import Login from './views/Login/Login';
 
-import { Page404, Page500 } from './views/Errors'
-import { ErrorAlert } from './views/Alerts'
-import { history } from './store'
+import { Page404, Page500 } from './views/Errors';
+import { Alert } from './views/Alerts';
+import { history } from './store';
 
-
-import { I18nProvider } from '@lingui/react'
-import catalogEn from './locales/en/messages.js'
+import catalogEn from './locales/en/messages.js';
 
 const catalogs = { en: catalogEn }
 
