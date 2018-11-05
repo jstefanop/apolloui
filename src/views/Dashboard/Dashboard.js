@@ -1,14 +1,11 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import {
-  Badge,
   Button,
   Card,
   CardBody,
   Col,
-  Row,
-  Table,
+  Row
 } from 'reactstrap';
 
 import _ from 'lodash';
@@ -45,7 +42,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { loadingMcu, mcu, loadingMiner, miner, settings } = this.props;
+    const { mcu, loadingMiner, miner, settings } = this.props;
 
     if (loadingMiner) {
       return <Loading />;

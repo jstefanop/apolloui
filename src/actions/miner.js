@@ -1,6 +1,6 @@
 
 import MinerAPI from '../api/miner'
-import { setError } from './error'
+import { setError } from './alert'
 
 export const FETCH_MINER_BEGIN = 'FETCH_MINER_BEGIN';
 export const FETCH_MINER_SUCCESS = 'FETCH_MINER_SUCCESS';
@@ -62,7 +62,7 @@ export const START_MINER_SUCCESS = 'START_MINER_SUCCESS';
 
 export const startMinerSuccess = data => ({
   type: START_MINER_SUCCESS,
-  payload: { data },
+  payload: { data }
 });
 
 export function startMiner() {
@@ -75,6 +75,48 @@ export function startMiner() {
 	      dispatch(setError({ message: error.message }))
 	    } else {
 	      dispatch(startMinerSuccess())
+	    }
+  	}
+}
+
+export const RESTART_MINER_SUCCESS = 'RESTART_MINER_SUCCESS';
+
+export const restartMinerSuccess = data => ({
+  type: RESTART_MINER_SUCCESS,
+  payload: { data }
+});
+
+export function restartMiner() {
+  return async (dispatch, getState) => {
+    const {
+      error,
+    } = await MinerAPI.restartMiner({ accessToken: getState().auth.accessToken });
+
+	    if (error) {
+	      dispatch(setError({ message: error.message }))
+	    } else {
+	      dispatch(restartMinerSuccess())
+	    }
+  	}
+}
+
+export const STOP_MINER_SUCCESS = 'STOP_MINER_SUCCESS';
+
+export const stopMinerSuccess = data => ({
+  type: STOP_MINER_SUCCESS,
+  payload: { data }
+});
+
+export function stopMiner() {
+  return async (dispatch, getState) => {
+    const {
+      error,
+    } = await MinerAPI.stopMiner({ accessToken: getState().auth.accessToken });
+
+	    if (error) {
+	      dispatch(setError({ message: error.message }))
+	    } else {
+	      dispatch(stopMinerSuccess())
 	    }
   	}
 }

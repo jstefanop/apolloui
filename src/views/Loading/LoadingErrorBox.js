@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   Progress,
   Jumbotron,
+  Button,
   Col,
   Row
 } from 'reactstrap';
@@ -21,14 +22,14 @@ class LoadingErrorBox extends Component {
                 : null }
               { (this.props.subtitle) ?
                   <div>
-                    <p className="text-muted">{ this.props.subtitle }</p>
+                    <p className={ (this.props.centerSubtitle) ? 'text-muted text-center' : 'text-muted' }>{ this.props.subtitle }</p>
                   </div>
                 : null }
               { (this.props.showBtn) ?
                   <div>
                     <hr className="my-4" />
                     <p className="lead">
-                      <a className="btn btn-primary btn-md text-white" role="button">Learn more</a>
+                      <Button size="md" color="primary" className="text-white">Learn more</Button>
                     </p>
                   </div>
                 : null }

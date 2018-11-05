@@ -1,10 +1,9 @@
-import React from 'react';
 import Loadable from 'react-loadable';
 
 import { Loading } from './views/Loading';
 import DefaultLayout from './containers/DefaultLayout';
 import { Logout } from './views/Logout';
-import { MinerStart } from './views/Miner';
+import { MinerManage } from './views/Miner';
 
 const Login = Loadable({
   loader: () => import('./views/Login'),
@@ -33,7 +32,9 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/settings', name: 'Settings', component: Settings },
   { path: '/pools', name: 'Pools', component: Pools },
-  { path: '/miner/start', name: 'Start miner', component: MinerStart },
+  { path: '/miner/start', name: 'Start miner', component: MinerManage },
+  { path: '/miner/restart', name: 'Start miner', component: MinerManage },
+  { path: '/miner/stop', name: 'Start miner', component: MinerManage },
   { path: '/logout', name: 'Logout', component: Logout }
 ];
 

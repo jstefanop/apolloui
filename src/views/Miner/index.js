@@ -1,3 +1,3 @@
-import MinerStart from './MinerStart'
+import MinerManage from './MinerManage'
 
-export { MinerStart }
+export { MinerManage }

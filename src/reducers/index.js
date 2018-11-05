@@ -5,7 +5,7 @@ import settings from './settings';
 import mcuStats from './mcuStats';
 import minerStats from './minerStats';
 import minerOnline from './minerOnline';
-import minerStart from './minerStart';
+import minerManage from './minerManage';
 
 export default combineReducers({
   auth,
@@ -14,5 +14,5 @@ export default combineReducers({
   mcuStats,
   minerStats,
   minerOnline,
-  minerStart,
+  minerManage,
 });
