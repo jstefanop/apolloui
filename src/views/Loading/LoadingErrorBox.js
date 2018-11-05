@@ -20,6 +20,14 @@ class LoadingErrorBox extends Component {
               { (this.props.title) ?
                   <p className={ (this.props.centerTitle) ? 'lead text-center' : 'lead' }>{ this.props.title }</p>
                 : null }
+              { (this.props.error) ?
+                  <div>
+                    <p className="lead text-center">
+                      <code>{ this.props.error }</code>
+                    </p>
+                    <hr className="my-4" />
+                  </div>
+                : null }
               { (this.props.subtitle) ?
                   <div>
                     <p className={ (this.props.centerSubtitle) ? 'text-muted text-center' : 'text-muted' }>{ this.props.subtitle }</p>

@@ -42,7 +42,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { mcu, loadingMiner, miner, settings } = this.props;
+    const { minerError, mcu, loadingMiner, miner, settings } = this.props;
 
     if (loadingMiner) {
       return <Loading />;
@@ -75,17 +75,26 @@ class Dashboard extends Component {
     if (diffLastShare >= 300 && diffLastShare <= 600) lastShareColor = 'warning';
     else if (diffLastShare > 600) lastShareColor = 'danger'
 
+    if (minerError) {
+      return (
+        <LoadingErrorBox 
+          show={true}
+          bg="bg-0"
+          title="It seems there is a problem to communicate with the miner, check error message."
+          centerTitle={true}
+          subtitle="If problem persists, try to restart the miner, check the settings or try to reboot the system."
+          error={ minerError }
+          centerSubtitle={true}
+          icon="fa-exclamation-circle animated bounce"
+          showBtn={false}
+          showProgress={ false }
+        />
+      )
+    }
+
     return (
       <div ref="main">
         <ModalsRawStats isOpen={this.state.modalsRawStats} toggle={this.openModalsRawStats}></ModalsRawStats>
-        <LoadingErrorBox 
-          show={false}
-          bg="bg-dark"
-          title="It seems there is a problem to communicate with the miner, check error message."
-          subtitle="If problem persists, try to restart the miner, check the settings or try to reboot the system."
-          icon="fa-exclamation-circle animated bounce"
-          showBtn={false}
-        />
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6" xl="3">
@@ -206,6 +215,7 @@ const mapStateToProps = state => {
     mcu: state.mcuStats.data,
     loadingMiner: state.minerStats.loading,
     miner: state.minerStats.data,
+    minerError: state.minerStats.error,
     settings: state.settings
   }
 }
