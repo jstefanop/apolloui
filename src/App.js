@@ -1,31 +1,31 @@
-import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { ConnectedRouter } from 'connected-react-router'
-import './App.scss'
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import './App.scss';
 
 // Containers
-import { DefaultLayout } from './containers'
+import { I18nProvider } from '@lingui/react';
+import { DefaultLayout } from './containers';
 
-import Login from './views/Login/Login'
+import Login from './views/Login/Login';
 
-import { Page404, Page500 } from './views/Errors'
-import { ErrorAlert } from './views/Alerts'
-import { history } from './store'
+import { Page404, Page500 } from './views/Errors';
+import { Alert } from './views/Alerts';
+import { history } from './store';
 
 
-import { I18nProvider } from '@lingui/react'
-import catalogEn from './locales/en/messages.js'
+import catalogEn from './locales/en/messages.js';
 
-import AppProvider from './context/AppContext'
+import AppProvider from './context/AppContext';
 
-const catalogs = { en: catalogEn }
+const catalogs = { en: catalogEn };
 
 class App extends Component {
   render() {
     return (
       <AppProvider>
         <I18nProvider language="en" catalogs={catalogs}>
-          <ErrorAlert/>
+          <Alert />
           <ConnectedRouter history={history}>
             <Switch>
               <Route exact path="/login" name="Login Page" component={Login} />
