@@ -4,6 +4,7 @@ import { setError } from './alert'
 
 export const FETCH_MINER_BEGIN = 'FETCH_MINER_BEGIN';
 export const FETCH_MINER_SUCCESS = 'FETCH_MINER_SUCCESS';
+export const FETCH_MINER_FAILURE = 'FETCH_MINER_FAILURE';
 
 export const fetchMinerBegin = () => ({
   type: FETCH_MINER_BEGIN,
@@ -12,6 +13,11 @@ export const fetchMinerBegin = () => ({
 export const fetchMinerSuccess = data => ({
   type: FETCH_MINER_SUCCESS,
   payload: { data },
+});
+
+export const fetchMinerFailure = ({ error }) => ({
+  type: FETCH_MINER_FAILURE,
+  error,
 });
 
 export function fetchMiner() {
@@ -23,7 +29,7 @@ export function fetchMiner() {
     } = await MinerAPI.fetchMiner({ accessToken: getState().auth.accessToken });
 
     if (error) {
-      dispatch(setError({ message: error.message }));
+      dispatch(fetchMinerFailure({ error: error.message }));
     } else {
       dispatch(fetchMinerSuccess(result));
     }

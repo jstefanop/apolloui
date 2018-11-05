@@ -1,6 +1,7 @@
 import {
   FETCH_MCU_BEGIN,
-  FETCH_MCU_SUCCESS
+  FETCH_MCU_SUCCESS,
+  FETCH_MCU_FAILURE
 } from '../actions/mcu';
 
 const initialState = {
@@ -26,7 +27,8 @@ const initialState = {
 			disks: []
 		}
 	},
-  	loading: false
+  	loading: false,
+  	error: null
 };
 
 export default function mcuReducer(state = initialState, action) {
@@ -34,7 +36,8 @@ export default function mcuReducer(state = initialState, action) {
     case FETCH_MCU_BEGIN:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
 
     case FETCH_MCU_SUCCESS:
@@ -42,6 +45,13 @@ export default function mcuReducer(state = initialState, action) {
         ...state,
         loading: false,
         data: action.payload.data
+      };
+
+    case FETCH_MCU_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
       };
 
     default:

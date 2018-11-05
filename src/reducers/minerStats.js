@@ -1,6 +1,7 @@
 import {
   FETCH_MINER_BEGIN,
-  FETCH_MINER_SUCCESS
+  FETCH_MINER_SUCCESS,
+  FETCH_MINER_FAILURE
 } from '../actions/miner';
 
 const initialState = {
@@ -122,7 +123,8 @@ const initialState = {
 			}
 		}
 	},
-  	loading: false
+  	loading: false,
+  	error: null
 };
 
 export default function minerStatsReducer(state = initialState, action) {
@@ -130,7 +132,8 @@ export default function minerStatsReducer(state = initialState, action) {
     case FETCH_MINER_BEGIN:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
 
     case FETCH_MINER_SUCCESS:
@@ -138,6 +141,13 @@ export default function minerStatsReducer(state = initialState, action) {
         ...state,
         loading: false,
         data: action.payload.data
+      };
+
+    case FETCH_MINER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
       };
 
     default:
