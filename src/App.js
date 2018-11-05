@@ -16,26 +16,22 @@ import { history } from './store'
 import { I18nProvider } from '@lingui/react'
 import catalogEn from './locales/en/messages.js'
 
-import AppProvider from './context/AppContext'
-
 const catalogs = { en: catalogEn }
 
 class App extends Component {
   render() {
     return (
-      <AppProvider>
-        <I18nProvider language="en" catalogs={catalogs}>
-          <ErrorAlert/>
-          <ConnectedRouter history={history}>
-            <Switch>
-              <Route exact path="/login" name="Login Page" component={Login} />
-              <Route exact path="/404" name="Page 404" component={Page404} />
-              <Route exact path="/500" name="Page 500" component={Page500} />
-              <Route path="/" name="Home" component={DefaultLayout} />
-            </Switch>
-          </ConnectedRouter>
-        </I18nProvider>
-      </AppProvider>
+      <I18nProvider language="en" catalogs={catalogs}>
+        <ErrorAlert/>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route exact path="/login" name="Login Page" component={Login} />
+            <Route exact path="/404" name="Page 404" component={Page404} />
+            <Route exact path="/500" name="Page 500" component={Page500} />
+            <Route path="/" name="Home" component={DefaultLayout} />
+          </Switch>
+        </ConnectedRouter>
+      </I18nProvider>
     );
   }
 }

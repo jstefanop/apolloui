@@ -19,6 +19,7 @@
     "@fortawesome/fontawesome-free": "^5.4.1",
     "@lingui/core": "^2.7.0",
     "@lingui/react": "^2.7.0",
+    "animate.css": "^3.7.0",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.4",
     "bootstrap": "^4.1.3",

@@ -14,7 +14,7 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 
-import { Loading } from '../Loading';
+import { Loading, LoadingErrorBox } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
 import DisplayHashrate from '../Filters/DisplayHashrate';
 import ModalsRawStats from '../Modals/ModalsRawStats';
@@ -81,6 +81,14 @@ class Dashboard extends Component {
     return (
       <div ref="main">
         <ModalsRawStats isOpen={this.state.modalsRawStats} toggle={this.openModalsRawStats}></ModalsRawStats>
+        <LoadingErrorBox 
+          show={false}
+          bg="bg-dark"
+          title="It seems there is a problem to communicate with the miner, check error message."
+          subtitle="If problem persists, try to restart the miner, check the settings or try to reboot the system."
+          icon="fa-exclamation-circle animated bounce"
+          showBtn={false}
+        />
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6" xl="3">

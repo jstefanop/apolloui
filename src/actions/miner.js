@@ -1,5 +1,4 @@
 
-import { push } from 'connected-react-router'
 import MinerAPI from '../api/miner'
 import { setError } from './error'
 
@@ -68,7 +67,6 @@ export function startMiner () {
 	      dispatch(setError({ message: error.message }))
 	    } else {
 	      dispatch(startMinerSuccess())
-	      dispatch(push('/'))
 	    }
   	}
 }
