@@ -10,8 +10,6 @@ import sygnet from '../../assets/img/brand/favicon.png'
 
 import DisplayHashrate from '../../views/Filters/DisplayHashrate';
 
-import { onlineMiner } from '../../actions/miner';
-
 const propTypes = {
   children: PropTypes.node,
 };
@@ -19,10 +17,6 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
-
-  componentDidMount() {
-    this.props.onlineMiner();
-  }
 
   render() {
 
@@ -73,12 +67,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onlineMiner: () => {
-      dispatch(onlineMiner())
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultHeader);
+export default connect(mapStateToProps)(DefaultHeader);

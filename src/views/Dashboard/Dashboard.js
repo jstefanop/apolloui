@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -19,20 +20,12 @@ import PoolsTable from '../Pools/PoolsTable';
 
 import { Trans } from '@lingui/macro';
 
-import { fetchMcu } from '../../actions/mcu';
-import { fetchMiner } from '../../actions/miner';
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalsRawStats: false
     }
-  }
-
-  componentDidMount() {
-    this.props.fetchMcu();
-    this.props.fetchMiner();
   }
 
   openModalsRawStats = () => {
@@ -42,11 +35,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { minerError, mcu, loadingMiner, miner, settings } = this.props;
-
-    if (loadingMiner) {
-      return <Loading />;
-    }
+    const { minerError, mcuError, mcu, loadingMiner, miner, settings } = this.props;
 
     // Miner shares
     const minerTotalShares = (miner.stats.summary.data.hardwareErrors + miner.stats.summary.data.accepted + miner.stats.summary.data.rejected);
@@ -94,14 +83,18 @@ class Dashboard extends Component {
 
     return (
       <div ref="main">
-        <ModalsRawStats isOpen={this.state.modalsRawStats} toggle={this.openModalsRawStats}></ModalsRawStats>
+        <ModalsRawStats isOpen={ this.state.modalsRawStats } toggle={ this.openModalsRawStats }></ModalsRawStats>
+        { (mcuError) ?
+            <Alert color="warning">There is a problem fetching system stats (<b>{ mcuError }</b>)</Alert>
+          : null 
+        }
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6" xl="3">
               <DashboardWidget 
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
-                value={DisplayHashrate(miner.stats.summary.data.mHSAv, 'mh')}
+                value={ DisplayHashrate(miner.stats.summary.data.mHSAv, 'mh') }
                 title="Current hashrate"
                 progressColor="primary"
                 progressValue="100"
@@ -114,12 +107,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-info" 
                 icon="fa fa-thermometer-half" 
-                value={miner.stats.summary.data.temperature || 0 + ' C°'}
+                value={ miner.stats.summary.data.temperature || 0 + ' C°' }
                 title="Miner temperature"
                 progressColor="success"
-                progressValue={miner.stats.summary.data.temperature}
+                progressValue={ miner.stats.summary.data.temperature }
                 secondaryTitle="MCU temperature"
-                secondaryValue={(Number(mcu.stats.temperature) / 1000).toFixed(2) + ' C°'}
+                secondaryValue={ (Number(mcu.stats.temperature) / 1000).toFixed(2) + ' C°' }
               ></DashboardWidget>
             </Col>
 
@@ -127,12 +120,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-gray-300" 
                 icon="fa fa-exclamation-triangle" 
-                value={minerpercentageError + '%'}
+                value={ minerpercentageError + '%' }
                 title="Hardware errors"
-                progressColor={errorsColor}
-                progressValue={100 - minerpercentageError}
+                progressColor={ errorsColor }
+                progressValue={ 100 - minerpercentageError }
                 secondaryTitle="Rejected"
-                secondaryValue={minerpercentageRejected + '%'}
+                secondaryValue={ minerpercentageRejected + '%' }
               ></DashboardWidget>
             </Col>
 
@@ -140,12 +133,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-gray-200" 
                 icon="fa fa-clock" 
-                value={minerUptime}
+                value={ minerUptime }
                 title="Miner uptime"
-                progressColor={lastShareColor}
-                progressValue={100}
+                progressColor={ lastShareColor }
+                progressValue={ 100 }
                 secondaryTitle="Last share"
-                secondaryValue={lastShare}
+                secondaryValue={ lastShare }
               ></DashboardWidget>
             </Col>
           </Row>
@@ -155,7 +148,7 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-hdd text-gray"></i></div>
-                  <div className="h4 m-0">{settings.minerMode || 'Not set'}</div>
+                  <div className="h4 m-0">{ settings.minerMode || 'Not set' }</div>
                   <div><Trans>Miner mode</Trans></div>
                 </CardBody>
               </Card>
@@ -165,7 +158,7 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-bolt text-gray"></i></div>
-                  <div className="h4 m-0">{settings.voltage || 0}V</div>
+                  <div className="h4 m-0">{ settings.voltage || 0 }V</div>
                   <div><Trans>Miner voltage</Trans></div>
                 </CardBody>
               </Card>
@@ -175,7 +168,7 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-broadcast-tower text-gray"></i></div>
-                  <div className="h4 m-0">{settings.frequency || 0}MHz</div>
+                  <div className="h4 m-0">{ settings.frequency || 0 }MHz</div>
                   <div><Trans>Miner frequency</Trans></div>
                 </CardBody>
               </Card>
@@ -185,7 +178,7 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-wind text-gray"></i></div>
-                  <div className="h4 m-0">{(settings.fan > -1) ? settings.fan + '%' : 'Auto'}</div>
+                  <div className="h4 m-0">{ (settings.fan > -1) ? settings.fan + '%' : 'Auto' }</div>
                   <div><Trans>Fan speed</Trans></div>
                 </CardBody>
               </Card>
@@ -198,12 +191,12 @@ class Dashboard extends Component {
             <Col>
               <h4><Trans>Pools</Trans></h4>
               <div>
-                <PoolsTable pools={miner.stats.pools} utility={miner.stats.summary.data.workUtility}></PoolsTable>
+                <PoolsTable pools={ miner.stats.pools } utility={ miner.stats.summary.data.workUtility }></PoolsTable>
               </div>
             </Col>
           </Row>
         </div>
-        <Button color="link" onClick={this.openModalsRawStats}>Raw stats</Button>
+        <Button color="link" onClick={ this.openModalsRawStats }>Raw stats</Button>
       </div>
     );
   }
@@ -213,6 +206,7 @@ const mapStateToProps = state => {
   return {
     loadingMcu: state.mcuStats.loading,
     mcu: state.mcuStats.data,
+    mcuError: state.mcuStats.error,
     loadingMiner: state.minerStats.loading,
     miner: state.minerStats.data,
     minerError: state.minerStats.error,
@@ -220,15 +214,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchMcu: () => {
-      dispatch(fetchMcu())
-    },
-    fetchMiner: () => {
-      dispatch(fetchMiner())
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

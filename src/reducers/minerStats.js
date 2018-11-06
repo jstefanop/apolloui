@@ -132,15 +132,15 @@ export default function minerStatsReducer(state = initialState, action) {
     case FETCH_MINER_BEGIN:
       return {
         ...state,
-        loading: true,
-        error: null
+        loading: true
       };
 
     case FETCH_MINER_SUCCESS:
       return {
         ...state,
         loading: false,
-        data: action.payload.data
+        data: action.payload.data,
+        error: null
       };
 
     case FETCH_MINER_FAILURE:

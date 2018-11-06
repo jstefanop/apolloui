@@ -1,6 +1,5 @@
 
 import McuAPI from '../api/mcu';
-import { setError } from './alert';
 
 export const FETCH_MCU_BEGIN = 'FETCH_MCU_BEGIN';
 export const FETCH_MCU_SUCCESS = 'FETCH_MCU_SUCCESS';

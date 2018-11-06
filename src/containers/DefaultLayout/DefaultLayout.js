@@ -23,12 +23,33 @@ import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 
+import { fetchMcu } from '../../actions/mcu';
+import { onlineMiner, fetchMiner } from '../../actions/miner';
+
 class DefaultLayout extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      sidebarLeft: false
-    };
+  }
+
+  componentDidMount() {
+    const poller = () => {
+      this.props.onlineMiner();
+      this.props.fetchMcu();
+      this.props.fetchMiner();
+    }
+
+    poller();
+
+    this.intervalHandler = setInterval(() => {
+      poller();
+    }, 5000);
+  }
+
+  componentWillUnmount () {
+    if (this.intervalHandler) {
+        clearTimeout(this.intervalHandler);
+        this.intervalHandler = null;
+    } 
   }
 
   render() {
@@ -66,7 +87,6 @@ class DefaultLayout extends Component {
                     </Switch>
                   : <Redirect to="/login" />
               }
-              
             </Container>
           </main>
           <AppAside fixed>
@@ -85,4 +105,18 @@ const mapStateToProps = state => ({
   isLoggedIn: state.auth.accessToken != null
 })
 
-export default connect(mapStateToProps)(DefaultLayout);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onlineMiner: () => {
+      dispatch(onlineMiner())
+    },
+    fetchMcu: () => {
+      dispatch(fetchMcu())
+    },
+    fetchMiner: () => {
+      dispatch(fetchMiner())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);
