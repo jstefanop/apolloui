@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import {
   Alert,
-  Button,
   Card,
   CardBody,
   Col,
@@ -12,7 +11,7 @@ import {
 import _ from 'lodash';
 import moment from 'moment';
 
-import { Loading, LoadingErrorBox } from '../Loading';
+import { LoadingErrorBox } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
 import { displayHashrate } from '../Filters';
 import PoolsTable from '../Pools/PoolsTable';
@@ -22,7 +21,7 @@ import { Trans } from '@lingui/macro';
 class Dashboard extends Component {
 
   render() {
-    const { minerCheck, minerError, mcuError, mcu, loadingMiner, miner, settings } = this.props;
+    const { minerCheck, minerError, mcuError, mcu, miner, settings } = this.props;
 
     // Miner shares
     const minerTotalShares = (miner.stats.summary.data.hardwareErrors + miner.stats.summary.data.accepted + miner.stats.summary.data.rejected);

@@ -12,6 +12,7 @@ export function displayHashrate (hashRate, unit = 'h', withUnit = true, precisio
 		break;
 		case 'th': rate = 1000000000000;
 		break;
+		default: rate = 1;
 	}
 
 	hashRate = (hashRate * rate) || 0;
@@ -31,7 +32,7 @@ export function displayHashrate (hashRate, unit = 'h', withUnit = true, precisio
 
 export function bytesToSize (bytes) {
 	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-	if (bytes == 0) return '0 Byte';
+	if (bytes === 0) return '0 Byte';
 	var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
 	return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };

@@ -2,20 +2,12 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import {
   Jumbotron,
-  Button,
-  CardBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
   Col,
   Row,
   Modal,
   ModalHeader,
   ModalBody
 } from 'reactstrap';
-
-import { Trans } from '@lingui/macro';
 
 class ModalsRawStats extends Component {
   

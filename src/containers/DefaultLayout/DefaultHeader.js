@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
-import { Button, Badge, Nav, NavItem } from 'reactstrap';
+import { Badge, Nav, NavItem } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { Trans } from '@lingui/macro';
 
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.png'

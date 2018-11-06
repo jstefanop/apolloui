@@ -27,9 +27,6 @@ import { fetchMcu } from '../../actions/mcu';
 import { onlineMiner, fetchMiner } from '../../actions/miner';
 
 class DefaultLayout extends Component {
-  constructor (props) {
-    super(props);
-  }
 
   componentDidMount() {
     const poller = () => {

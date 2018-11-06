@@ -1,10 +1,8 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { AppSwitch } from '@coreui/react'
 import { Trans } from '@lingui/macro';
 
 import SystemUtil from '../../views/SystemUtil/SystemUtil';
@@ -44,7 +42,7 @@ class DefaultAside extends Component {
 
   render() {
 
-    const { mcu, settings, children, ...attributes } = this.props;
+    const { mcu } = this.props;
 
     return (
       <div>
@@ -62,11 +60,11 @@ class DefaultAside extends Component {
           </Nav>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1" className="p-3">
-              <h6>System info</h6>
+              <h6><Trans>System info</Trans></h6>
 
               <div className="aside-options">
                 <div className="clearfix mt-4">
-                  <small className="text-muted"><i className="fa fa-microchip mr-2 initialism text-secondary"></i>Architecture</small>
+                  <small className="text-muted"><i className="fa fa-microchip mr-2 initialism text-secondary"></i><Trans>Architecture</Trans></small>
                 </div>
                 <div>
                   <small className=""><b>{ mcu.stats.architecture }</b></small>
@@ -75,7 +73,7 @@ class DefaultAside extends Component {
 
               <div className="aside-options">
                 <div className="clearfix mt-3">
-                  <small className="text-muted"><i className="fa fa-network-wired mr-2 initialism text-secondary"></i>Hostname</small>
+                  <small className="text-muted"><i className="fa fa-network-wired mr-2 initialism text-secondary"></i><Trans>Hostname</Trans></small>
                 </div>
                 <div>
                   <small className=""><b>{ mcu.stats.hostname }</b></small>
@@ -84,7 +82,7 @@ class DefaultAside extends Component {
 
               <div className="aside-options">
                 <div className="clearfix mt-3">
-                  <small className="text-muted"><i className="fa fa-file-alt mr-2 initialism text-secondary"></i>Operating system</small>
+                  <small className="text-muted"><i className="fa fa-file-alt mr-2 initialism text-secondary"></i><Trans>Operating system</Trans></small>
                 </div>
                 <div>
                   <small className=""><b>{ mcu.stats.operatingSystem }</b></small>
@@ -97,7 +95,7 @@ class DefaultAside extends Component {
 
               <div className="aside-options mt-4">
                 <div className="clearfix mt-3">
-                  <Button color="primary" size="sm" onClick={ this.openModalsRawStats }>Raw stats</Button>
+                  <Button color="primary" size="sm" onClick={ this.openModalsRawStats }><Trans>Raw stats</Trans></Button>
                 </div>
               </div>
             </TabPane>
