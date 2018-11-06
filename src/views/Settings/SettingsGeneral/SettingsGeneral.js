@@ -31,6 +31,8 @@ class SettingsGeneral extends Component {
     this.state = {
       password: '',
       repeatPassword: '',
+      passwordError: '',
+      repeatPasswordError: '',
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -53,11 +55,22 @@ class SettingsGeneral extends Component {
       changePassword,
     } = this.props;
 
-    if (password.length > 0 && password === repeatPassword) {
-      changePassword(password);
-    } else {
-      // TODO
+    if (!password) {
+      this.setState({
+        passwordError: 'Password is required.',
+      });
+      return;
     }
+
+    if (password !== repeatPassword) {
+      this.setState({
+        passwordError: 'Passwords do not match.',
+        repeatPasswordError: 'Passwords do not match.',
+      });
+      return;
+    }
+
+    changePassword(password);
   }
 
   render() {
@@ -72,6 +85,8 @@ class SettingsGeneral extends Component {
     const {
       password,
       repeatPassword,
+      passwordError,
+      repeatPasswordError,
     } = this.state;
 
     return (
@@ -102,6 +117,9 @@ class SettingsGeneral extends Component {
                             value={password}
                             onChange={this.onChange}
                           />
+                          <span className="text-danger">
+                            {passwordError}
+                          </span>
                         </FormGroup>
                       </Col>
                       <Col md={6}>
@@ -116,6 +134,9 @@ class SettingsGeneral extends Component {
                             value={repeatPassword}
                             onChange={this.onChange}
                           />
+                          <span className="text-danger">
+                            {repeatPasswordError}
+                          </span>
                         </FormGroup>
                       </Col>
                       <Col md={12}>
