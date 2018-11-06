@@ -5,7 +5,7 @@ import {
   Badge
 } from 'reactstrap';
 
-import DisplayHashrate from '../../Filters/DisplayHashrate';
+import { displayHashrate } from '../../Filters';
 import moment from 'moment';
 
 import { Trans } from '@lingui/macro';
@@ -53,7 +53,7 @@ class PoolsTable extends Component {
                     <td className="text-center">
                     { (pool.stratumActive) ? 
                       <h6 className="mb-0 font-weight-bold">
-                        <i className="fa fa-fire text-secondary"></i> { DisplayHashrate(utility * 71582788, 'h') }
+                        <i className="fa fa-fire text-secondary"></i> { displayHashrate(utility * 71582788, 'h') }
                       </h6>
                       :
                       <span>Not active</span>

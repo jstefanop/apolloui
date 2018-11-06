@@ -14,28 +14,15 @@ import moment from 'moment';
 
 import { Loading, LoadingErrorBox } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
-import DisplayHashrate from '../Filters/DisplayHashrate';
-import ModalsRawStats from '../Modals/ModalsRawStats';
+import { displayHashrate } from '../Filters';
 import PoolsTable from '../Pools/PoolsTable';
 
 import { Trans } from '@lingui/macro';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalsRawStats: false
-    }
-  }
-
-  openModalsRawStats = () => {
-    this.setState({
-      modalsRawStats: !this.state.modalsRawStats
-    });
-  }
 
   render() {
-    const { minerError, mcuError, mcu, loadingMiner, miner, settings } = this.props;
+    const { minerCheck, minerError, mcuError, mcu, loadingMiner, miner, settings } = this.props;
 
     // Miner shares
     const minerTotalShares = (miner.stats.summary.data.hardwareErrors + miner.stats.summary.data.accepted + miner.stats.summary.data.rejected);
@@ -64,6 +51,24 @@ class Dashboard extends Component {
     if (diffLastShare >= 300 && diffLastShare <= 600) lastShareColor = 'warning';
     else if (diffLastShare > 600) lastShareColor = 'danger'
 
+    if (!minerCheck.online.status) {
+      return (
+        <LoadingErrorBox 
+          show={ true }
+          bg="bg-0"
+          title="Miner is offline"
+          centerTitle={ true }
+          subtitle="Try to start it"
+          error={ false }
+          centerSubtitle={ true }
+          icon="fa-toggle-off animated bounce"
+          showBtn={ true }
+          btnTo="/miner/start"
+          btnText="Start"
+        />
+      )
+    }
+
     if (minerError) {
       return (
         <LoadingErrorBox 
@@ -83,7 +88,6 @@ class Dashboard extends Component {
 
     return (
       <div ref="main">
-        <ModalsRawStats isOpen={ this.state.modalsRawStats } toggle={ this.openModalsRawStats }></ModalsRawStats>
         { (mcuError) ?
             <Alert color="warning">There is a problem fetching system stats (<b>{ mcuError }</b>)</Alert>
           : null 
@@ -94,7 +98,7 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
-                value={ DisplayHashrate(miner.stats.summary.data.mHSAv, 'mh') }
+                value={ displayHashrate(miner.stats.summary.data.mHSAv, 'mh') }
                 title="Current hashrate"
                 progressColor="primary"
                 progressValue="100"
@@ -147,6 +151,58 @@ class Dashboard extends Component {
             <Col xs="12" md="6" xl="3">
               <Card className="bg-light">
                 <CardBody>
+                  <div className="h4 m-0">{ miner.stats.summary.data.accepted }</div>
+                  <div><Trans>Accepted</Trans></div>
+                </CardBody>
+              </Card>
+            </Col>
+
+            <Col xs="12" md="6" xl="3">
+              <Card className="bg-light">
+                <CardBody>
+                  <div className="h4 m-0">{ miner.stats.summary.data.rejected }</div>
+                  <div><Trans>Rejected</Trans></div>
+                </CardBody>
+              </Card>
+            </Col>
+
+            <Col xs="12" md="6" xl="3">
+              <Card className="bg-light">
+                <CardBody>
+                  <div className="h4 m-0">{ miner.stats.summary.data.discarded }</div>
+                  <div><Trans>Discarded</Trans></div>
+                </CardBody>
+              </Card>
+            </Col>
+
+            <Col xs="12" md="6" xl="3">
+              <Card className="bg-light">
+                <CardBody>
+                  <div className="h4 m-0">{ miner.stats.summary.data.hardwareErrors }</div>
+                  <div><Trans>HW Errors</Trans></div>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="animated fadeIn">
+          <Row>
+            <Col>
+              <h4><Trans>Pools</Trans></h4>
+              <div>
+                <PoolsTable pools={ miner.stats.pools } utility={ miner.stats.summary.data.workUtility }></PoolsTable>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <div>
+          <h4><Trans>Settings</Trans></h4>        
+          <Row>
+            <Col xs="12" md="6" xl="3">
+              <Card className="bg-light">
+                <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-hdd text-gray"></i></div>
                   <div className="h4 m-0">{ settings.minerMode || 'Not set' }</div>
                   <div><Trans>Miner mode</Trans></div>
@@ -186,17 +242,6 @@ class Dashboard extends Component {
           </Row>
         </div>
 
-        <div className="animated fadeIn">
-          <Row>
-            <Col>
-              <h4><Trans>Pools</Trans></h4>
-              <div>
-                <PoolsTable pools={ miner.stats.pools } utility={ miner.stats.summary.data.workUtility }></PoolsTable>
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <Button color="link" onClick={ this.openModalsRawStats }>Raw stats</Button>
       </div>
     );
   }
@@ -210,6 +255,8 @@ const mapStateToProps = state => {
     loadingMiner: state.minerStats.loading,
     miner: state.minerStats.data,
     minerError: state.minerStats.error,
+    loadingOnline: state.minerOnline.loading,
+    minerCheck: state.minerOnline.data,
     settings: state.settings
   }
 }

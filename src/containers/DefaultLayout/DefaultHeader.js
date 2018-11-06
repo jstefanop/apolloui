@@ -8,7 +8,7 @@ import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/reac
 import logo from '../../assets/img/brand/logo.png'
 import sygnet from '../../assets/img/brand/favicon.png'
 
-import DisplayHashrate from '../../views/Filters/DisplayHashrate';
+import { displayHashrate } from '../../views/Filters';
 
 const propTypes = {
   children: PropTypes.node,
@@ -37,13 +37,10 @@ class DefaultHeader extends Component {
             <Badge color={ minerCheck.online.status ? 'success' : 'danger' }>{ minerCheck.online.status ? 'ONLINE' : 'OFFLINE' }</Badge>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? DisplayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
+            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? displayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
             <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? miner.stats.summary.data.temperature || 0 + ' C°' : '...' }</span>
-          </NavItem>
-          <NavItem className="px-3">
-            <Button size="sm" className="btn-warning text-uppercase"><Trans>Restart</Trans></Button>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>

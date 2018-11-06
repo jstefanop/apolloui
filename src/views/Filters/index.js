@@ -1,4 +1,4 @@
-export default function (hashRate, unit = 'h', withUnit = true, precision = 2) {
+export function displayHashrate (hashRate, unit = 'h', withUnit = true, precision = 2) {
 	var rate = 1000;
 	precision = (typeof precision === 'number') ? precision : 2;
 	switch (unit) {
@@ -27,4 +27,18 @@ export default function (hashRate, unit = 'h', withUnit = true, precision = 2) {
 	} else {
 		return (withUnit) ? hashRate.toFixed(precision) + ' H/s' : hashRate.toFixed(precision);
 	}
+};
+
+export function bytesToSize (bytes) {
+	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+	if (bytes == 0) return '0 Byte';
+	var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+	return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+};
+
+export function percentColor (percent) {
+	if (percent && percent < 25) return 'primary'
+	else if (percent >= 25 && percent < 50) return 'success'
+	else if (percent >= 50 && percent < 75) return 'warning'
+	else if (percent >= 75) return 'danger'
 };

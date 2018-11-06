@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { clearAlert } from '../../actions/alert';
 
 class ErrorAlert extends Component {
+
+
   render() {
     const {
       show,
@@ -13,7 +15,7 @@ class ErrorAlert extends Component {
       closeAlert,
     } = this.props;
 
-    const alertClasses = classNames([
+    let classesArray = [
       'fixed-top',
       'alert',
       'alert-dismissible',
@@ -21,7 +23,13 @@ class ErrorAlert extends Component {
       'show',
       { 'alert-danger': type === 'error' },
       { 'alert-success': type === 'success' },
-    ]);
+    ];
+    let alertClasses = classNames(classesArray);
+
+    // Auto close alert
+    setTimeout(() => {
+      this.props.closeAlert();
+    }, 5000);
 
     return (
       show && (

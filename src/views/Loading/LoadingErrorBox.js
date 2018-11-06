@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import {
   Progress,
   Jumbotron,
-  Button,
   Col,
   Row
 } from 'reactstrap';
@@ -35,9 +34,8 @@ class LoadingErrorBox extends Component {
                 : null }
               { (this.props.showBtn) ?
                   <div>
-                    <hr className="my-4" />
-                    <p className="lead">
-                      <Button size="md" color="primary" className="text-white">Learn more</Button>
+                    <p className={ (this.props.centerTitle) ? 'lead text-center' : 'lead' }>
+                      <Link to={ this.props.btnTo } className="btn btn-md btn-primary text-white">{ this.props.btnText }</Link>
                     </p>
                   </div>
                 : null }

@@ -18,6 +18,7 @@ async function fetchMcu ({ accessToken }) {
                 temperature
                 memory {
                   total
+                  available
                   used
                   cache
                   total

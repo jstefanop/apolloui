@@ -16,6 +16,7 @@ const initialState = {
 			temperature: null,
 			memory: {
 				total: 0,
+				available: 0,
 				used: 0,
 				cache: 0,
 				swap: 0

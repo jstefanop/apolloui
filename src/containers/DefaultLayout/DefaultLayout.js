@@ -54,8 +54,20 @@ class DefaultLayout extends Component {
 
   render() {
     const {
-      isLoggedIn
+      isLoggedIn,
+      settings
     } = this.props
+
+    let sidebarOptions = {
+      fixed: true,
+      display: (settings.leftSidebarVisibility) ? 'lg' : '',
+      minimized: !settings.leftSidebarExtended || false
+    }
+
+    let asideOptions = {
+      fixed: true,
+      display: (settings.rightSidebarVisibility) ? 'lg' : ''
+    }
 
     return (
       <div className="app">
@@ -63,7 +75,7 @@ class DefaultLayout extends Component {
           <DefaultHeader />
         </AppHeader>
         <div className="app-body">
-          <AppSidebar fixed display="lg">
+          <AppSidebar { ...sidebarOptions }>
             <AppSidebarHeader />
             <AppSidebarForm />
             <AppSidebarNav navConfig={navigation} {...this.props} />
@@ -89,7 +101,7 @@ class DefaultLayout extends Component {
               }
             </Container>
           </main>
-          <AppAside fixed>
+          <AppAside { ...asideOptions }>
             <DefaultAside />
           </AppAside>
         </div>
@@ -102,7 +114,8 @@ class DefaultLayout extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.accessToken != null
+  isLoggedIn: state.auth.accessToken != null,
+  settings: state.settings
 })
 
 const mapDispatchToProps = (dispatch) => {

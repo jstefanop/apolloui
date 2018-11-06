@@ -8,6 +8,7 @@ import { AppSwitch } from '@coreui/react'
 import { Trans } from '@lingui/macro';
 
 import SystemUtil from '../../views/SystemUtil/SystemUtil';
+import ModalsRawStats from '../../views/Modals/ModalsRawStats';
 
 const propTypes = {
   children: PropTypes.node,
@@ -23,7 +24,14 @@ class DefaultAside extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
+      modalsRawStats: false
     };
+  }
+
+  openModalsRawStats = () => {
+    this.setState({
+      modalsRawStats: !this.state.modalsRawStats
+    });
   }
 
   toggle(tab) {
@@ -36,62 +44,66 @@ class DefaultAside extends Component {
 
   render() {
 
-    // eslint-disable-next-line
-    const { settings, children, ...attributes } = this.props;
+    const { mcu, settings, children, ...attributes } = this.props;
 
     return (
-      <React.Fragment>
-        <Nav tabs>
-          <NavItem>
-            <NavLink className={classNames({ active: this.state.activeTab === '1' })}
-                     onClick={() => {
-                       this.toggle('1');
-                     }}>
-              <i className="icon-settings"></i>
-            </NavLink>
-          </NavItem>
-        </Nav>
-        <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1" className="p-3">
-            <h6>Quick Settings</h6>
+      <div>
+        <ModalsRawStats isOpen={ this.state.modalsRawStats } toggle={ this.openModalsRawStats }></ModalsRawStats>
+        <React.Fragment>
+          <Nav tabs>
+            <NavItem>
+              <NavLink className={classNames({ active: this.state.activeTab === '1' })}
+                       onClick={() => {
+                         this.toggle('1');
+                       }}>
+                <i className="icon-settings"></i>
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <TabContent activeTab={this.state.activeTab}>
+            <TabPane tabId="1" className="p-3">
+              <h6>System info</h6>
 
-            <div className="aside-options">
-              <div className="clearfix mt-4">
-                <small><i className="fa fa-leaf mr-2 initialism text-secondary"></i><b>ECO mode</b></small>
-                <AppSwitch className={'float-right'} variant={'pill'} label color={'primary'} size={'sm'}/>
+              <div className="aside-options">
+                <div className="clearfix mt-4">
+                  <small className="text-muted"><i className="fa fa-microchip mr-2 initialism text-secondary"></i>Architecture</small>
+                </div>
+                <div>
+                  <small className=""><b>{ mcu.stats.architecture }</b></small>
+                </div>
               </div>
-              <div>
-                <small className="text-muted">Keep your miner quite and power efficient</small>
+
+              <div className="aside-options">
+                <div className="clearfix mt-3">
+                  <small className="text-muted"><i className="fa fa-network-wired mr-2 initialism text-secondary"></i>Hostname</small>
+                </div>
+                <div>
+                  <small className=""><b>{ mcu.stats.hostname }</b></small>
+                </div>
               </div>
-            </div>
 
-            <div className="aside-options">
-              <div className="clearfix mt-3">
-                <small><i className="fa fa-rocket mr-2 initialism text-secondary"></i><b>Turbo mode</b></small>
-                <AppSwitch className={'float-right'} variant={'pill'} label color={'success'} defaultChecked size={'sm'}/>
+              <div className="aside-options">
+                <div className="clearfix mt-3">
+                  <small className="text-muted"><i className="fa fa-file-alt mr-2 initialism text-secondary"></i>Operating system</small>
+                </div>
+                <div>
+                  <small className=""><b>{ mcu.stats.operatingSystem }</b></small>
+                </div>
               </div>
-              <div>
-                <small className="text-muted">Put your miner on steroids despite power usage</small>
+
+              <hr className="mt-4>" />
+
+              <SystemUtil></SystemUtil>
+
+              <div className="aside-options mt-4">
+                <div className="clearfix mt-3">
+                  <Button color="primary" size="sm" onClick={ this.openModalsRawStats }>Raw stats</Button>
+                </div>
               </div>
-            </div>
-
-            <div className="aside-options mt-3 text-center">
-              <Button size="sm" className="btn-warning text-uppercase"><Trans>Restart</Trans></Button>
-            </div>
-
-            <div className="aside-options mt-3">
-              <div>
-                <small className="text-muted">To change pools, custom mode or any other option head to the <Link to={'/settings'}>settings</Link> page.
-                </small>
-              </div>
-            </div>
-
-            <hr className="mt-4 mb-4>" />
-
-            <SystemUtil></SystemUtil>
-          </TabPane>
-        </TabContent>
-      </React.Fragment>
+            </TabPane>
+          </TabContent>
+        </React.Fragment>
+      </div>
     );
   }
 }
@@ -101,6 +113,9 @@ DefaultAside.defaultProps = defaultProps;
 
 const mapStateToProps = state => {
   return {
+    loadingMcu: state.mcuStats.loading,
+    mcu: state.mcuStats.data,
+    mcuError: state.mcuStats.error,
     settings: state.settings
   }
 }
