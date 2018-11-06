@@ -4,6 +4,7 @@ import { Loading } from './views/Loading';
 import DefaultLayout from './containers/DefaultLayout';
 import { Logout } from './views/Logout';
 import { MinerManage } from './views/Miner';
+import { McuManage } from './views/Mcu';
 
 const Login = Loadable({
   loader: () => import('./views/Login'),
@@ -35,6 +36,8 @@ const routes = [
   { path: '/miner/start', name: 'Start miner', component: MinerManage },
   { path: '/miner/restart', name: 'Start miner', component: MinerManage },
   { path: '/miner/stop', name: 'Start miner', component: MinerManage },
+  { path: '/mcu/reboot', name: 'Reboot Mcu', component: McuManage },
+  { path: '/mcu/shutdown', name: 'Shutdown Mcu', component: McuManage },
   { path: '/logout', name: 'Logout', component: Logout }
 ];
 

@@ -40,11 +40,11 @@ export default {
       icon: 'fa fa-server',
       children: [{
         name: 'Reboot',
-        url: '/theme/colors',
+        url: '/mcu/reboot',
         icon: 'fa fa-spinner',
       }, {
         name: 'Shutdown',
-        url: '/theme/colors',
+        url: '/mcu/shutdown',
         icon: 'fa fa-power-off',
       }]
     },

@@ -46,6 +46,45 @@ async function fetchMcu ({ accessToken }) {
   return { result, error }
 }
 
+async function rebootMcu ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Mcu { 
+        Mcu {
+          reboot {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Mcu.reboot',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+async function shutdownMcu ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Mcu { 
+        Mcu {
+          shutdown {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Mcu.shutdown',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+
 export default {
-  fetchMcu
+  fetchMcu,
+  rebootMcu,
+  shutdownMcu
 }

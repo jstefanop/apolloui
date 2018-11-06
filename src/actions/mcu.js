@@ -1,5 +1,6 @@
 
 import McuAPI from '../api/mcu';
+import { setError } from './alert'
 
 export const FETCH_MCU_BEGIN = 'FETCH_MCU_BEGIN';
 export const FETCH_MCU_SUCCESS = 'FETCH_MCU_SUCCESS';
@@ -30,4 +31,46 @@ export function fetchMcu() {
       dispatch(fetchMcuSuccess(result));
     }
   };
+}
+
+export const REBOOT_MCU_SUCCESS = 'REBOOT_MCU_SUCCESS';
+
+export const rebootMcuSuccess = data => ({
+  type: REBOOT_MCU_SUCCESS,
+  payload: { data }
+});
+
+export function rebootMcu() {
+  return async (dispatch, getState) => {
+    const {
+      error,
+    } = await McuAPI.rebootMcu({ accessToken: getState().auth.accessToken });
+
+	    if (error) {
+	      dispatch(setError({ message: error.message }))
+	    } else {
+	      dispatch(rebootMcuSuccess())
+	    }
+  	}
+}
+
+export const SHUTDOWN_MCU_SUCCESS = 'SHUTDOWN_MCU_SUCCESS';
+
+export const shutdownMcuSuccess = data => ({
+  type: SHUTDOWN_MCU_SUCCESS,
+  payload: { data }
+});
+
+export function shutdownMcu() {
+  return async (dispatch, getState) => {
+    const {
+      error,
+    } = await McuAPI.shutdownMcu({ accessToken: getState().auth.accessToken });
+
+	    if (error) {
+	      dispatch(setError({ message: error.message }))
+	    } else {
+	      dispatch(shutdownMcuSuccess())
+	    }
+  	}
 }
