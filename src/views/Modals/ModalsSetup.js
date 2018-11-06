@@ -39,7 +39,6 @@ class ModalsSetup extends Component {
   }
 
   onChange(event) {
-    // TODO: input validation (pool url etc)
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -77,15 +76,34 @@ class ModalsSetup extends Component {
     let poolSetup;
     if (poolUrl || poolUsername || poolPassword || poolProxy) {
       const errors = {};
-      let error = false;
-      ['poolUrl', 'poolUsername', 'poolPassword', 'poolProxy'].forEach((field) => {
-        if (!this.state[field]) { // eslint-disable-line react/destructuring-assignment
-          error = true;
-          errors[field] = 'Field is required.';
-        }
-      });
 
-      if (error) {
+      if (!poolUrl) {
+        errors.poolUrl = 'Pool URL is required.';
+      } else {
+        try {
+          new URL(poolUrl); // eslint-disable-line no-new
+        } catch (err) {
+          errors.poolUrl = 'Pool URL has to be valid URL.';
+        }
+      }
+
+      if (poolProxy) {
+        try {
+          new URL(poolProxy); // eslint-disable-line no-new
+        } catch (err) {
+          errors.poolProxy = 'Pool proxy has to be valid URL.';
+        }
+      }
+
+      if (!poolUsername) {
+        errors.poolUsername = 'Pool username is required.';
+      }
+
+      if (!poolPassword) {
+        errors.poolPassword = 'Pool password is required.';
+      }
+
+      if (Object.keys(errors).length !== 0) {
         this.setState({
           poolFieldErrors: errors,
         });
