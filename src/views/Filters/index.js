@@ -37,7 +37,14 @@ export function bytesToSize (bytes) {
 	return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };
 
-export function percentColor (percent) {
+export function percentColor (percent, inverse = false) {
+	if (inverse) {
+		if (percent && percent < 25) return 'danger'
+		else if (percent >= 25 && percent < 50) return 'warning'
+		else if (percent >= 50 && percent < 75) return 'primary'
+		else if (percent >= 75) return 'success'	
+	}
+
 	if (percent && percent < 25) return 'primary'
 	else if (percent >= 25 && percent < 50) return 'success'
 	else if (percent >= 50 && percent < 75) return 'warning'

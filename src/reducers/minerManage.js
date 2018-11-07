@@ -4,7 +4,7 @@ import {
   STOP_MINER_SUCCESS
 } from '../actions/miner';
 
-function minerStartReducer(state = {}, action) {
+function minerManageReducer(state = {}, action) {
   switch(action.type) {
     case START_MINER_SUCCESS:
       return {
@@ -24,4 +24,4 @@ function minerStartReducer(state = {}, action) {
   }
 }
 
-export default minerStartReducer;
+export default minerManageReducer;
