@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import auth from './auth';
 import alert from './alert';
 import settings from './settings';
+import pools from './pools';
 import mcuStats from './mcuStats';
 import minerStats from './minerStats';
 import minerOnline from './minerOnline';
@@ -13,6 +14,7 @@ export default combineReducers({
   auth,
   alert,
   settings,
+  pools,
   mcuStats,
   minerStats,
   minerOnline,

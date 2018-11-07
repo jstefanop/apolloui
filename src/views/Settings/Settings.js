@@ -16,7 +16,7 @@ import { Trans } from '@lingui/macro';
 import SettingsMiner from './SettingsMiner/SettingsMiner';
 import SettingsWifi from './SettingsWifi/SettingsWifi';
 import SettingsGeneral from './SettingsGeneral/SettingsGeneral';
-import { saveSettings } from '../../actions/settings';
+import { saveSettings, saveSettingsAndRestartMiner } from '../../actions/settings';
 
 const restartFields = [
   'minerMode',
@@ -34,11 +34,12 @@ class Settings extends Component {
     } = this.props;
 
     this.state = {
-      settings,
+      settings: { ...settings },
     };
 
     this.onChange = this.onChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleSaveAndRestart = this.handleSaveAndRestart.bind(this);
   }
 
   onChange({ name, value }) {
@@ -55,6 +56,13 @@ class Settings extends Component {
     const { settings } = this.state;
 
     save(settings);
+  }
+
+  handleSaveAndRestart() {
+    const { saveAndRestart } = this.props;
+    const { settings } = this.state;
+
+    saveAndRestart(settings);
   }
 
   render() {
@@ -96,7 +104,7 @@ class Settings extends Component {
                   <Button
                     size="sm"
                     className="btn-warning text-uppercase"
-                    onClick={this.handleSave}
+                    onClick={this.handleSaveAndRestart}
                   >
                     <Trans>Save &amp; Restart</Trans>
                   </Button>
@@ -141,6 +149,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   save: (settings) => {
     dispatch(saveSettings(settings));
+  },
+  saveAndRestart: (settings) => {
+    dispatch(saveSettingsAndRestartMiner(settings));
   },
 });
 
