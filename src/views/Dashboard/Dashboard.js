@@ -13,7 +13,7 @@ import moment from 'moment';
 
 import { LoadingErrorBox } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
-import { displayHashrate } from '../Filters';
+import { displayHashrate, minerModeIcon } from '../Filters';
 import PoolsTable from '../Pools/PoolsTable';
 
 import { Trans } from '@lingui/macro';
@@ -202,7 +202,7 @@ class Dashboard extends Component {
             <Col xs="12" md="6" xl="3">
               <Card className="bg-light">
                 <CardBody>
-                  <div className="h1 text-muted float-right"><i className="fa fa-hdd text-gray"></i></div>
+                  <div className="h1 text-muted float-right"><i className={ minerModeIcon(settings.minerMode) + ' fa text-gray'}></i></div>
                   <div className="h4 m-0">{ settings.minerMode || 'Not set' }</div>
                   <div><Trans>Miner mode</Trans></div>
                 </CardBody>

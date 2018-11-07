@@ -43,3 +43,12 @@ export function percentColor (percent) {
 	else if (percent >= 50 && percent < 75) return 'warning'
 	else if (percent >= 75) return 'danger'
 };
+
+export function minerModeIcon (mode) {
+	switch (mode) {
+		case 'eco': return 'fa-leaf';
+		case 'turbo': return 'fa-rocket';
+		case 'custom': return 'fa-diagnoses';
+		default: return 'fa-leaf';
+	}
+};

@@ -107,12 +107,10 @@ class SettingsMiner extends Component {
                             </div>
                             <div>
                               <p className="text-muted ">
-                                <Trans>
-In ECO mode your miner will consume less power (about
-                                  {' '}
-                                  <b>1.0W/MHs</b>
-) but its hashrate will be slower. This mode is recommende if you want have less noise and less possible to overheat your miner.
-                                </Trans>
+                                { 
+                                // eslint-disable-next-line 
+                                }
+                                <Trans>In ECO mode your miner will consume less power (about <b>1.0W/MHs</b>) but its hashrate will be slower. This mode is recommende if you want have less noise and less possible to overheat your miner.</Trans>
                               </p>
                             </div>
                           </div>
@@ -137,12 +135,10 @@ In ECO mode your miner will consume less power (about
                             </div>
                             <div>
                               <p className="text-muted ">
-                                <Trans>
-In Turbo mode your miner will consume more power (about
-                                  {' '}
-                                  <b>1.4W/MHs</b>
-) and so its hashrate will be faster. This mode is good to gain the maximum profit but you need to take care of possible overheat.
-                                </Trans>
+                                { 
+                                // eslint-disable-next-line 
+                                }
+                                <Trans>In Turbo mode your miner will consume more power (about <b>1.4W/MHs</b>) and so its hashrate will be faster. This mode is good to gain the maximum profit but you need to take care of possible overheat.</Trans>
                               </p>
                             </div>
                           </div>
@@ -199,13 +195,10 @@ In Turbo mode your miner will consume more power (about
                               </div>
                               <div>
                                 <p className="text-muted ">
-                                  <Trans>
-You can set your miner custom voltage or
-                                    {' '}
-                                    <a href="">reset</a>
-                                    {' '}
-to default value.
-                                  </Trans>
+                                  { 
+                                  // eslint-disable-next-line 
+                                  }
+                                  <Trans>You can set your miner custom voltage or <a href="">reset</a> to default value.</Trans>
                                 </p>
                                 <Card className="border-0">
                                   <CardBody>
@@ -229,13 +222,10 @@ to default value.
                               </div>
                               <div>
                                 <p className="text-muted ">
-                                  <Trans>
-You can set your miner custom frequency or
-                                    {' '}
-                                    <a href="">reset</a>
-                                    {' '}
-to default value.
-                                  </Trans>
+                                  { 
+                                  // eslint-disable-next-line 
+                                  }
+                                  <Trans>You can set your miner custom frequency or <a href="">reset</a> to default value.</Trans>
                                 </p>
                                 <Card className="border-0">
                                   <CardBody>
