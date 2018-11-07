@@ -42,7 +42,7 @@ export function saveInitialSetup({ password, poolSetup }) {
         return;
       }
 
-      ({ error } = await PoolAPI.create({
+      ({ error } = await PoolAPI.createPool({
         enabled: true,
         url: poolSetup.url,
         username: poolSetup.username,

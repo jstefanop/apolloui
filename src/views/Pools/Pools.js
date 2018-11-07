@@ -1,47 +1,49 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
-
-import {
-  Button,
-  Card,
-  CardHeader,
-  Col,
-  Row
-} from 'reactstrap';
+import omit from 'lodash/omit';
 
 import { Trans } from '@lingui/macro';
+import { Loading } from '../Loading';
+import { fetchPools as fetchPoolsAction } from '../../actions/pool';
 
 import SettingsPools from './SettingsPools/SettingsPools';
 
 class Settings extends Component {
+  componentDidMount() {
+    const {
+      fetchPools,
+    } = this.props;
+
+    fetchPools();
+  }
 
   render() {
+    const {
+      poolsData: {
+        loading,
+        pools,
+      },
+    } = this.props;
 
     return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col lg="12">
-            <Card>
-              <CardHeader className="bg-dark">
-                <Button size="sm" className="btn-success text-uppercase mr-2"><Trans>Save</Trans></Button>
-                <Button size="sm" className="btn-warning text-uppercase"><Trans>Save & Restart</Trans></Button>
-                <span className="ml-2"><Trans>You need to restart your miner to apply changes.</Trans></span>
-              </CardHeader>
-            </Card>
-          </Col>
-        </Row>
-
-        { /* Pools */ }
-        <SettingsPools></SettingsPools>
-        
-        <p></p>
-      </div>
+      loading !== false
+        ? <Loading />
+        : <SettingsPools pools={pools} />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  settings: state.settings
-})
+  poolsData: {
+    loading: state.pools.loading,
+    pools: state.pools.pools && state.pools.pools.map(pool => omit(pool, ['id'])),
+  },
+});
 
-export default connect(mapStateToProps)(Settings);
+const mapDispatchToProps = dispatch => ({
+  fetchPools: () => {
+    dispatch(fetchPoolsAction());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

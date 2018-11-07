@@ -1,8 +1,8 @@
 
-import { ERROR_QUERY } from './shared'
-import { query } from './apiClient'
+import { ERROR_QUERY } from './shared';
+import { query } from './apiClient';
 
-async function create (input, { accessToken }) {
+async function createPool(input, { accessToken }) {
   const { error } = await query({
     query: `
       query Pool ($input: PoolCreateInput!) {
@@ -25,15 +25,78 @@ async function create (input, { accessToken }) {
       }
     `,
     variables: {
-      input
+      input,
     },
     path: 'Pool.create',
-    accessToken
-  })
+    accessToken,
+  });
 
-  return { error }
+  return { error };
+}
+
+async function fetchPools({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Pool {
+        Pool {
+          list {
+            result {
+              pools {
+                id
+                enabled
+                url
+                username
+                password
+                proxy
+                index
+              }
+            }
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Pool.list',
+    accessToken,
+  });
+
+  return { result, error };
+}
+
+async function updatePools({ pools, accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Pool ($input: PoolUpdateAllInput!) {
+        Pool {
+          updateAll(input: $input) {
+            result {
+              pools {
+                id
+                enabled
+                url
+                username
+                password
+                proxy
+                index
+              }
+            }
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Pool.updateAll',
+    accessToken,
+    variables: {
+      input: { pools },
+    },
+  });
+
+  return { result, error };
 }
 
 export default {
-  create,
-}
+  createPool,
+  fetchPools,
+  updatePools,
+};
