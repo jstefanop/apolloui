@@ -9,6 +9,7 @@ package-lock.json
 
 # production
 #/build
+/src/locales/_build
 
 # misc
 .DS_Store
