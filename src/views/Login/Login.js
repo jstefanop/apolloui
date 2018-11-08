@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import ModalsSetup from '../Modals/ModalsSetup';
 import logo from '../../assets/img/brand/logo.png'
 
+import { Loading } from '../Loading';
 import { login } from '../../actions/auth'
 
 class Login extends Component {
@@ -39,6 +40,8 @@ class Login extends Component {
       password
     } = this.state
 
+    const { error, loading } = this.props
+
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -50,19 +53,26 @@ class Login extends Component {
                     <Form onSubmit={this.handleLogin}>
                       <h1>Lockscreen</h1>
                       <p className="text-muted">Sign In to unlock the dashboard</p>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-lock"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" name="password" value={password} onChange={this.onChange} />
-                      </InputGroup>
-                      <Row>
-                        <Col xs="6">
-                          <Button color="primary" className="px-4" onClick={this.handleLogin}>Login</Button>
-                        </Col>
-                      </Row>
+                      { (!error && loading) ?
+                        <Loading />
+                        :
+                        <div>
+                          <InputGroup className="mb-4">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="icon-lock"></i>
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input type="password" placeholder="Password" autoComplete="current-password" name="password" value={password} onChange={this.onChange} />
+                          </InputGroup>
+                          { (error) && <Alert color="danger">{error}</Alert> }
+                          <Row>
+                            <Col xs="6">
+                              <Button color="primary" className="px-4" onClick={this.handleLogin}>Login</Button>
+                            </Col>
+                          </Row>
+                        </div>
+                      }
                     </Form>
                   </CardBody>
                 </Card>
@@ -85,7 +95,9 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  show: state.auth.status !== 'done'
+  show: state.auth.status !== 'done',
+  loading: state.auth.loading,
+  error: state.auth.message,
 })
 
 const mapDispatchToProps = (dispatch) => {

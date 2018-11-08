@@ -10,8 +10,14 @@ import { setError } from './alert';
 export const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 export const setAuthStatus = status => ({ type: SET_AUTH_STATUS, status });
 
+export const SET_AUTH_ACCESS_TOKEN_BEGIN = 'SET_AUTH_ACCESS_TOKEN_BEGIN';
+export const setAuthAccessTokenBegin = () => ({ type: SET_AUTH_ACCESS_TOKEN_BEGIN });
+
 export const SET_AUTH_ACCESS_TOKEN = 'SET_AUTH_ACCESS_TOKEN';
 export const setAuthAccessToken = accessToken => ({ type: SET_AUTH_ACCESS_TOKEN, accessToken });
+
+export const SET_AUTH_ACCESS_TOKEN_FAILURE = 'SET_AUTH_ACCESS_TOKEN_FAILURE';
+export const setAuthAccessTokenFailure = ({ message }) => ({ type: SET_AUTH_ACCESS_TOKEN_FAILURE, message });
 
 export function fetchStatus() {
   return async (dispatch) => {
@@ -64,10 +70,11 @@ export function saveInitialSetup({ password, poolSetup }) {
 
 export function login({ password }) {
   return async (dispatch) => {
+    dispatch(setAuthAccessTokenBegin());
     const { result, error } = await AuthAPI.login({ password });
 
     if (error) {
-      dispatch(setError({ message: error.message }));
+      dispatch(setAuthAccessTokenFailure({ message: error.message }));
       return;
     }
 
@@ -76,7 +83,7 @@ export function login({ password }) {
     const { result: result2, error: error2 } = await SettingsAPI.fetchSettings({ accessToken });
 
     if (error2) {
-      dispatch(setError({ message: error2.message }));
+      dispatch(setAuthAccessTokenFailure({ message: error2.message }));
       return;
     }
 
