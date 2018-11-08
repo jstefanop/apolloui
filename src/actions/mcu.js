@@ -76,12 +76,12 @@ export function wifiConnectMcu(options) {
 			const { result, error } = await McuAPI.wifiConnectMcu({ options, accessToken: getState().auth.accessToken });
 
 			if (error) {
-			  dispatch(wifiConnectMcuFailure({ message: error.message }))
+			  dispatch(wifiConnectMcuFailure({ error: error.message }))
 			} else {
 			  dispatch(wifiConnectMcuSuccess(result))
 			}
 		} catch (error) {
-			dispatch(wifiConnectMcuFailure({ message: error.message }))
+			dispatch(wifiConnectMcuFailure({ error: error.message }))
 		}
 	}
 }
