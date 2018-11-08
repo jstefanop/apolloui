@@ -9,6 +9,7 @@ import minerOnline from './minerOnline';
 import minerManage from './minerManage';
 import mcuWifiScan from './mcuWifiScan';
 import mcuWifiConnect from './mcuWifiConnect';
+import backup from './backup';
 
 export default combineReducers({
   auth,
@@ -20,5 +21,6 @@ export default combineReducers({
   minerOnline,
   minerManage,
   mcuWifiScan,
-  mcuWifiConnect
+  mcuWifiConnect,
+  backup,
 });
