@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import omit from 'lodash/omit';
 
-import { Trans } from '@lingui/macro';
 import { Loading } from '../Loading';
 import { fetchPools as fetchPoolsAction } from '../../actions/pool';
 

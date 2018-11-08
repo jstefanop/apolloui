@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import {
   Table,
@@ -16,15 +17,17 @@ class PoolsTable extends Component {
   render() {
     const { pools, utility } = this.props;
 
+    pools.data = _.sortBy(pools.data, 'priority');
+
     return (
       <I18n>
         {({ i18n }) => (
           <Table responsive className="table-outline d-none d-sm-table">
             <thead className="bg-light">
               <tr>
-                <th className="text-center"><i className="fa fa-tasks"></i></th>
                 <th><Trans>Url</Trans></th>
                 <th><Trans>Type</Trans></th>
+                <th><Trans>Active</Trans></th>
                 <th><Trans>Status</Trans></th>
                 <th><Trans>Hashrate</Trans></th>
                 <th>Last share</th>
@@ -38,14 +41,14 @@ class PoolsTable extends Component {
             <tbody className="bg-white">
               { pools.data.map(function(pool, index){
                 return <tr key={index}>
-                    <td className="text-center">
-                      <Button><Trans>Select</Trans></Button>
-                    </td>
                     <td>
                       <div className="font-weight-bold text-muted">{ pool.url }</div>
                     </td>
-                    <td className="text-center">
-                      <h5 className="mb-0"><Badge color={ pool.stratumActive ? 'primary' : 'light' }>{ pool.stratumActive ? 'Main' : 'Failover' }</Badge></h5>
+                    <td className="">
+                      <h5 className="mb-0"><Badge color={ !pool.priority ? 'primary' : 'light' }>{ !pool.priority ? 'Main' : 'Failover' }</Badge></h5>
+                    </td>
+                    <td className="">
+                      <h5 className="mb-0"><Badge color={ pool.stratumActive ? 'success' : 'light' }>{ pool.stratumActive ? 'Active' : 'Inactive' }</Badge></h5>
                     </td>
                     <td>
                       <h5 className="mb-0"><Badge color={ pool.status === 'Alive' ? 'success' : 'danger' }>{ pool.status }</Badge></h5>

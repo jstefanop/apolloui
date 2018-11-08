@@ -86,6 +86,7 @@ class Settings extends Component {
     const restartNeeded = !isEqual(pick(settings, restartFields), pick(oldSettings, restartFields));
     return (
       <div className="animated fadeIn">
+        { changed && (
         <Row>
           <Col lg="12">
             <Card>
@@ -110,10 +111,12 @@ class Settings extends Component {
                   </Button>
                 )}
                 { restartNeeded && <span className="ml-2"><Trans>You need to restart your miner to apply changes.</Trans></span> }
+                { !restartNeeded && changed && <span className="ml-2"><Trans>You need to save your settings to apply changes (miner won't be restarted).</Trans></span> }
               </CardHeader>
             </Card>
           </Col>
         </Row>
+        )}
 
         { /* Miner conf */ }
         <SettingsMiner

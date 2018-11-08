@@ -159,7 +159,7 @@ class SettingsPoolItemForm extends Component {
                 </span>
               </FormGroup>
             </Col>
-            <Col md={2}>
+            <Col md={1}>
               <FormGroup>
                 <Label for="poolPassword"><Trans>Pool Password</Trans></Label>
                 <Input
@@ -193,7 +193,7 @@ class SettingsPoolItemForm extends Component {
                 </span>
               </FormGroup>
             </Col>
-            <Col md={1}>
+            <Col md={2}>
               <FormGroup>
                 <Button size="lg" className="btn-light" style={{ marginTop: '29px' }} onClick={this.handleAdd}><i className="fa fa-plus" /></Button>
               </FormGroup>

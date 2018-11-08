@@ -30,7 +30,8 @@ class SettingsWifi extends Component {
 
     this.state = {
       ssid: null,
-      wifiPassword: ''
+      wifiPassword: '',
+      connected: null
     };
   }
 
@@ -42,12 +43,14 @@ class SettingsWifi extends Component {
 
   handleClick = (ssid) => {
     this.setState({
-      ssid: ssid
+      ssid: ssid,
+      connected: null
     });
   }
 
   handleConnect = (ssid) => {
     const { wifiConnectMcu } = this.props;
+    this.setState({ connected: true });
 
     wifiConnectMcu(this.state)
   }
@@ -60,7 +63,8 @@ class SettingsWifi extends Component {
 
   render() {
     const { wifis, address } = this.props
-    const { wifiPassword, ssid } = this.state
+
+    const { wifiPassword, ssid, connected } = this.state
 
     return (
       <I18n>
@@ -91,7 +95,7 @@ class SettingsWifi extends Component {
                                 <Trans>Clicking the button your system will scan for available wifi networks. Be aware that connecting to a Wifi network you will need to connect to the new Wifi IP address you have to find in your LAN.</Trans>
                               </p>
                             </div>
-                            { (ssid && !address) ?
+                            { (ssid && !connected) ?
                               <Form className="mt-4">
                                 <Row form>
                                   <Col md={12}>
@@ -114,9 +118,9 @@ class SettingsWifi extends Component {
                               </Form>
                               : null
                             }
-                            { (address) ?
+                            { (connected) ?
                               <p className="text-muted lead">
-                                <Trans>Your controller should be connected to Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Trans>
+                                <Trans>Your controller should be connected to <b>{ ssid }</b> Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Trans>
                               </p>
                               : null
                             }
@@ -128,7 +132,7 @@ class SettingsWifi extends Component {
                           <div className="clearfix">
                             <h4><i className="fa fa-wifi mr-2 initialism text-secondary"></i><Trans>Wifi networks</Trans></h4>
                           </div>
-                          { (!wifis.length) ?
+                          { (!wifis.length && !connected) ?
                             <div className="">
                               <p className="text-muted ">
                                 <Trans>There are no wifi networks available yet. Please click the scan button to look at them.</Trans>

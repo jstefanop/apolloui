@@ -20,24 +20,79 @@ import { I18n } from '@lingui/react';
 class SettingsMiner extends Component {
   constructor(props) {
     super(props);
-    this.voltages = {
-      '-10': '-10°C',
-      0: <strong>0°C</strong>,
-      26: '26°C',
-      37: '37°C',
-      50: '50°C',
-      100: {
-        style: {
-          color: 'red',
-        },
-        label: <strong>100°C</strong>,
-      },
-    };
 
     this.marks = {
-      0: '0',
-      50: '50',
-      100: '100',
+      frequency: {
+        min: 384,
+        max: 954,
+        data: {
+          384: 'Min',
+          450: '',
+          480: '',
+          540: '',
+          600: '',
+          612: '',
+          625: '',
+          636: '',
+          648: '',
+          700: '',
+          720: '',
+          744: '',
+          756: '',
+          768: '',
+          796: '',
+          832: '',
+          852: '',
+          876: '',
+          900: '',
+          924: '',
+          954: 'Max'
+        }
+      },
+      voltage: {
+        min: 384,
+        max: 954,
+        data: {
+          384: 'Min',
+          450: '',
+          480: '',
+          540: '',
+          600: '',
+          612: '',
+          625: '',
+          636: '',
+          648: '',
+          700: '',
+          720: '',
+          744: '',
+          756: '',
+          768: '',
+          796: '',
+          832: '',
+          852: '',
+          876: '',
+          900: '',
+          924: '',
+          954: 'Max'
+        }
+      },
+      fan: {
+        min: 0,
+        max: 100,
+        data: {
+          0: 'Min',
+          10: '',
+          20: '',
+          30: '',
+          40: '',
+          50: '50%',
+          60: '',
+          70: '',
+          80: '',
+          90: '',
+          100: 'Max'
+        }
+      }
     };
 
     this.slider = {
@@ -78,7 +133,7 @@ class SettingsMiner extends Component {
           <div className="animated fadeIn">
             <Row>
               { /* Miner */ }
-              <Col lg="12">
+              <Col xl="12">
                 <Card>
                   <CardHeader>
                     <CardTitle><Trans>Miner</Trans></CardTitle>
@@ -87,7 +142,7 @@ class SettingsMiner extends Component {
                   <CardBody>
                     <Form>
                       <Row form>
-                        <Col md={4}>
+                        <Col lg={12} xl={4}>
                           <div>
                             <div className="clearfix">
                               <AppSwitch
@@ -115,7 +170,7 @@ class SettingsMiner extends Component {
                             </div>
                           </div>
                         </Col>
-                        <Col md={4}>
+                        <Col lg={12} xl={4}>
                           <div>
                             <div className="clearfix">
                               <AppSwitch
@@ -143,7 +198,7 @@ class SettingsMiner extends Component {
                             </div>
                           </div>
                         </Col>
-                        <Col md={4}>
+                        <Col lg={12} xl={4}>
                           <div>
                             <div className="clearfix">
                               <AppSwitch
@@ -179,19 +234,19 @@ class SettingsMiner extends Component {
               minerMode === 'custom'
               && (
               <Row>
-                <Col lg="12">
+                <Col xl="12">
                   <Card>
                     <CardHeader>
-                      <CardTitle><Trans>Custom mode</Trans></CardTitle>
+                      <CardTitle><Trans>Miner custom mode</Trans></CardTitle>
                       <CardSubtitle className="text-muted"><Trans>Personalise your miner configurations</Trans></CardSubtitle>
                     </CardHeader>
                     <CardBody>
                       <Form>
                         <Row form>
-                          <Col md={4}>
+                          <Col lg={12} xl={4}>
                             <div>
                               <div className="clearfix">
-                                <h4><Trans>Voltage</Trans></h4>
+                                <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">V</span></b></h4>
                               </div>
                               <div>
                                 <p className="text-muted ">
@@ -203,10 +258,10 @@ class SettingsMiner extends Component {
                                 <Card className="border-0">
                                   <CardBody>
                                     <Slider
-                                      min={0}
-                                      max={100}
-                                      step={10}
-                                      marks={this.marks}
+                                      min={this.marks.voltage.min}
+                                      max={this.marks.voltage.max}
+                                      marks={this.marks.voltage.data}
+                                      step={null}
                                       value={voltage}
                                       onChange={val => onChange({ value: val, name: 'voltage' })}
                                     />
@@ -215,10 +270,10 @@ class SettingsMiner extends Component {
                               </div>
                             </div>
                           </Col>
-                          <Col md={4}>
+                          <Col lg={12} xl={4}>
                             <div>
                               <div className="clearfix">
-                                <h4><Trans>Frequency</Trans></h4>
+                                <h4><Trans>Frequency</Trans> <b>{frequency}<span className="small">MHz</span></b></h4>
                               </div>
                               <div>
                                 <p className="text-muted ">
@@ -230,10 +285,10 @@ class SettingsMiner extends Component {
                                 <Card className="border-0">
                                   <CardBody>
                                     <Slider
-                                      min={0}
-                                      max={100}
-                                      step={10}
-                                      marks={this.marks}
+                                      min={this.marks.frequency.min}
+                                      max={this.marks.frequency.max}
+                                      marks={this.marks.frequency.data}
+                                      step={null}
                                       value={frequency}
                                       onChange={val => onChange({ value: val, name: 'frequency' })}
                                     />
@@ -242,7 +297,7 @@ class SettingsMiner extends Component {
                               </div>
                             </div>
                           </Col>
-                          <Col md={4}>
+                          <Col lg={12} xl={4}>
                             <div>
                               <div className="clearfix">
                                 <AppSwitch
@@ -253,7 +308,7 @@ class SettingsMiner extends Component {
                                   checked={fan === -1}
                                   onChange={this.autoFanSwitchChange}
                                 />
-                                <h4><Trans>Auto adjust fan</Trans></h4>
+                                <h4><Trans>Auto adjust fan</Trans> { (fan > -1) ? <b>{fan}<span className="small">%</span></b> : null }</h4>
                               </div>
                               <div>
                                 <p className="text-muted ">
@@ -262,10 +317,10 @@ class SettingsMiner extends Component {
                                 <Card className="border-0">
                                   <CardBody>
                                     <Slider
-                                      min={0}
-                                      max={100}
+                                      min={this.marks.fan.min}
+                                      max={this.marks.fan.max}
                                       step={10}
-                                      marks={this.marks}
+                                      marks={this.marks.fan.data}
                                       disabled={fan === -1}
                                       value={fan !== -1 ? fan : 0}
                                       onChange={val => onChange({ value: val, name: 'fan' })}

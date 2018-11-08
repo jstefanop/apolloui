@@ -9,7 +9,7 @@ import {
   Input,
 } from 'reactstrap';
 
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { I18n } from '@lingui/react';
 
 export default function (props) {
@@ -18,6 +18,7 @@ export default function (props) {
       enabled,
       url,
       username,
+      password,
       proxy,
     },
     disabled,
@@ -48,6 +49,12 @@ export default function (props) {
             <FormGroup>
               <Label for="poolUsername"><Trans>Pool Username</Trans></Label>
               <Input type="text" name="poolUsername" id="poolUsername" bsSize="lg" disabled={disabled} value={username} />
+            </FormGroup>
+          </Col>
+          <Col md={1}>
+            <FormGroup>
+              <Label for="poolUsername"><Trans>Pool Password</Trans></Label>
+              <Input type="text" name="poolPassword" id="poolPassword" bsSize="lg" disabled={disabled} value={password} />
             </FormGroup>
           </Col>
           <Col md={2}>
