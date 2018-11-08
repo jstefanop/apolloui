@@ -117,6 +117,20 @@ class SettingsPools extends Component {
       <I18n>
         {({ i18n }) => (
           <div className="animated fadeIn">
+          
+            { (isChanged) ?
+            <Row>
+              <Col lg="12">
+                <Card>
+                  <CardHeader className="bg-dark">
+                    <Button size="sm" className="btn-warning text-uppercase" onClick={this.handleSaveAndRestart} disabled={!isChanged}><Trans>Save &amp; Restart</Trans></Button>
+                    <span className="ml-2"><Trans>You need to restart your miner to apply changes.</Trans></span>
+                  </CardHeader>
+                </Card>
+              </Col>
+            </Row>
+            : null
+            }
 
             <div className="animated fadeIn">
               <Row>
@@ -145,20 +159,6 @@ class SettingsPools extends Component {
                 </Col>
               </Row>
             </div>
-
-           { (isChanged) ?
-            <Row>
-              <Col lg="12">
-                <Card>
-                  <CardHeader className="bg-dark">
-                    <Button size="sm" className="btn-warning text-uppercase" onClick={this.handleSaveAndRestart} disabled={!isChanged}><Trans>Save &amp; Restart</Trans></Button>
-                    <span className="ml-2"><Trans>You need to restart your miner to apply changes.</Trans></span>
-                  </CardHeader>
-                </Card>
-              </Col>
-            </Row>
-            : null
-            }
 
             <p />
           </div>

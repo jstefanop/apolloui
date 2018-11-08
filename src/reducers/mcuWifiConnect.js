@@ -1,9 +1,11 @@
 import {
-  WIFICONNECT_MCU_SUCCESS
+  WIFICONNECT_MCU_SUCCESS,
+  WIFICONNECT_MCU_FAILURE
 } from '../actions/mcu';
 
 const initialState = {
-  data: null
+  data: null,
+  error: null
 };
 
 function mcuWifiConnectReducer(state = initialState, action) {
@@ -12,6 +14,13 @@ function mcuWifiConnectReducer(state = initialState, action) {
       return {
         ...state,
         data: action.payload.data.address,
+        error: null
+      };
+    case WIFICONNECT_MCU_FAILURE:
+      return {
+        ...state,
+        data: action.payload.data.address,
+        error: action.error
       };
 
     default:

@@ -58,9 +58,16 @@ export function wifiScanMcu() {
 
 export const WIFICONNECT_MCU_SUCCESS = 'WIFICONNECT_MCU_SUCCESS';
 
+export const WIFICONNECT_MCU_FAILURE = 'WIFICONNECT_MCU_FAILURE';
+
 export const wifiConnectMcuSuccess = data => ({
   type: WIFICONNECT_MCU_SUCCESS,
   payload: { data }
+});
+
+export const wifiConnectMcuFailure = ({ error }) => ({
+  type: WIFICONNECT_MCU_FAILURE,
+  error
 });
 
 export function wifiConnectMcu(options) {
@@ -69,12 +76,12 @@ export function wifiConnectMcu(options) {
 			const { result, error } = await McuAPI.wifiConnectMcu({ options, accessToken: getState().auth.accessToken });
 
 			if (error) {
-			  dispatch(setError({ message: error.message }))
+			  dispatch(wifiConnectMcuFailure({ message: error.message }))
 			} else {
 			  dispatch(wifiConnectMcuSuccess(result))
 			}
 		} catch (error) {
-			dispatch(setError({ message: error.message }))
+			dispatch(wifiConnectMcuFailure({ message: error.message }))
 		}
 	}
 }

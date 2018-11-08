@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -48,11 +49,11 @@ class SettingsWifi extends Component {
     });
   }
 
-  handleConnect = (ssid) => {
+  handleConnect = () => {
     const { wifiConnectMcu } = this.props;
     this.setState({ connected: true });
 
-    wifiConnectMcu(this.state)
+    wifiConnectMcu({ ssid: this.state.ssid, passphrase: this.state.wifiPassword });
   }
 
   onChange = (evt) => {
@@ -62,7 +63,7 @@ class SettingsWifi extends Component {
   }
 
   render() {
-    const { wifis, address } = this.props
+    const { wifiError, wifis, address } = this.props
 
     const { wifiPassword, ssid, connected } = this.state
 
@@ -118,12 +119,14 @@ class SettingsWifi extends Component {
                               </Form>
                               : null
                             }
-                            { (connected) ?
-                              <p className="text-muted lead">
-                                <Trans>Your controller should be connected to <b>{ ssid }</b> Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Trans>
-                              </p>
-                              : null
-                            }
+                            { connected && (
+                              <div className="text-muted lead">
+                                { (wifiError) ?
+                                  <Alert color="warning"><Trans>There was a problem connecting to the wifi, please doucle check the password. <b>{wifiError}</b></Trans></Alert>
+                                  : <Alert color="success"><Trans>Your controller should be connected to <b>{ ssid }</b> Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Trans></Alert>
+                                }
+                              </div>
+                            )}
                           </div>
                         </div>
                       </Col>
@@ -166,7 +169,8 @@ class SettingsWifi extends Component {
 const mapStateToProps = state => {
   return {
     wifis: state.mcuWifiScan.data,
-    address: state.mcuWifiConnect.data
+    address: state.mcuWifiConnect.data,
+    wifiError: state.mcuWifiConnect.error
   }
 }
 
@@ -175,8 +179,8 @@ const mapDispatchToProps = (dispatch) => {
     wifiScanMcu: () => {
       dispatch(wifiScanMcu())
     },
-    wifiConnectMcu: (ssid, password) => {
-      dispatch(wifiConnectMcu({ ssid, password }))
+    wifiConnectMcu: ({ ssid, passphrase }) => {
+      dispatch(wifiConnectMcu({ ssid, passphrase }))
     }
   }
 }
