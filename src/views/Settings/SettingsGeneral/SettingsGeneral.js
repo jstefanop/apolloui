@@ -18,11 +18,14 @@ import {
   ListGroup,
   ListGroupItem,
 } from 'reactstrap';
+import ModalsRestore from '../../Modals/ModalsRestore';
 
 import { Trans } from '@lingui/macro';
 import { I18n } from '@lingui/react';
 
 import { changePassword as changePasswordAction } from '../../../actions/auth';
+import { backupConfiguration as backupConfigurationAction } from '../../../actions/backup';
+import { toggleRestoreModal as toggleRestoreModalAction } from '../../../actions/backup';
 
 class SettingsGeneral extends Component {
   constructor(props) {
@@ -37,6 +40,8 @@ class SettingsGeneral extends Component {
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleBackupConfiguration = this.handleBackupConfiguration.bind(this);
+    this.handletoggleRestoreModal = this.handletoggleRestoreModal.bind(this);
   }
 
   onChange(evt) {
@@ -71,6 +76,22 @@ class SettingsGeneral extends Component {
     }
 
     changePassword(password);
+  }
+
+  handleBackupConfiguration() {
+    const {
+      backupConfiguration,
+    } = this.props;
+
+    backupConfiguration();
+  }
+
+  handletoggleRestoreModal() {
+    const {
+      toggleRestoreModal,
+    } = this.props;
+
+    toggleRestoreModal(true);
   }
 
   render() {
@@ -244,13 +265,13 @@ class SettingsGeneral extends Component {
                         <ListGroup flush>
                           <ListGroupItem>
                             <div className="">
-                              <Button className="mr-2 text-uppercase" color="primary" size="sm"><Trans>Backup</Trans></Button>
+                              <Button className="mr-2 text-uppercase" color="primary" size="sm" onClick={this.handleBackupConfiguration}><Trans>Backup</Trans></Button>
                               <div className="mt-1 small text-muted"><Trans>Create a backup file of dashboard, miner and pools configurations</Trans></div>
                             </div>
                           </ListGroupItem>
                           <ListGroupItem>
                             <div className="">
-                              <Button className="mr-2 text-uppercase" color="primary" size="sm"><Trans>Restore</Trans></Button>
+                              <Button className="mr-2 text-uppercase" color="primary" size="sm" onClick={this.handletoggleRestoreModal}><Trans>Restore</Trans></Button>
                               <div className="mt-1 small text-muted"><Trans>Restore all configurations from a backup file</Trans></div>
                             </div>
                           </ListGroupItem>
@@ -268,6 +289,7 @@ class SettingsGeneral extends Component {
               </Card>
             </CardDeck>
 
+            <ModalsRestore />
           </div>
         )}
       </I18n>
@@ -278,6 +300,12 @@ class SettingsGeneral extends Component {
 const mapDispatchToProps = dispatch => ({
   changePassword: (password) => {
     dispatch(changePasswordAction({ password }));
+  },
+  backupConfiguration: () => {
+    dispatch(backupConfigurationAction());
+  },
+  toggleRestoreModal: (status) => {
+    dispatch(toggleRestoreModalAction({ status }));
   },
 });
 
