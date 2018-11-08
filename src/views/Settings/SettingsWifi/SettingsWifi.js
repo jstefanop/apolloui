@@ -22,6 +22,7 @@ import {
 import { wifiScanMcu, wifiConnectMcu } from '../../../actions/mcu';
 import { percentColor } from '../../Filters';
 
+import { Loading } from '../../Loading';
 import { Trans } from '@lingui/macro';
 import { I18n } from "@lingui/react"
 
@@ -63,7 +64,7 @@ class SettingsWifi extends Component {
   }
 
   render() {
-    const { wifiError, wifis, address } = this.props
+    const { loadingWifiScan, loadingWifiConnect, wifiError, wifis, address } = this.props
 
     const { wifiPassword, ssid, connected } = this.state
 
@@ -121,9 +122,12 @@ class SettingsWifi extends Component {
                             }
                             { connected && (
                               <div className="text-muted lead">
-                                { (wifiError) ?
-                                  <Alert color="warning"><Trans>There was a problem connecting to the wifi, please doucle check the password. <b>{wifiError}</b></Trans></Alert>
-                                  : <Alert color="success"><Trans>Your controller should be connected to <b>{ ssid }</b> Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Trans></Alert>
+                                { (loadingWifiConnect) ?
+                                  <Loading />
+                                  :
+                                  (wifiError) ?
+                                    <Alert color="warning"><Trans>There was a problem connecting to the wifi, please doucle check the password. <b>{wifiError}</b></Trans></Alert>
+                                    : <Alert color="success"><Trans>Your controller should be connected to <b>{ ssid }</b> Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Trans></Alert>
                                 }
                               </div>
                             )}
@@ -135,23 +139,26 @@ class SettingsWifi extends Component {
                           <div className="clearfix">
                             <h4><i className="fa fa-wifi mr-2 initialism text-secondary"></i><Trans>Wifi networks</Trans></h4>
                           </div>
-                          { (!wifis.length && !connected) ?
-                            <div className="">
-                              <p className="text-muted ">
-                                <Trans>There are no wifi networks available yet. Please click the scan button to look at them.</Trans>
-                              </p>
-                            </div>
+                        { (loadingWifiScan) ?
+                          <Loading />
                           : 
-                            <ListGroup>
-                              { wifis.map((wifi, index) => {
-                                return <ListGroupItem key={ index } className="border-0">
-                                  <Button color="link" className="p-0" onClick={() => { this.handleClick(wifi.ssid) } }>{ wifi.ssid }</Button>
-                                  <Progress className="progress-xs" color={ percentColor(wifi.signal, 'inverse') } value={ wifi.signal } />
-                                  <small className="text-muted">Signal <b>{ wifi.signal }%</b></small>
-                                </ListGroupItem>
-                              })}
-                            </ListGroup>
-                          }
+                            (!wifis || !wifis.length) ?
+                              <div className="">
+                                <p className="text-muted ">
+                                  <Trans>There are no wifi networks available yet. Please click the scan button to look at them.</Trans>
+                                </p>
+                              </div>
+                            :
+                              <ListGroup>
+                                { wifis.map((wifi, index) => {
+                                  return <ListGroupItem key={ index } className="border-0">
+                                    <Button color="link" className="p-0" onClick={() => { this.handleClick(wifi.ssid) } }>{ wifi.ssid }</Button>
+                                    <Progress className="progress-xs" color={ percentColor(wifi.signal, 'inverse') } value={ wifi.signal } />
+                                    <small className="text-muted">Signal <b>{ wifi.signal }%</b></small>
+                                  </ListGroupItem>
+                                })}
+                              </ListGroup>
+                        }
                         </div>
                       </Col>
                     </Row>
@@ -169,8 +176,10 @@ class SettingsWifi extends Component {
 const mapStateToProps = state => {
   return {
     wifis: state.mcuWifiScan.data,
+    loadingWifiScan: state.mcuWifiScan.loading,
     address: state.mcuWifiConnect.data,
-    wifiError: state.mcuWifiConnect.error
+    wifiError: state.mcuWifiConnect.error,
+    loadingWifiConnect: state.mcuWifiConnect.loading
   }
 }
 

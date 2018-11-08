@@ -38,7 +38,7 @@ class DefaultLayout extends Component {
     poller();
 
     this.intervalHandler = setInterval(() => {
-      poller();
+      // poller();
     }, 5000);
   }
 
