@@ -19,7 +19,7 @@ function mcuWifiConnectReducer(state = initialState, action) {
     case WIFICONNECT_MCU_FAILURE:
       return {
         ...state,
-        data: action.payload.data.address,
+        data:  null,
         error: action.error
       };
 

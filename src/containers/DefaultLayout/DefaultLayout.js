@@ -38,7 +38,7 @@ class DefaultLayout extends Component {
     poller();
 
     this.intervalHandler = setInterval(() => {
-      if (process.env.NODEV_ENV === 'production') poller();
+      poller();
     }, 5000);
   }
 
