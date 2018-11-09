@@ -118,7 +118,7 @@ class SettingsGeneral extends Component {
               { /* Lockscreen */ }
               <Card>
                 <CardHeader>
-                  <CardTitle><Trans>Change lockscreen password</Trans></CardTitle>
+                  <CardTitle><i className="fa fa-key mr-2"></i><Trans>Change lockscreen password</Trans></CardTitle>
                   <CardSubtitle className="text-muted"><Trans>Change the password to access the dashboard</Trans></CardSubtitle>
                 </CardHeader>
                 <CardBody>
@@ -171,7 +171,7 @@ class SettingsGeneral extends Component {
               { /* Layout */ }
               <Card>
                 <CardHeader>
-                  <CardTitle><Trans>Layout options</Trans></CardTitle>
+                  <CardTitle><i className="fa fa-sliders-h mr-2"></i><Trans>Layout options</Trans></CardTitle>
                   <CardSubtitle className="text-muted"><Trans>Manage dashboard specific configurations</Trans></CardSubtitle>
                 </CardHeader>
                 <CardBody>
@@ -255,7 +255,7 @@ class SettingsGeneral extends Component {
               { /* Backup/Reset */ }
               <Card>
                 <CardHeader>
-                  <CardTitle><Trans>Backup &amp; Reset</Trans></CardTitle>
+                  <CardTitle><i className="fa fa-save mr-2"></i><Trans>Backup &amp; Reset</Trans></CardTitle>
                   <CardSubtitle className="text-muted"><Trans>Use this tools to backup, restore and reset configurations</Trans></CardSubtitle>
                 </CardHeader>
                 <CardBody>

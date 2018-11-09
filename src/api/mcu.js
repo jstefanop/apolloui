@@ -99,6 +99,24 @@ async function wifiConnectMcu ({ accessToken, options }) {
   return { result, error }
 }
 
+async function wifiDisconnectMcu ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Mcu  {
+        Mcu {
+          wifiDisconnect {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Mcu.wifiDisconnect',
+    accessToken
+  })
+
+  return { result, error }
+}
+
 async function rebootMcu ({ accessToken }) {
   const { result, error } = await query({
     query: `
@@ -140,6 +158,7 @@ export default {
   fetchMcu,
   wifiScanMcu,
   wifiConnectMcu,
+  wifiDisconnectMcu,
   rebootMcu,
   shutdownMcu
 }

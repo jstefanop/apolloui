@@ -19,7 +19,7 @@ import {
   Progress
 } from 'reactstrap';
 
-import { wifiScanMcu, wifiConnectMcu } from '../../../actions/mcu';
+import { wifiScanMcu, wifiConnectMcu, wifiDisconnectMcu } from '../../../actions/mcu';
 import { percentColor } from '../../Filters';
 
 import { Loading } from '../../Loading';
@@ -50,11 +50,23 @@ class SettingsWifi extends Component {
     });
   }
 
-  handleConnect = () => {
+  handleConnect = (event) => {
     const { wifiConnectMcu } = this.props;
     this.setState({ connected: true });
 
     wifiConnectMcu({ ssid: this.state.ssid, passphrase: this.state.wifiPassword });
+
+    event.preventDefault();
+  }
+
+  handleDisconnect = () => {
+    const { wifiDisconnectMcu } = this.props;
+    this.setState({
+      ssid: null,
+      connected: false
+    });
+
+    wifiDisconnectMcu();
   }
 
   onChange = (evt) => {
@@ -64,7 +76,7 @@ class SettingsWifi extends Component {
   }
 
   render() {
-    const { loadingWifiScan, loadingWifiConnect, wifiError, wifis, address } = this.props
+    const { loadingWifiScan, loadingWifiConnect, loadingWifiDisconnect, wifiError, wifis, address } = this.props
 
     const { wifiPassword, ssid, connected } = this.state
 
@@ -76,7 +88,7 @@ class SettingsWifi extends Component {
               <Col lg="12">
                 <Card>
                   <CardHeader>
-                    <CardTitle><Trans>Wifi</Trans></CardTitle>
+                    <CardTitle><i className="fa fa-wifi mr-2"></i><Trans>Wifi</Trans></CardTitle>
                     <CardSubtitle className="text-muted"><Trans>Connect your system controller to a Wifi instead using ethernet</Trans></CardSubtitle>
                   </CardHeader>
                   <CardBody>
@@ -87,8 +99,16 @@ class SettingsWifi extends Component {
                             <h4>
                               <Button 
                                 className="float-left mr-2 text-uppercase" 
+                                color={'warning'} 
+                                size="sm"
+                                disabled={ loadingWifiDisconnect }
+                                onClick={ this.handleDisconnect }
+                              ><Trans>Disconnect</Trans></Button>
+                              <Button 
+                                className="float-left mr-2 text-uppercase" 
                                 color={'primary'} 
                                 size="sm"
+                                disabled={ loadingWifiDisconnect }
                                 onClick={ this.handleScan }
                               ><Trans>Scan</Trans></Button><Trans>Look for Wifi</Trans>
                             </h4>
@@ -98,7 +118,7 @@ class SettingsWifi extends Component {
                               </p>
                             </div>
                             { (ssid && !connected) ?
-                              <Form className="mt-4">
+                              <Form onSubmit={this.handleConnect} className="mt-4">
                                 <Row form>
                                   <Col md={12}>
                                     <FormGroup>
@@ -126,8 +146,8 @@ class SettingsWifi extends Component {
                                   <Loading />
                                   :
                                   (wifiError) ?
-                                    <Alert color="warning"><Trans>There was a problem connecting to the wifi, please doucle check the password. <b>{wifiError}</b></Trans></Alert>
-                                    : <Alert color="success"><Trans>Your controller should be connected to <b>{ ssid }</b> Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Trans></Alert>
+                                    <Alert color="warning">There was a problem connecting to the wifi, please doucle check the password. <b>{ wifiError }</b></Alert>
+                                    : <Alert color="success">Your controller should be connected to <b>{ ssid }</b> Wifi now. Try to go to <a href={'http://' + address} className="font-weight-bold">{ address }</a> before disconnecting the ethernet cable.</Alert>
                                 }
                               </div>
                             )}
@@ -139,7 +159,7 @@ class SettingsWifi extends Component {
                           <div className="clearfix">
                             <h4><i className="fa fa-wifi mr-2 initialism text-secondary"></i><Trans>Wifi networks</Trans></h4>
                           </div>
-                        { (loadingWifiScan) ?
+                        { (loadingWifiScan || loadingWifiDisconnect) ?
                           <Loading />
                           : 
                             (!wifis || !wifis.length) ?
@@ -179,7 +199,8 @@ const mapStateToProps = state => {
     loadingWifiScan: state.mcuWifiScan.loading,
     address: state.mcuWifiConnect.data,
     wifiError: state.mcuWifiConnect.error,
-    loadingWifiConnect: state.mcuWifiConnect.loading
+    loadingWifiConnect: state.mcuWifiConnect.loading,
+    loadingWifiDisconnect: state.mcuWifiDisconnect.loading
   }
 }
 
@@ -190,6 +211,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     wifiConnectMcu: ({ ssid, passphrase }) => {
       dispatch(wifiConnectMcu({ ssid, passphrase }))
+    },
+    wifiDisconnectMcu: () => {
+      dispatch(wifiDisconnectMcu())
     }
   }
 }

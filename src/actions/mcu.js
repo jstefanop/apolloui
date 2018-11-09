@@ -100,6 +100,36 @@ export function wifiConnectMcu(options) {
 	}
 }
 
+export const WIFIDISCONNECT_MCU_BEGIN = 'WIFIDISCONNECT_MCU_BEGIN';
+
+export const WIFIDISCONNECT_MCU_SUCCESS = 'WIFIDISCONNECT_MCU_SUCCESS';
+
+export const wifiDisconnectMcuBegin = data => ({
+  type: WIFIDISCONNECT_MCU_BEGIN
+});
+
+export const wifiDisconnectMcuSuccess = data => ({
+  type: WIFIDISCONNECT_MCU_SUCCESS,
+  payload: { data }
+});
+
+export function wifiDisconnectMcu(options) {
+	return async (dispatch, getState) => {
+		dispatch(wifiDisconnectMcuBegin());
+		try {
+			const { result, error } = await McuAPI.wifiDisconnectMcu({ accessToken: getState().auth.accessToken });
+
+			if (error) {
+			  dispatch(setError({ message: error.message }))
+			} else {
+			  dispatch(wifiDisconnectMcuSuccess(result))
+			}
+		} catch (error) {
+			dispatch(setError({ message: error.message }))
+		}
+	}
+}
+
 export const REBOOT_MCU_SUCCESS = 'REBOOT_MCU_SUCCESS';
 
 export const rebootMcuSuccess = data => ({

@@ -136,7 +136,7 @@ class SettingsMiner extends Component {
               <Col xl="12">
                 <Card>
                   <CardHeader>
-                    <CardTitle><Trans>Miner</Trans></CardTitle>
+                    <CardTitle><i className="fa fa-hdd mr-2"></i><Trans>Miner</Trans></CardTitle>
                     <CardSubtitle className="text-muted"><Trans>Manage miner specific configurations</Trans></CardSubtitle>
                   </CardHeader>
                   <CardBody>
@@ -237,7 +237,7 @@ class SettingsMiner extends Component {
                 <Col xl="12">
                   <Card>
                     <CardHeader>
-                      <CardTitle><Trans>Miner custom mode</Trans></CardTitle>
+                      <CardTitle><i className="fa fa-diagnoses mr-2"></i><Trans>Miner custom mode</Trans></CardTitle>
                       <CardSubtitle className="text-muted"><Trans>Personalise your miner configurations</Trans></CardSubtitle>
                     </CardHeader>
                     <CardBody>
