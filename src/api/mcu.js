@@ -16,6 +16,7 @@ async function fetchMcu ({ accessToken }) {
                 loadAverage
                 architecture
                 temperature
+                activeWifi
                 memory {
                   total
                   available

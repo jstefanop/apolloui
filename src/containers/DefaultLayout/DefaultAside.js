@@ -89,6 +89,15 @@ class DefaultAside extends Component {
                 </div>
               </div>
 
+              <div className="aside-options">
+                <div className="clearfix mt-3">
+                  <small className="text-muted"><i className="fa fa-wifi mr-2 initialism text-secondary"></i><Trans>Active wifi</Trans></small>
+                </div>
+                <div>
+                  <small className=""><b>{ mcu.stats.activeWifi || 'No active wifi' }</b></small>
+                </div>
+              </div>
+
               <hr className="mt-4>" />
 
               <SystemUtil></SystemUtil>

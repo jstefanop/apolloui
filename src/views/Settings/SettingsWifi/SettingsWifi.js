@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   Alert,
   Button,
+  Badge,
   Card,
   CardBody,
   CardHeader,
@@ -76,7 +77,7 @@ class SettingsWifi extends Component {
   }
 
   render() {
-    const { loadingWifiScan, loadingWifiConnect, loadingWifiDisconnect, wifiError, wifis, address } = this.props
+    const { loadingWifiScan, loadingWifiConnect, loadingWifiDisconnect, wifiError, wifis, address, mcu } = this.props
 
     const { wifiPassword, ssid, connected } = this.state
 
@@ -88,7 +89,9 @@ class SettingsWifi extends Component {
               <Col lg="12">
                 <Card>
                   <CardHeader>
-                    <CardTitle><i className="fa fa-wifi mr-2"></i><Trans>Wifi</Trans></CardTitle>
+                    <CardTitle>
+                      <i className="fa fa-wifi mr-2"></i><Trans>Wifi</Trans>
+                    </CardTitle>
                     <CardSubtitle className="text-muted"><Trans>Connect your system controller to a Wifi instead using ethernet</Trans></CardSubtitle>
                   </CardHeader>
                   <CardBody>
@@ -97,24 +100,27 @@ class SettingsWifi extends Component {
                         <div>
                           <div className="clearfix">
                             <h4>
-                              <Button 
-                                className="float-left mr-2 text-uppercase" 
-                                color={'warning'} 
-                                size="sm"
-                                disabled={ loadingWifiDisconnect }
-                                onClick={ this.handleDisconnect }
-                              ><Trans>Disconnect</Trans></Button>
-                              <Button 
-                                className="float-left mr-2 text-uppercase" 
-                                color={'primary'} 
-                                size="sm"
-                                disabled={ loadingWifiDisconnect }
-                                onClick={ this.handleScan }
-                              ><Trans>Scan</Trans></Button><Trans>Look for Wifi</Trans>
+                              { (mcu.stats.activeWifi) && ( <div className="d-inline mr-2"><small className="text-muted">Active wifi</small> <Badge color="success" pill>{ mcu.stats.activeWifi }</Badge></div>) }
+                              <div className="d-inline">
+                                <Button 
+                                  className="float-left mr-2 text-uppercase" 
+                                  color={'warning'} 
+                                  size="sm"
+                                  disabled={ loadingWifiDisconnect }
+                                  onClick={ this.handleDisconnect }
+                                ><Trans>Disconnect</Trans></Button>
+                                <Button 
+                                  className="float-left mr-2 text-uppercase" 
+                                  color={'primary'} 
+                                  size="sm"
+                                  disabled={ loadingWifiDisconnect }
+                                  onClick={ this.handleScan }
+                                ><Trans>Scan</Trans></Button>
+                              </div>
                             </h4>
                             <div className="mt-1">
                               <p className="text-muted ">
-                                <Trans>Clicking the button your system will scan for available wifi networks. Be aware that connecting to a Wifi network you will need to connect to the new Wifi IP address you have to find in your LAN.</Trans>
+                                <Trans>Clicking the button your system will scan for available wifi networks. Clicking one of the available ssid will require to input the passphrase. Clicking the disconnect button will delete every wifi connections, if you are in trouble try to click disconnect before trying anything else.</Trans>
                               </p>
                             </div>
                             { (ssid && !connected) ?
@@ -200,7 +206,8 @@ const mapStateToProps = state => {
     address: state.mcuWifiConnect.data,
     wifiError: state.mcuWifiConnect.error,
     loadingWifiConnect: state.mcuWifiConnect.loading,
-    loadingWifiDisconnect: state.mcuWifiDisconnect.loading
+    loadingWifiDisconnect: state.mcuWifiDisconnect.loading,
+    mcu: state.mcuStats.data
   }
 }
 
