@@ -41,7 +41,6 @@ class Settings extends Component {
   }
 
   onChange({ name, value }) {
-    console.log(name, value)
     this.setState(state => ({
       settings: {
         ...state.settings,
