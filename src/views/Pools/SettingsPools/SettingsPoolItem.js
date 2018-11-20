@@ -68,7 +68,7 @@ export default function (props) {
             <FormGroup>
               <Button size="lg" className="btn-default" style={{ marginTop: '29px', marginRight: '5px' }} onClick={onMoveUp}><i className="fa fa-arrow-up" /></Button>
               <Button size="lg" className="btn-default" style={{ marginTop: '29px', marginRight: '5px' }} onClick={onMoveDown}><i className="fa fa-arrow-down" /></Button>
-              <Button size="lg" className="btn-danger" style={{ marginTop: '29px' }} onClick={onDelete}><i className="fa fa-times" /></Button>
+              <Button size="lg" className="btn-danger" style={{ marginTop: '29px' }} disabled={donation ? true : false} onClick={onDelete}><i className="fa fa-times" /></Button>
             </FormGroup>
           </Col>
         </Row>
