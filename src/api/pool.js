@@ -12,6 +12,7 @@ async function createPool(input, { accessToken }) {
               pool {
                 id
                 enabled
+                donation
                 url
                 username
                 password
@@ -44,6 +45,7 @@ async function fetchPools({ accessToken }) {
               pools {
                 id
                 enabled
+                donation
                 url
                 username
                 password
@@ -73,6 +75,7 @@ async function updatePools({ pools, accessToken }) {
               pools {
                 id
                 enabled
+                donation
                 url
                 username
                 password

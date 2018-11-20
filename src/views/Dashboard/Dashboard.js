@@ -13,7 +13,7 @@ import moment from 'moment';
 
 import { LoadingErrorBox } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
-import { displayHashrate, minerModeIcon } from '../Filters';
+import { displayHashrate, minerModeIcon, tempColor } from '../Filters';
 import PoolsTable from '../Pools/PoolsTable';
 
 import { Trans } from '@lingui/macro';
@@ -75,7 +75,7 @@ class Dashboard extends Component {
           bg="bg-0"
           title="It seems there is a problem to communicate with the miner, check error message."
           centerTitle={true}
-          subtitle="If problem persists, try to restart the miner, check the settings or try to reboot the system."
+          subtitle="Wait at least 1 minute, if problem persists, try to restart the miner, check the settings or try to reboot the system."
           error={ minerError }
           centerSubtitle={true}
           icon="fa-exclamation-circle animated bounce"
@@ -110,12 +110,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-info" 
                 icon="fa fa-thermometer-half" 
-                value={ miner.stats.summary.data.temperature || 0 + ' C°' }
+                value={ (mcu.stats.minerTemperature || 0) + '°C' }
                 title="Miner temperature"
-                progressColor="success"
-                progressValue={ miner.stats.summary.data.temperature }
+                progressColor={ tempColor(mcu.stats.minerTemperature) }
+                progressValue={ mcu.stats.minerTemperature || 0 }
                 secondaryTitle="MCU temperature"
-                secondaryValue={ (Number(mcu.stats.temperature) / 1000).toFixed(2) + ' C°' }
+                secondaryValue={ (Number(mcu.stats.temperature) / 1000).toFixed(2) + '°C' }
               ></DashboardWidget>
             </Col>
 
@@ -213,7 +213,12 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-bolt text-gray"></i></div>
-                  <div className="h4 m-0">{ settings.voltage || 0 }V</div>
+                  <div className="h4 m-0">
+                    { (settings.minerMode === 'custom') ?
+                      <span>{settings.voltage || 0 }<small className="textmuted">V</small></span>
+                      : <span>Auto</span>
+                    }
+                  </div>
                   <div><Trans>Miner voltage</Trans></div>
                 </CardBody>
               </Card>
@@ -223,7 +228,12 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-broadcast-tower text-gray"></i></div>
-                  <div className="h4 m-0">{ settings.frequency || 0 }MHz</div>
+                  <div className="h4 m-0">
+                    { (settings.minerMode === 'custom') ?
+                      <span>{settings.frequency || 0 }<small className="textmuted">MHz</small></span>
+                      : <span>Auto</span>
+                    }
+                  </div>
                   <div><Trans>Miner frequency</Trans></div>
                 </CardBody>
               </Card>
@@ -233,7 +243,7 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-wind text-gray"></i></div>
-                  <div className="h4 m-0">{ (settings.fan > -1) ? settings.fan + '%' : 'Auto' }</div>
+                  <div className="h4 m-0">{ mcu.stats.minerFanSpeed }<small className="textmuted">Rpm</small></div>
                   <div><Trans>Fan speed</Trans></div>
                 </CardBody>
               </Card>

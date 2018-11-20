@@ -14,6 +14,8 @@ const initialState = {
 			loadAverage: null,
 			architecture: null,
 			temperature: null,
+      minerTemperature: null,
+      minerFanSpeed: null,
 			memory: {
 				total: 0,
 				available: 0,

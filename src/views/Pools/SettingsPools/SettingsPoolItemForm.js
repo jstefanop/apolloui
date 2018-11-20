@@ -14,6 +14,7 @@ import { I18n } from '@lingui/react';
 
 const cleanState = {
   enabled: true,
+  donation: 0,
   username: '',
   password: '',
   url: '',
@@ -50,6 +51,7 @@ class SettingsPoolItemForm extends Component {
   handleAdd() {
     const {
       enabled,
+      donation,
       url,
       username,
       password,
@@ -96,7 +98,7 @@ class SettingsPoolItemForm extends Component {
     }
 
     onAdd({
-      enabled, url, username, password, proxy,
+      enabled, donation, url, username, password, proxy,
     });
 
     this.setState({
@@ -107,6 +109,7 @@ class SettingsPoolItemForm extends Component {
   render() {
     const {
       enabled,
+      donation,
       username,
       password,
       url,
@@ -127,7 +130,7 @@ class SettingsPoolItemForm extends Component {
             </Col>
             <Col md={3}>
               <FormGroup>
-                <Label for="poolUrl"><Trans>Pool Url</Trans></Label>
+                <Label for="poolUrl"><Trans>Url</Trans></Label>
                 <Input
                   type="text"
                   name="url"
@@ -144,7 +147,7 @@ class SettingsPoolItemForm extends Component {
             </Col>
             <Col md={3}>
               <FormGroup>
-                <Label for="poolUsername"><Trans>Pool Username</Trans></Label>
+                <Label for="poolUsername"><Trans>Username</Trans></Label>
                 <Input
                   type="text"
                   name="username"
@@ -161,7 +164,7 @@ class SettingsPoolItemForm extends Component {
             </Col>
             <Col md={1}>
               <FormGroup>
-                <Label for="poolPassword"><Trans>Pool Password</Trans></Label>
+                <Label for="poolPassword"><Trans>Password</Trans></Label>
                 <Input
                   type="text"
                   name="password"
@@ -178,7 +181,7 @@ class SettingsPoolItemForm extends Component {
             </Col>
             <Col md={2}>
               <FormGroup>
-                <Label for="poolProxy"><Trans>Pool Proxy</Trans></Label>
+                <Label for="poolProxy"><Trans>Proxy</Trans></Label>
                 <Input
                   type="text"
                   name="proxy"

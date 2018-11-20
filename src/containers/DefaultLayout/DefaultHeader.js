@@ -20,7 +20,7 @@ class DefaultHeader extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { loadingMiner, miner, loadingOnline, minerCheck, children, ...attributes } = this.props;
+    const { loadingMiner, miner, mcu, loadingOnline, minerCheck, children, ...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -39,7 +39,7 @@ class DefaultHeader extends Component {
             <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? displayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? miner.stats.summary.data.temperature || 0 + ' C°' : '...' }</span>
+            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? (mcu.stats.minerTemperature || 0) + '°C' : '...' }</span>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
@@ -56,6 +56,7 @@ DefaultHeader.defaultProps = defaultProps;
 
 const mapStateToProps = state => {
   return {
+    mcu: state.mcuStats.data,
     loadingMiner: state.minerStats.loading,
     miner: state.minerStats.data,
     loadingOnline: state.minerOnline.loading,

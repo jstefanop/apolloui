@@ -51,9 +51,17 @@ export function percentColor (percent, inverse = false) {
 	else if (percent >= 75) return 'danger'
 };
 
+export function tempColor (value) {
+	if (value && value < 60) return 'primary'
+	else if (value >= 60 && value < 75) return 'success'
+	else if (value >= 75 && value < 85) return 'warning'
+	else if (value >= 85) return 'danger'
+};
+
 export function minerModeIcon (mode) {
 	switch (mode) {
 		case 'eco': return 'fa-leaf';
+		case 'balanced': return 'fa-balance-scale';
 		case 'turbo': return 'fa-rocket';
 		case 'custom': return 'fa-diagnoses';
 		default: return 'fa-leaf';

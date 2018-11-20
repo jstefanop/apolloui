@@ -20,9 +20,7 @@ import { saveSettings, saveSettingsAndRestartMiner } from '../../actions/setting
 
 const restartFields = [
   'minerMode',
-  'voltage',
-  'frequency',
-  'fan',
+  'frequency'
 ];
 
 class Settings extends Component {
@@ -43,6 +41,7 @@ class Settings extends Component {
   }
 
   onChange({ name, value }) {
+    console.log(name, value)
     this.setState(state => ({
       settings: {
         ...state.settings,
@@ -72,6 +71,7 @@ class Settings extends Component {
         voltage,
         frequency,
         fan,
+        customApproval,
         leftSidebarVisibility,
         leftSidebarExtended,
         rightSidebarVisibility,
@@ -121,7 +121,7 @@ class Settings extends Component {
         { /* Miner conf */ }
         <SettingsMiner
           {...{
-            minerMode, voltage, frequency, fan,
+            minerMode, voltage, frequency, fan, customApproval
           }}
           onChange={this.onChange}
         />

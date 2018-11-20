@@ -275,12 +275,6 @@ class SettingsGeneral extends Component {
                               <div className="mt-1 small text-muted"><Trans>Restore all configurations from a backup file</Trans></div>
                             </div>
                           </ListGroupItem>
-                          <ListGroupItem>
-                            <div className="">
-                              <Button className="mr-2 text-uppercase" color="danger" size="sm"><Trans>Reset</Trans></Button>
-                              <div className="mt-1 small text-muted"><Trans>Reset all configurations to factory default</Trans></div>
-                            </div>
-                          </ListGroupItem>
                         </ListGroup>
                       </Col>
                     </Row>

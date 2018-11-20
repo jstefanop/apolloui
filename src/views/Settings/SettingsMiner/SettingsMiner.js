@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppSwitch } from '@coreui/react';
 import {
+  Badge,
   Card,
   CardBody,
   CardHeader,
@@ -23,57 +24,27 @@ class SettingsMiner extends Component {
 
     this.marks = {
       frequency: {
-        min: 384,
-        max: 954,
+        min: 299,
+        max: 858,
+        step: 13,
         data: {
-          384: 'Min',
-          450: '',
-          480: '',
-          540: '',
-          600: '',
-          612: '',
-          625: '',
-          636: '',
-          648: '',
-          700: '',
-          720: '',
-          744: '',
-          756: '',
-          768: '',
-          796: '',
-          832: '',
-          852: '',
-          876: '',
-          900: '',
-          924: '',
-          954: 'Max'
+          299: 'Min',
+          439: '439MHz',
+          579: '579MHz',
+          719: '719MHz',
+          858: 'Max'
         }
       },
       voltage: {
-        min: 384,
-        max: 954,
+        min: 644,
+        max: 911,
+        step: 4.15,
         data: {
-          384: 'Min',
-          450: '',
-          480: '',
-          540: '',
-          600: '',
-          612: '',
-          625: '',
-          636: '',
-          648: '',
-          700: '',
-          720: '',
-          744: '',
-          756: '',
-          768: '',
-          796: '',
-          832: '',
-          852: '',
-          876: '',
-          900: '',
-          924: '',
-          954: 'Max'
+          644: 'Min',
+          710.75: '710.75V',
+          777.5: '777.5V',
+          845.25: '845.25V',
+          911: 'Max'
         }
       },
       fan: {
@@ -81,22 +52,16 @@ class SettingsMiner extends Component {
         max: 100,
         data: {
           0: 'Min',
-          10: '',
-          20: '',
-          30: '',
-          40: '',
+          25: '25%',
           50: '50%',
-          60: '',
-          70: '',
-          80: '',
-          90: '',
+          75: '75%',
           100: 'Max'
         }
       }
     };
 
-    this.slider = {
-
+    this.state = {
+      autoFan: props.fan === 0 ? true : false
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -115,7 +80,12 @@ class SettingsMiner extends Component {
       fan,
       onChange,
     } = this.props;
-    onChange({ name: 'fan', value: fan === -1 ? 0 : -1 });
+
+    this.setState({
+      autoFan: !this.state.autoFan
+    });
+
+    onChange({ name: 'fan', value: (this.state.autoFan) ? 50 : 0 });
   }
 
   render() {
@@ -123,6 +93,7 @@ class SettingsMiner extends Component {
       minerMode,
       voltage,
       fan,
+      customApproval,
       frequency,
       onChange,
     } = this.props;
@@ -149,7 +120,7 @@ class SettingsMiner extends Component {
                                 className="float-left mr-2"
                                 variant="pill"
                                 label
-                                color="primary"
+                                color="success"
                                 checked={minerMode === 'eco'}
                                 size=""
                                 onChange={() => this.onSelect('eco')}
@@ -157,7 +128,7 @@ class SettingsMiner extends Component {
                               />
                               <h4>
                                 <i className="fa fa-leaf mr-2 initialism text-secondary" />
-                                <Trans>ECO mode</Trans>
+                                <Trans>ECO</Trans>
                               </h4>
                             </div>
                             <div>
@@ -165,7 +136,7 @@ class SettingsMiner extends Component {
                                 { 
                                 // eslint-disable-next-line 
                                 }
-                                <Trans>In ECO mode your miner will consume less power (about <b>1.0W/MHs</b>) but its hashrate will be slower. This mode is recommende if you want have less noise and less possible to overheat your miner.</Trans>
+                                <Trans>In ECO mode your miner will consume less power (about <b>1.0W/MHs</b>) but its hashrate will be slower.</Trans>
                               </p>
                             </div>
                           </div>
@@ -177,15 +148,15 @@ class SettingsMiner extends Component {
                                 className="float-left mr-2"
                                 variant="pill"
                                 label
-                                color="success"
-                                checked={minerMode === 'turbo'}
+                                color="primary"
+                                checked={minerMode === 'balanced'}
                                 size=""
-                                onChange={() => this.onSelect('turbo')}
-                                disabled={minerMode === 'turbo'}
+                                onChange={() => this.onSelect('balanced')}
+                                disabled={minerMode === 'balanced'}
                               />
                               <h4>
-                                <i className="fa fa-rocket mr-2 initialism text-secondary" />
-                                <Trans>TURBO mode</Trans>
+                                <i className="fa fa-balance-scale mr-2 initialism text-secondary" />
+                                <Trans>BALANCED</Trans>
                               </h4>
                             </div>
                             <div>
@@ -193,7 +164,7 @@ class SettingsMiner extends Component {
                                 { 
                                 // eslint-disable-next-line 
                                 }
-                                <Trans>In Turbo mode your miner will consume more power (about <b>1.4W/MHs</b>) and so its hashrate will be faster. This mode is good to gain the maximum profit but you need to take care of possible overheat.</Trans>
+                                <Trans>In BALANCED mode your miner will consume a bit more power (about <b>1.2W/MHs</b>) and its hashrate will be a bit faster.</Trans>
                               </p>
                             </div>
                           </div>
@@ -206,19 +177,22 @@ class SettingsMiner extends Component {
                                 variant="pill"
                                 label
                                 color="warning"
-                                checked={minerMode === 'custom'}
+                                checked={minerMode === 'turbo'}
                                 size=""
-                                onChange={() => this.onSelect('custom')}
-                                disabled={minerMode === 'custom'}
+                                onChange={() => this.onSelect('turbo')}
+                                disabled={minerMode === 'turbo'}
                               />
                               <h4>
-                                <i className="fa fa-diagnoses mr-2 initialism text-secondary" />
-                                <Trans>Custom mode</Trans>
+                                <i className="fa fa-rocket mr-2 initialism text-secondary" />
+                                <Trans>TURBO</Trans>
                               </h4>
                             </div>
                             <div>
                               <p className="text-muted ">
-                                <Trans>In custom mode you can control frequency and voltage of your miner for your specific needs. This mode is for expert users and is not recommended if you don't know what you are doing. You could harm your miner.</Trans>
+                                { 
+                                // eslint-disable-next-line 
+                                }
+                                <Trans>In Turbo mode your miner will consume more power (about <b>1.4W/MHs</b>) and so its hashrate will be faster.</Trans>
                               </p>
                             </div>
                           </div>
@@ -229,115 +203,139 @@ class SettingsMiner extends Component {
                 </Card>
               </Col>
             </Row>
+            
+            <Row>
+              <Col xl="12">
+                <Card>
+                  <CardHeader>
+                    <AppSwitch
+                      className="float-left mr-2"
+                      variant="pill"
+                      label
+                      color="danger"
+                      checked={minerMode === 'custom'}
+                      size=""
+                      onChange={() => this.onSelect('custom')}
+                      disabled={minerMode === 'custom'}
+                    />
+                    <CardTitle><i className="fa fa-diagnoses mr-2"></i><Trans>Miner custom mode</Trans></CardTitle>
+                    <CardSubtitle className="text-muted"><Trans>DANGER zone!</Trans></CardSubtitle>
+                  </CardHeader>
+                  <CardBody>
+                    <div className="lead">
+                      <p className="text-muted ">
+                        <Trans>The Apollo comes with tuned preset values (look above) which offer a good range of operating modes, by selecting custom you risk damaging your device and FutureBit will not be responsible for any or all damage caused by over-clocking or over-volting</Trans>
+                      </p>
+                    </div>
+                    {
+                    minerMode === 'custom'
+                    && (
+                    <Form>
+                      <Row form>
+                        <Col lg={12} xl={6}>
+                          <div>
+                            <div className="clearfix">
+                              <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">V</span></b></h4>
+                            </div>
+                            <div>
+                              <p className="text-muted ">
+                                { 
+                                // eslint-disable-next-line 
+                                }
+                                <Trans>You can set your miner custom voltage or <a href="">reset</a> to default value.</Trans>
+                              </p>
+                              <Card className="border-0">
+                                <CardBody>
+                                  <Slider
+                                    min={this.marks.voltage.min}
+                                    max={this.marks.voltage.max}
+                                    marks={this.marks.voltage.data}
+                                    step={this.marks.voltage.step}
+                                    value={voltage}
+                                    onChange={val => onChange({ value: val, name: 'voltage' })}
+                                  />
+                                </CardBody>
+                              </Card>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col lg={12} xl={6}>
+                          <div>
+                            <div className="clearfix">
+                              <h4><Trans>Frequency</Trans> <b>{frequency}<span className="small">MHz</span></b></h4>
+                            </div>
+                            <div>
+                              <p className="text-muted ">
+                                { 
+                                // eslint-disable-next-line 
+                                }
+                                <Trans>You can set your miner custom frequency or <a href="">reset</a> to default value.</Trans>
+                              </p>
+                              <Card className="border-0">
+                                <CardBody>
+                                  <Slider
+                                    min={this.marks.frequency.min}
+                                    max={this.marks.frequency.max}
+                                    marks={this.marks.frequency.data}
+                                    step={this.marks.frequency.step}
+                                    value={frequency}
+                                    onChange={val => onChange({ value: val, name: 'frequency' })}
+                                  />
+                                </CardBody>
+                              </Card>
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Form>
+                    )
+                  }
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
 
-            {
-              minerMode === 'custom'
-              && (
-              <Row>
-                <Col xl="12">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle><i className="fa fa-diagnoses mr-2"></i><Trans>Miner custom mode</Trans></CardTitle>
-                      <CardSubtitle className="text-muted"><Trans>Personalise your miner configurations</Trans></CardSubtitle>
-                    </CardHeader>
-                    <CardBody>
-                      <Form>
-                        <Row form>
-                          <Col lg={12} xl={4}>
-                            <div>
-                              <div className="clearfix">
-                                <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">V</span></b></h4>
-                              </div>
-                              <div>
-                                <p className="text-muted ">
-                                  { 
-                                  // eslint-disable-next-line 
-                                  }
-                                  <Trans>You can set your miner custom voltage or <a href="">reset</a> to default value.</Trans>
-                                </p>
-                                <Card className="border-0">
-                                  <CardBody>
-                                    <Slider
-                                      min={this.marks.voltage.min}
-                                      max={this.marks.voltage.max}
-                                      marks={this.marks.voltage.data}
-                                      step={null}
-                                      value={voltage}
-                                      onChange={val => onChange({ value: val, name: 'voltage' })}
-                                    />
-                                  </CardBody>
-                                </Card>
-                              </div>
+            <Row>
+              <Col xl="12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle><i className="fa fa-wind mr-2"></i><Trans>Miner fan speed</Trans></CardTitle>
+                    <CardSubtitle className="text-muted"><Trans>Adjust the fan speed or set it automatic</Trans></CardSubtitle>
+                  </CardHeader>
+                  <CardBody>
+                    <Form>
+                      <Row form>
+                        <Col lg={12} xl={6}>
+                          <div>
+                            <div className="clearfix">
+                              <h4>Fan { (fan) ? <span>at <b>{fan}<span className="small">%</span></b></span> : <Badge size="sm" color="success">Auto</Badge> }</h4>
                             </div>
-                          </Col>
-                          <Col lg={12} xl={4}>
                             <div>
-                              <div className="clearfix">
-                                <h4><Trans>Frequency</Trans> <b>{frequency}<span className="small">MHz</span></b></h4>
-                              </div>
-                              <div>
-                                <p className="text-muted ">
-                                  { 
-                                  // eslint-disable-next-line 
-                                  }
-                                  <Trans>You can set your miner custom frequency or <a href="">reset</a> to default value.</Trans>
-                                </p>
-                                <Card className="border-0">
-                                  <CardBody>
-                                    <Slider
-                                      min={this.marks.frequency.min}
-                                      max={this.marks.frequency.max}
-                                      marks={this.marks.frequency.data}
-                                      step={null}
-                                      value={frequency}
-                                      onChange={val => onChange({ value: val, name: 'frequency' })}
-                                    />
-                                  </CardBody>
-                                </Card>
-                              </div>
+                              <p className="text-muted ">
+                                <Trans>Put the slider to the minimum to set automatic fan speed, or choose yours.</Trans>
+                              </p>
+                              <Card className="border-0">
+                                <CardBody>
+                                  <Slider
+                                    min={this.marks.fan.min}
+                                    max={this.marks.fan.max}
+                                    step={5}
+                                    marks={this.marks.fan.data}
+                                    disabled={this.state.autoFan}
+                                    value={fan}
+                                    onChange={val => onChange({ value: val, name: 'fan' })}
+                                  />
+                                </CardBody>
+                              </Card>
                             </div>
-                          </Col>
-                          <Col lg={12} xl={4}>
-                            <div>
-                              <div className="clearfix">
-                                <AppSwitch
-                                  className="float-left mr-2"
-                                  variant="pill"
-                                  label
-                                  color="success"
-                                  checked={fan === -1}
-                                  onChange={this.autoFanSwitchChange}
-                                />
-                                <h4><Trans>Auto adjust fan</Trans> { (fan > -1) ? <b>{fan}<span className="small">%</span></b> : null }</h4>
-                              </div>
-                              <div>
-                                <p className="text-muted ">
-                                  <Trans>Keep fan speed at auto mode or turn of it to manually set the fan speed.</Trans>
-                                </p>
-                                <Card className="border-0">
-                                  <CardBody>
-                                    <Slider
-                                      min={this.marks.fan.min}
-                                      max={this.marks.fan.max}
-                                      step={10}
-                                      marks={this.marks.fan.data}
-                                      disabled={fan === -1}
-                                      value={fan !== -1 ? fan : 0}
-                                      onChange={val => onChange({ value: val, name: 'fan' })}
-                                    />
-                                  </CardBody>
-                                </Card>
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
-                      </Form>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-              )
-            }
+                          </div>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
           </div>
         )}
       </I18n>

@@ -16,6 +16,7 @@ export default function (props) {
   const {
     pool: {
       enabled,
+      donation,
       url,
       username,
       password,
@@ -41,26 +42,26 @@ export default function (props) {
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label for="poolUrl"><Trans>Pool Url</Trans></Label>
+              <Label for="poolUrl"><Trans>Url</Trans></Label>
               <Input type="text" name="poolUrl" id="poolUrl" bsSize="lg" disabled={disabled} value={url} />
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label for="poolUsername"><Trans>Pool Username</Trans></Label>
+              <Label for="poolUsername"><Trans>Username</Trans></Label>
               <Input type="text" name="poolUsername" id="poolUsername" bsSize="lg" disabled={disabled} value={username} />
             </FormGroup>
           </Col>
           <Col md={1}>
             <FormGroup>
-              <Label for="poolUsername"><Trans>Pool Password</Trans></Label>
-              <Input type="text" name="poolPassword" id="poolPassword" bsSize="lg" disabled={disabled} value={password} />
+              <Label for="poolUsername"><Trans>Password</Trans></Label>
+              <Input type="text" name="poolPassword" id="poolPassword" bsSize="lg" disabled={disabled} value={password || ''} />
             </FormGroup>
           </Col>
           <Col md={2}>
             <FormGroup>
-              <Label for="poolProxy"><Trans>Pool Proxy</Trans></Label>
-              <Input type="text" name="poolProxy" id="poolProxy" bsSize="lg" disabled={disabled} value={proxy} />
+              <Label for="poolProxy"><Trans>Proxy</Trans></Label>
+              <Input type="text" name="poolProxy" id="poolProxy" bsSize="lg" disabled={disabled} value={proxy || ''} />
             </FormGroup>
           </Col>
           <Col md={2}>

@@ -121,13 +121,6 @@ class ModalsSetup extends Component {
     saveSetup({ password, poolSetup });
   }
 
-  // TODO
-  /*
-    * Modal setup cannot be closed without clicking Save button
-    * Pool config can be skipped
-    * Password is required
-  */
-
   render() {
     const {
       password,
@@ -162,17 +155,8 @@ class ModalsSetup extends Component {
                   </h5>
                   <div className="small text-muted">
                     <Trans>
-You can create an account on
-                      {' '}
-                      <a href="https://www.litecoinpool.org" rel="noopener noreferrer" target="_blank">Litecoinpool.org</a>
-                      {' '}
-and use
-                      {' '}
-                      <code>stratum+tcp://litecoinpool.org:3333</code>
-                      {' '}
-as pool url or you can use any other pool compatible with Scrypt algorithm.
+                      You can create an account on <a href="https://www.litecoinpool.org" rel="noopener noreferrer" target="_blank">Litecoinpool.org</a> and use <code>stratum+tcp://litecoinpool.org:3333</code> as pool url or you can use any other pool compatible with Scrypt algorithm.
                     </Trans>
-
                   </div>
                   <CardBody>
                     <Form>
@@ -229,12 +213,8 @@ as pool url or you can use any other pool compatible with Scrypt algorithm.
                   </h5>
                   <div className="small text-muted">
                     <Trans>
-                      <span className="text-danger">* Required</span>
-                      {' '}
-Please set a password for this dashboard, so only user having the password
-want manage your miner or look at statistics.
+                      <span className="text-danger">* Required</span> Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.
                     </Trans>
-
                   </div>
                   <CardBody>
                     <Form>
@@ -243,7 +223,7 @@ want manage your miner or look at statistics.
                           <FormGroup className="mb-0">
                             <Label for="password"><Trans>Password</Trans></Label>
                             <Input type="password" name="password" id="password" placeholder="" bsSize="lg" value={password} onChange={this.onChange} />
-                            <span className="text-danger">
+                            <span className="text-danger small">
                               {passwordError}
                             </span>
                           </FormGroup>
@@ -252,7 +232,7 @@ want manage your miner or look at statistics.
                           <FormGroup className="mb-0">
                             <Label for="repeatPassword"><Trans>Repeat password</Trans></Label>
                             <Input type="password" name="repeatPassword" id="repeatPassword" placeholder="" bsSize="lg" value={repeatPassword} onChange={this.onChange} />
-                            <span className="text-danger">
+                            <span className="text-danger small">
                               {repeatPasswordError}
                             </span>
                           </FormGroup>

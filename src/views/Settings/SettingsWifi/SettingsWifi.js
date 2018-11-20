@@ -101,7 +101,7 @@ class SettingsWifi extends Component {
                           <div className="clearfix">
                             <h4>
                               { (mcu.stats.activeWifi) && ( <div className="d-inline mr-2"><small className="text-muted">Active wifi</small> <Badge color="success" pill>{ mcu.stats.activeWifi }</Badge></div>) }
-                              <div className="d-inline">
+                              <div className={ mcu.stats.activeWifi ? 'd-inline' : 'd-inline-block'}>
                                 <Button 
                                   className="float-left mr-2 text-uppercase" 
                                   color={'warning'} 
