@@ -35,7 +35,7 @@ class Dashboard extends Component {
     const minerUptime = moment().to(moment().subtract(miner.stats.summary.data.elapsed, 'seconds'), true);
 
     // Active pool
-    const mainPool = _.find(miner.stats.pools.data, { stratumActive: true });
+    const mainPool = _.find(miner.stats.pools.data, function(o) { return o.lastShareTime > 0 && o.stratumActive === true; });
 
     // Last share
     let lastShare = 'Not available',

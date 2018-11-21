@@ -16,6 +16,7 @@ class PoolsTable extends Component {
 
   render() {
     const { pools, utility } = this.props;
+    const mainHashrate = (utility * 71582788);
 
     pools.data = _.sortBy(pools.data, 'priority');
 
@@ -39,13 +40,18 @@ class PoolsTable extends Component {
               </tr>
             </thead>
             <tbody className="bg-white">
-              { pools.data.map(function(pool, index){
+              { pools.data.map(function(pool, index) {
                 return <tr key={index}>
                     <td>
                       <div className="font-weight-bold text-muted">{ pool.url }</div>
                     </td>
                     <td className="">
-                      <h5 className="mb-0"><Badge color={ !pool.priority ? 'primary' : 'light' }>{ !pool.priority ? 'Main' : 'Failover' }</Badge></h5>
+                      <h5 className="mb-0">
+                        { (pool.user === 'jstefanop.a2') ?
+                          <Badge color="warning">Donation</Badge>
+                        :
+                          <Badge color={ !pool.priority ? 'primary' : 'light' }>{ !pool.priority ? 'Main' : 'Failover' }</Badge> }
+                      </h5>
                     </td>
                     <td className="">
                       <h5 className="mb-0"><Badge color={ pool.stratumActive ? 'success' : 'light' }>{ pool.stratumActive ? 'Active' : 'Inactive' }</Badge></h5>
@@ -56,7 +62,7 @@ class PoolsTable extends Component {
                     <td className="text-center">
                     { (pool.stratumActive) ? 
                       <h6 className="mb-0 font-weight-bold">
-                        <i className="fa fa-fire text-secondary"></i> { displayHashrate(utility * 71582788, 'h') }
+                        <i className="fa fa-fire text-secondary"></i> { (pool.quota > 0) ? displayHashrate((mainHashrate * pool.quota / 100), 'h') : displayHashrate(mainHashrate, 'h') }
                       </h6>
                       :
                       <span>Not active</span>
