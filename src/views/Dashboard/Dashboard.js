@@ -25,8 +25,8 @@ class Dashboard extends Component {
 
     // Miner shares
     const minerTotalShares = (miner.stats.summary.data.hardwareErrors + miner.stats.summary.data.accepted + miner.stats.summary.data.rejected);
-    const minerpercentageRejected = parseFloat(Math.round(miner.stats.summary.data.rejected * 100 / minerTotalShares * 100) / 100);
-    const minerpercentageError = parseFloat(Math.round(miner.stats.summary.data.hardwareErrors * 100 / minerTotalShares * 100) / 100);
+    const minerpercentageRejected = parseFloat(Math.round(miner.stats.summary.data.rejected * 100 / minerTotalShares * 100) / 100) || 0;
+    const minerpercentageError = parseFloat(Math.round(miner.stats.summary.data.hardwareErrors * 100 / minerTotalShares * 100) / 100) || 0;
     let errorsColor = 'success';
     if (minerpercentageError >= 10 && minerpercentageError <= 20) errorsColor = 'warning';
     else if (minerpercentageError > 20) errorsColor = 'danger';
