@@ -321,7 +321,6 @@ class SettingsMiner extends Component {
                                     max={this.marks.fan.max}
                                     step={5}
                                     marks={this.marks.fan.data}
-                                    disabled={this.state.autoFan}
                                     value={fan}
                                     onChange={val => onChange({ value: val, name: 'fan' })}
                                   />
