@@ -47,7 +47,7 @@ class PoolsTable extends Component {
                     </td>
                     <td className="">
                       <h5 className="mb-0">
-                        { (pool.user === 'jstefanop.a2') ?
+                        { (pool.user === 'jstefanop.a1') ?
                           <Badge color="warning">Donation</Badge>
                         :
                           <Badge color={ !pool.priority ? 'primary' : 'light' }>{ !pool.priority ? 'Main' : 'Failover' }</Badge> }
