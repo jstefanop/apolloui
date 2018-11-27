@@ -8,7 +8,7 @@ import logo from '../../assets/img/brand/logo.png'
 import sygnet from '../../assets/img/brand/favicon.png'
 import packageJson from '../../../package.json';
 
-import { displayHashrate } from '../../views/Filters';
+import { convertTemp, displayHashrate } from '../../views/Filters';
 
 const propTypes = {
   children: PropTypes.node,
@@ -21,7 +21,7 @@ class DefaultHeader extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { loadingMiner, miner, mcu, loadingOnline, minerCheck, children, ...attributes } = this.props;
+    const { settings, loadingMiner, miner, mcu, loadingOnline, minerCheck, children, ...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -40,7 +40,7 @@ class DefaultHeader extends Component {
             <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? displayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? (mcu.stats.minerTemperature || 0) + '°C' : '...' }</span>
+            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit, true) : '...' }</span>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
@@ -65,6 +65,7 @@ const mapStateToProps = state => {
     miner: state.minerStats.data,
     loadingOnline: state.minerOnline.loading,
     minerCheck: state.minerOnline.data,
+    settings: state.settings
   }
 }
 

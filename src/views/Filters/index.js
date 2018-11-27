@@ -67,3 +67,10 @@ export function minerModeIcon (mode) {
 		default: return 'fa-leaf';
 	}
 };
+
+export function convertTemp (celsius, unit, addUnit) {
+	let temp = celsius || 0;
+	if (unit === 'f') temp = temp * 9 / 5 + 32;
+	if (addUnit) return temp.toFixed(2) + '°' + unit.toUpperCase();
+	return parseFloat(temp.toFixed(2));
+}

@@ -13,7 +13,7 @@ import moment from 'moment';
 
 import { LoadingErrorBox } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
-import { displayHashrate, minerModeIcon, tempColor } from '../Filters';
+import { convertTemp, displayHashrate, minerModeIcon, tempColor } from '../Filters';
 import PoolsTable from '../Pools/PoolsTable';
 
 import { Trans } from '@lingui/macro';
@@ -110,12 +110,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-info" 
                 icon="fa fa-thermometer-half" 
-                value={ (mcu.stats.minerTemperature || 0) + '°C' }
+                value={ convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit, true) }
                 title="Miner temperature"
-                progressColor={ tempColor(mcu.stats.minerTemperature) }
-                progressValue={ mcu.stats.minerTemperature || 0 }
+                progressColor={ tempColor(convertTemp(mcu.stats.minerTemperature, 'c')) }
+                progressValue={ convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit) }
                 secondaryTitle="MCU temperature"
-                secondaryValue={ (Number(mcu.stats.temperature) / 1000).toFixed(2) + '°C' }
+                secondaryValue={ convertTemp((Number(mcu.stats.temperature) / 1000), settings.temperatureUnit, true) }
               ></DashboardWidget>
             </Col>
 
