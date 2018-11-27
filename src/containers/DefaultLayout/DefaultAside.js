@@ -116,7 +116,7 @@ class DefaultAside extends Component {
               { mcu.stats.network.map((network, idx) => {
                 return <div className="aside-options" key={ idx }>
                     <div className="clearfix mt-4">
-                      <small className="text-muted"><i className="fa fa-stream mr-2 initialism text-secondary"></i><Trans>{ network.name }</Trans></small>
+                      <small className="text-muted"><i className="fa fa-stream mr-2 initialism text-secondary"></i>{ network.name }</small>
                     </div>
                     <div>
                       <Badge color={ network.address ? 'success' : 'light' }>{ network.address ? 'Connected' : 'Disconnected' }</Badge>
