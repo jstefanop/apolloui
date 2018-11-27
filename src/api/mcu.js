@@ -19,6 +19,11 @@ async function fetchMcu ({ accessToken }) {
                 minerTemperature
                 minerFanSpeed
                 activeWifi
+                network {
+                  name
+                  address
+                  mac
+                }
                 memory {
                   total
                   available

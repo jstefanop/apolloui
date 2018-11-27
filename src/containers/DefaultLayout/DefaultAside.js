@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
-import { Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { Badge, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Trans } from '@lingui/macro';
@@ -42,7 +42,7 @@ class DefaultAside extends Component {
 
   render() {
 
-    const { mcu } = this.props;
+    const { miner, mcu, wifiAddress } = this.props;
 
     return (
       <div>
@@ -98,6 +98,38 @@ class DefaultAside extends Component {
                 </div>
               </div>
 
+              { (miner.stats.summary.status && miner.stats.summary.status.description) && (
+              <div className="aside-options">
+                <div className="clearfix mt-3">
+                  <small className="text-muted"><i className="fa fa-hdd mr-2 initialism text-secondary"></i><Trans>Bfgminer</Trans></small>
+                </div>
+                <div>
+                  <small className="">Version: <b>{ miner.stats.summary.status.description }</b></small>
+                </div>
+              </div>
+              )}
+
+              <hr className="mt-4>" />
+
+              <h6><Trans>Network info</Trans></h6>
+
+              { mcu.stats.network.map((network, idx) => {
+                return <div className="aside-options" key={ idx }>
+                    <div className="clearfix mt-4">
+                      <small className="text-muted"><i className="fa fa-stream mr-2 initialism text-secondary"></i><Trans>{ network.name }</Trans></small>
+                    </div>
+                    <div>
+                      <Badge color={ network.address ? 'success' : 'light' }>{ network.address ? 'Connected' : 'Disconnected' }</Badge>
+                    </div>
+                    <div>
+                      <small className="">Address: <b>{ network.address || 'No address found' }</b></small>
+                    </div>
+                    <div>
+                      <small className="">MAC: <b>{ network.mac }</b></small>
+                    </div>
+                  </div>
+              })}
+
               <hr className="mt-4>" />
 
               <SystemUtil></SystemUtil>
@@ -123,7 +155,9 @@ const mapStateToProps = state => {
     loadingMcu: state.mcuStats.loading,
     mcu: state.mcuStats.data,
     mcuError: state.mcuStats.error,
-    settings: state.settings
+    miner: state.minerStats.data,
+    settings: state.settings,
+    wifiAddress: state.mcuWifiConnect.data
   }
 }
 

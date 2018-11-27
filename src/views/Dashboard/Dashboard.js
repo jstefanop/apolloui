@@ -97,7 +97,7 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
-                value={ displayHashrate(miner.stats.summary.data.mHSAv, 'mh') }
+                value={ displayHashrate(miner.stats.summary.data.workUtility * 71582788, 'h') }
                 title="Current hashrate"
                 progressColor="primary"
                 progressValue="100"
@@ -123,12 +123,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-gray-300" 
                 icon="fa fa-exclamation-triangle" 
-                value={ minerpercentageError + '%' }
+                value={ miner.stats.summary.data.deviceHardware }
                 title="Hardware errors"
                 progressColor={ errorsColor }
-                progressValue={ 100 - minerpercentageError }
+                progressValue={ miner.stats.summary.data.deviceHardware }
                 secondaryTitle="Rejected"
-                secondaryValue={ minerpercentageRejected + '%' }
+                secondaryValue={ miner.stats.summary.data.deviceRejected }
               ></DashboardWidget>
             </Col>
 
@@ -215,7 +215,7 @@ class Dashboard extends Component {
                   <div className="h1 text-muted float-right"><i className="fa fa-bolt text-gray"></i></div>
                   <div className="h4 m-0">
                     { (settings.minerMode === 'custom') ?
-                      <span>{settings.voltage || 0 }<small className="textmuted">V</small></span>
+                      <span>{settings.voltage || 0 } <small className="textmuted">V</small></span>
                       : <span>Auto</span>
                     }
                   </div>
@@ -230,7 +230,7 @@ class Dashboard extends Component {
                   <div className="h1 text-muted float-right"><i className="fa fa-broadcast-tower text-gray"></i></div>
                   <div className="h4 m-0">
                     { (settings.minerMode === 'custom') ?
-                      <span>{settings.frequency || 0 }<small className="textmuted">MHz</small></span>
+                      <span>{settings.frequency || 0 } <small className="textmuted">MHz</small></span>
                       : <span>Auto</span>
                     }
                   </div>
@@ -243,7 +243,7 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-wind text-gray"></i></div>
-                  <div className="h4 m-0">{ mcu.stats.minerFanSpeed }<small className="textmuted">Rpm</small></div>
+                  <div className="h4 m-0">{ mcu.stats.minerFanSpeed } <small className="textmuted">RPM</small></div>
                   <div><Trans>Fan speed</Trans></div>
                 </CardBody>
               </Card>

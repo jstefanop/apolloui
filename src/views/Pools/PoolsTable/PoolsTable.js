@@ -30,6 +30,7 @@ class PoolsTable extends Component {
                 <th><Trans>Type</Trans></th>
                 <th><Trans>Active</Trans></th>
                 <th><Trans>Status</Trans></th>
+                <th><Trans>Quota</Trans></th>
                 <th><Trans>Hashrate</Trans></th>
                 <th>Last share</th>
                 <th>Acc</th>
@@ -59,10 +60,13 @@ class PoolsTable extends Component {
                     <td>
                       <h5 className="mb-0"><Badge color={ pool.status === 'Alive' ? 'success' : 'danger' }>{ pool.status }</Badge></h5>
                     </td>
-                    <td className="text-center">
+                    <td>
+                      <h6 className="mb-0">{ pool.quota ? pool.quota + '%' : 'No quota'}</h6>
+                    </td>
+                    <td>
                     { (pool.stratumActive) ? 
                       <h6 className="mb-0 font-weight-bold">
-                        <i className="fa fa-fire text-secondary"></i> { (pool.quota > 0) ? displayHashrate((mainHashrate * pool.quota / 100), 'h') : displayHashrate(mainHashrate, 'h') }
+                        <i className="fa fa-fire text-secondary"></i> { (pool.quota > 0 && pools.data && pools.data.length > 1) ? displayHashrate((mainHashrate * pool.quota / 100), 'h') : displayHashrate(mainHashrate, 'h') }
                       </h6>
                       :
                       <span>Not active</span>
