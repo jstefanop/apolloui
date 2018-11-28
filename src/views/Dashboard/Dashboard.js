@@ -123,7 +123,7 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-gray-300" 
                 icon="fa fa-exclamation-triangle" 
-                value={ miner.stats.summary.data.deviceHardware }
+                value={ miner.stats.summary.data.deviceHardware.toFixed(1) + '%' }
                 title="Hardware errors"
                 progressColor={ errorsColor }
                 progressValue={ miner.stats.summary.data.deviceHardware }
@@ -215,7 +215,7 @@ class Dashboard extends Component {
                   <div className="h1 text-muted float-right"><i className="fa fa-bolt text-gray"></i></div>
                   <div className="h4 m-0">
                     { (settings.minerMode === 'custom') ?
-                      <span>{settings.voltage || 0 } <small className="textmuted">V</small></span>
+                      <span>{settings.voltage || 0 } <small className="textmuted">mV</small></span>
                       : <span>Auto</span>
                     }
                   </div>

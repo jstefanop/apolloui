@@ -37,7 +37,7 @@ class DefaultHeader extends Component {
             <Badge color={ minerCheck.online.status ? 'success' : 'danger' }>{ minerCheck.online.status ? 'ONLINE' : 'OFFLINE' }</Badge>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? displayHashrate(miner.stats.summary.data.mHSAv, 'mh') : '...' }</span>
+            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? displayHashrate(miner.stats.summary.data.workUtility * 71582788, 'h') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
             <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit, true) : '...' }</span>

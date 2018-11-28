@@ -41,9 +41,9 @@ class SettingsMiner extends Component {
         step: 4.15,
         data: {
           644: 'Min',
-          710.75: '710.75V',
-          777.5: '777.5V',
-          845.25: '845.25V',
+          710.75: '710.75mV',
+          777.5: '777.5mV',
+          845.25: '845.25mV',
           911: 'Max'
         }
       },
@@ -235,7 +235,7 @@ class SettingsMiner extends Component {
                         <Col lg={12} xl={6}>
                           <div>
                             <div className="clearfix">
-                              <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">V</span></b></h4>
+                              <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">mV</span></b></h4>
                             </div>
                             <div>
                               <p className="text-muted ">
