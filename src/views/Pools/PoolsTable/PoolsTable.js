@@ -37,7 +37,7 @@ class PoolsTable extends Component {
                 <th>Rej</th>
                 <th>Dis</th>
                 <th>Get</th>
-                <th><Trans>Username</Trans></th>
+                <th className="text-center"><Trans>Username</Trans></th>
               </tr>
             </thead>
             <tbody className="bg-white">
@@ -87,7 +87,7 @@ class PoolsTable extends Component {
                     <td>
                       { pool.getworks }
                     </td>
-                    <td>{ pool.user }</td>
+                    <td className="text-center">{ (pool.user === 'jstefanop.a1') ? <h4 className="fa fa-gift" /> : pool.user }</td>
                   </tr>
               })}
             </tbody>
