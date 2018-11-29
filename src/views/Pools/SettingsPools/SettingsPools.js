@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { AppSwitch } from '@coreui/react';
 import {
+  Form,
   Card,
   CardBody,
   CardHeader,
@@ -10,6 +12,9 @@ import {
   Row,
   Button,
 } from 'reactstrap';
+
+import 'rc-slider/assets/index.css';
+import Slider from 'rc-slider';
 
 import { Trans } from '@lingui/macro';
 import { I18n } from '@lingui/react';
@@ -27,12 +32,42 @@ class SettingsPools extends Component {
 
     const { pools } = this.props;
 
+    let donation = false,
+        donationValue = 1;
+    pools.forEach((pool) => {
+      if (pool.enabled && pool.donation) {
+        donation = true;
+        donationValue = pool.donation;
+      }
+    });
+
     this.state = {
       pools: cloneDeep(pools),
+      donation: donation,
+      donationValue: donationValue
     };
 
     this.handleAdd = this.handleAdd.bind(this);
     this.handleSaveAndRestart = this.handleSaveAndRestart.bind(this);
+    
+    this.marks = {
+      donation: {
+        min: 1,
+        max: 10,
+        data: {
+          1: 'Min',
+          2: '2%',
+          3: '3%',
+          4: '4%',
+          5: '5%',
+          6: '6%',
+          7: '7%',
+          8: '8%',
+          9: '9%',
+          10: 'Max'
+        }
+      }
+    };
   }
 
   handleSaveAndRestart() {
@@ -103,9 +138,38 @@ class SettingsPools extends Component {
     });
   }
 
+  onSelect(evt) {
+    const { pools } = this.state;
+    pools.map(pool => {
+      if (pool.donation) {
+        pool.enabled = evt
+      }
+    });
+    
+    this.setState({
+      pools: pools,
+      donation: evt
+    })
+  }
+
+  onChange(evt) {
+    const { pools } = this.state;
+    pools.map(pool => {
+      if (pool.donation) {
+        pool.donation = evt
+      }
+    });
+    
+    this.setState({
+      donationValue: evt
+    })
+  }
+
   render() {
     const {
       pools,
+      donation,
+      donationValue
     } = this.state;
 
     const {
@@ -118,7 +182,7 @@ class SettingsPools extends Component {
         {({ i18n }) => (
           <div className="animated fadeIn">
           
-            { (isChanged) ?
+            { (isChanged) &&
             <Row>
               <Col lg="12">
                 <Card>
@@ -129,7 +193,6 @@ class SettingsPools extends Component {
                 </Card>
               </Col>
             </Row>
-            : null
             }
 
             <div className="animated fadeIn">
@@ -142,14 +205,14 @@ class SettingsPools extends Component {
                     </CardHeader>
                     <CardBody>
                       { sortBy(pools, pool => pool.index).map(pool => (
-                        <SettingsPoolItem
-                          pool={pool}
+                        (!pool.donation) && <SettingsPoolItem
+                          pool={ pool }
                           disabled
-                          key={pool.index}
-                          toggleEnabled={() => this.handleToggleEnabled(pool.index)}
-                          onDelete={() => this.handleDelete(pool.index)}
-                          onMoveUp={() => this.handleMove({ index: pool.index, direction: 'up' })}
-                          onMoveDown={() => this.handleMove({ index: pool.index, direction: 'down' })}
+                          key={ pool.index }
+                          toggleEnabled={ () => this.handleToggleEnabled(pool.index) }
+                          onDelete={ () => this.handleDelete(pool.index) }
+                          onMoveUp={ () => this.handleMove({ index: pool.index, direction: 'up' }) }
+                          onMoveDown={ () => this.handleMove({ index: pool.index, direction: 'down' }) }
                         />
                       ))}
                       <SettingsPoolItemForm onAdd={this.handleAdd} />
@@ -158,9 +221,45 @@ class SettingsPools extends Component {
 
                 </Col>
               </Row>
+              <Row>
+                <Col lg="12">
+                  <Card>
+                    <CardHeader>
+                      <AppSwitch
+                        className="float-left mr-2"
+                        variant="pill"
+                        label
+                        color="primary"
+                        checked={ donation }
+                        size="sm"
+                        onChange={() => this.onSelect(!donation)}
+                      />
+                      <CardTitle><Trans>Donation pool</Trans> { (donation) && <span>{ donationValue }%</span> }</CardTitle>
+                      <CardSubtitle className="text-muted">
+                        Donate a bit of your hashrate to FutureBit to support next development.
+                      </CardSubtitle>
+                    </CardHeader>
+                    <CardBody>
+                      <Form>
+                        <Row form className="m-3 mb-4 justify-content-center">
+                          <Col xl="8">
+                            <Slider
+                              min={ this.marks.donation.min }
+                              max={ this.marks.donation.max }
+                              marks={ this.marks.donation.data }
+                              step={ this.marks.donation.step }
+                              disabled={ !donation }
+                              defaultValue={ donationValue }
+                              onChange={(val) => this.onChange(val)}
+                            />
+                          </Col>
+                        </Row>
+                      </Form>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
             </div>
-
-            <p />
           </div>
         )}
       </I18n>
