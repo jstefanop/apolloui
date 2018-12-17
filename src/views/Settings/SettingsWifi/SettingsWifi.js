@@ -102,13 +102,13 @@ class SettingsWifi extends Component {
                             <h4>
                               { (mcu.stats.activeWifi) && ( <div className="d-inline mr-2"><small className="text-muted">Active wifi</small> <Badge color="success" pill>{ mcu.stats.activeWifi }</Badge></div>) }
                               <div className={ mcu.stats.activeWifi ? 'd-inline' : 'd-inline-block'}>
-                                <Button 
+                                { (mcu.stats.activeWifi) && ( <Button 
                                   className="float-left mr-2 text-uppercase" 
                                   color={'warning'} 
                                   size="sm"
                                   disabled={ loadingWifiDisconnect }
                                   onClick={ this.handleDisconnect }
-                                ><Trans>Disconnect</Trans></Button>
+                                ><Trans>Disconnect</Trans></Button> ) }
                                 <Button 
                                   className="float-left mr-2 text-uppercase" 
                                   color={'primary'} 

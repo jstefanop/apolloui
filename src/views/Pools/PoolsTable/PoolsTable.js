@@ -23,7 +23,7 @@ class PoolsTable extends Component {
     return (
       <I18n>
         {({ i18n }) => (
-          <Table responsive className="table-outline d-none d-sm-table">
+          <Table responsive className="table-outline d-table d-sm-table">
             <thead className="bg-light">
               <tr>
                 <th><Trans>Url</Trans></th>

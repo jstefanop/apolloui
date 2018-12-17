@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 
 import AuthAPI from '../api/auth';
 import PoolAPI from '../api/pool';
+import MinerAPI from '../api/miner';
 import SettingsAPI from '../api/settings';
 import { setSettings } from './settings';
 import { setError } from './alert';
@@ -58,6 +59,12 @@ export function saveInitialSetup({ password, poolSetup }) {
         accessToken: result.accessToken,
       }));
 
+      if (error) {
+        dispatch(setError({ message: error.message }));
+        return;
+      }
+
+      ({ error } = await MinerAPI.restartMiner({ accessToken: result.accessToken }));
       if (error) {
         dispatch(setError({ message: error.message }));
         return;

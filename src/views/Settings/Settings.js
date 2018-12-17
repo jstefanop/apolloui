@@ -41,7 +41,6 @@ class Settings extends Component {
   }
 
   onChange({ name, value }) {
-    if (name === 'fan' && value === 5) value = 10;
     this.setState(state => ({
       settings: {
         ...state.settings,

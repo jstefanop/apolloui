@@ -163,7 +163,7 @@ class ModalsSetup extends Component {
                       <Row form>
                         <Col md={4}>
                           <FormGroup className="mb-0">
-                            <Label for="poolUrl"><Trans>Pool Url</Trans></Label>
+                            <Label for="poolUrl"><Trans>Url</Trans></Label>
                             <Input type="text" name="poolUrl" id="poolUrl" placeholder="stratum+tcp://us.litecoinpool.org:3333" bsSize="lg" value={poolUrl} onChange={this.onChange} />
                             <span className="text-danger">
                               {poolFieldErrors.poolUrl}
@@ -172,7 +172,7 @@ class ModalsSetup extends Component {
                         </Col>
                         <Col md={2}>
                           <FormGroup className="mb-0">
-                            <Label for="poolUsername"><Trans>Pool Username</Trans></Label>
+                            <Label for="poolUsername"><Trans>Username</Trans></Label>
                             <Input type="text" name="poolUsername" id="poolUsername" placeholder="futurebit.1" bsSize="lg" value={poolUsername} onChange={this.onChange} />
                             <span className="text-danger">
                               {poolFieldErrors.poolUsername}
@@ -181,7 +181,7 @@ class ModalsSetup extends Component {
                         </Col>
                         <Col md={2}>
                           <FormGroup className="mb-0">
-                            <Label for="poolPassword"><Trans>Pool Password</Trans></Label>
+                            <Label for="poolPassword"><Trans>Password</Trans></Label>
                             <Input type="text" name="poolPassword" id="poolPassword" placeholder="x" bsSize="lg" value={poolPassword} onChange={this.onChange} />
                             <span className="text-danger">
                               {poolFieldErrors.poolPassword}
@@ -190,7 +190,7 @@ class ModalsSetup extends Component {
                         </Col>
                         <Col md={4}>
                           <FormGroup className="mb-0">
-                            <Label for="poolProxy"><Trans>Pool Proxy</Trans></Label>
+                            <Label for="poolProxy"><Trans>Proxy (Optional)</Trans></Label>
                             <Input type="text" name="poolProxy" id="poolProxy" placeholder="http://192.168.1.1:3333" bsSize="lg" value={poolProxy} onChange={this.onChange} />
                             <span className="text-danger">
                               {poolFieldErrors.poolProxy}

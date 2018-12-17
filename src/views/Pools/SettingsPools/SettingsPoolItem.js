@@ -60,7 +60,7 @@ export default function (props) {
           </Col>
           <Col md={2}>
             <FormGroup>
-              <Label for="poolProxy"><Trans>Proxy</Trans></Label>
+              <Label for="poolProxy"><Trans>Proxy (Optional)</Trans></Label>
               <Input type="text" name="poolProxy" id="poolProxy" bsSize="lg" disabled={disabled} value={proxy || ''} className={ (donation) ? 'donation-color' : '' } />
             </FormGroup>
           </Col>

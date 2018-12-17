@@ -26,10 +26,10 @@ class Dashboard extends Component {
     // Miner shares
     const minerTotalShares = (miner.stats.summary.data.hardwareErrors + miner.stats.summary.data.accepted + miner.stats.summary.data.rejected);
     const minerpercentageRejected = parseFloat(Math.round(miner.stats.summary.data.rejected * 100 / minerTotalShares * 100) / 100) || 0;
-    const minerpercentageError = parseFloat(Math.round(miner.stats.summary.data.hardwareErrors * 100 / minerTotalShares * 100) / 100) || 0;
+    const minerpercentageError = miner.stats.summary.data.deviceHardware;
     let errorsColor = 'success';
-    if (minerpercentageError >= 10 && minerpercentageError <= 20) errorsColor = 'warning';
-    else if (minerpercentageError > 20) errorsColor = 'danger';
+    if (minerpercentageError >= 5 && minerpercentageError <= 7.5) errorsColor = 'warning';
+    else if (minerpercentageError > 7.5) errorsColor = 'danger';
 
     // Miner uptime
     const minerUptime = moment().to(moment().subtract(miner.stats.summary.data.elapsed, 'seconds'), true);
@@ -123,10 +123,10 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-gray-300" 
                 icon="fa fa-exclamation-triangle" 
-                value={ miner.stats.summary.data.deviceHardware.toFixed(1) + '%' }
+                value={ minerpercentageError.toFixed(1) + '%' }
                 title="Hardware errors"
                 progressColor={ errorsColor }
-                progressValue={ miner.stats.summary.data.deviceHardware }
+                progressValue={ minerpercentageError * 10 }
                 secondaryTitle="Rejected"
                 secondaryValue={ miner.stats.summary.data.deviceRejected }
               ></DashboardWidget>
