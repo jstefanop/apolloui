@@ -24,8 +24,7 @@ class Dashboard extends Component {
     const { minerCheck, minerError, mcuError, mcu, miner, settings } = this.props;
 
     // Miner shares
-    const minerTotalShares = (miner.stats.summary.data.hardwareErrors + miner.stats.summary.data.accepted + miner.stats.summary.data.rejected);
-    const minerpercentageRejected = parseFloat(Math.round(miner.stats.summary.data.rejected * 100 / minerTotalShares * 100) / 100) || 0;
+    const minerpercentageRejected = miner.stats.summary.data.deviceRejected;
     const minerpercentageError = miner.stats.summary.data.deviceHardware;
     let errorsColor = 'success';
     if (minerpercentageError >= 5 && minerpercentageError <= 7.5) errorsColor = 'warning';
@@ -128,7 +127,7 @@ class Dashboard extends Component {
                 progressColor={ errorsColor }
                 progressValue={ minerpercentageError * 10 }
                 secondaryTitle="Rejected"
-                secondaryValue={ miner.stats.summary.data.deviceRejected }
+                secondaryValue={ minerpercentageRejected }
               ></DashboardWidget>
             </Col>
 

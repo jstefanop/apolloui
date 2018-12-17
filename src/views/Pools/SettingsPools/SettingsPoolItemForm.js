@@ -109,7 +109,6 @@ class SettingsPoolItemForm extends Component {
   render() {
     const {
       enabled,
-      donation,
       username,
       password,
       url,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppSwitch } from '@coreui/react';
 import {
   Badge,
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -66,6 +67,15 @@ class SettingsMiner extends Component {
 
     this.onSelect = this.onSelect.bind(this);
     this.autoFanSwitchChange = this.autoFanSwitchChange.bind(this);
+    this.onReset = this.onReset.bind(this);
+  }
+
+  onReset(option) {
+    const {
+      onChange,
+    } = this.props;
+    if (option === 'frequency') onChange({ name: 'frequency', value: 598});
+    if (option === 'voltage') onChange({ name: 'voltage', value: 747});
   }
 
   onSelect(mode) {
@@ -77,7 +87,6 @@ class SettingsMiner extends Component {
 
   autoFanSwitchChange() {
     const {
-      fan,
       onChange,
     } = this.props;
 
@@ -93,9 +102,8 @@ class SettingsMiner extends Component {
       minerMode,
       voltage,
       fan,
-      customApproval,
       frequency,
-      onChange,
+      onChange
     } = this.props;
 
     return (
@@ -242,7 +250,7 @@ class SettingsMiner extends Component {
                                 { 
                                 // eslint-disable-next-line 
                                 }
-                                <Trans>You can set your miner custom voltage or <a href="">reset</a> to default value.</Trans>
+                                <Trans>You can set your miner custom voltage or <Button color="link" onClick={() => this.onReset('voltage')}>reset</Button> to default value.</Trans>
                               </p>
                               <Card className="border-0">
                                 <CardBody>
@@ -269,7 +277,7 @@ class SettingsMiner extends Component {
                                 { 
                                 // eslint-disable-next-line 
                                 }
-                                <Trans>You can set your miner custom frequency or <a href="">reset</a> to default value.</Trans>
+                                <Trans>You can set your miner custom frequency or <Button color="link" onClick={() => this.onReset('frequency')}>reset</Button> to default value.</Trans>
                               </p>
                               <Card className="border-0">
                                 <CardBody>

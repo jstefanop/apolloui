@@ -14,9 +14,6 @@ import {
   ModalFooter,
 } from 'reactstrap';
 
-import { Loading } from '../Loading';
-import { Trans } from '@lingui/macro';
-
 import { toggleRestoreModal as toggleRestoreModalAction } from '../../actions/backup';
 import { restoreConfiguration as restoreConfigurationAction } from '../../actions/backup';
 
@@ -43,7 +40,6 @@ class ModalsRestore extends Component {
   handleRestore() {
     const {
       content,
-      backupError,
     } = this.state;
 
     const {
@@ -91,10 +87,6 @@ class ModalsRestore extends Component {
   }
 
   handleFileChosen(file) {
-    const {
-      content,
-    } = this.state;
-
     const reader = new FileReader();
     reader.onload = (evt) => {
       this.setState({

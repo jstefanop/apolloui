@@ -144,6 +144,7 @@ class SettingsPools extends Component {
       if (pool.donation) {
         pool.enabled = evt
       }
+      return pool;
     });
     
     this.setState({
@@ -158,6 +159,7 @@ class SettingsPools extends Component {
       if (pool.donation) {
         pool.donation = evt
       }
+      return pool;
     });
     
     this.setState({

@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import {
   Table,
-  Button,
   Badge
 } from 'reactstrap';
 
@@ -87,7 +86,7 @@ class PoolsTable extends Component {
                     <td>
                       { pool.getworks }
                     </td>
-                    <td className="text-center">{ (pool.user === 'jstefanop.a1') ? <h4 className="fa fa-gift" /> : pool.user }</td>
+                    <td className="text-center">{ (pool.user === 'jstefanop.a1') ? <i className="fa fa-gift" /> : pool.user }</td>
                   </tr>
               })}
             </tbody>

@@ -42,7 +42,7 @@ class DefaultAside extends Component {
 
   render() {
 
-    const { miner, mcu, wifiAddress } = this.props;
+    const { miner, mcu } = this.props;
 
     return (
       <div>

@@ -1,7 +1,6 @@
 import {
   WIFIDISCONNECT_MCU_BEGIN,
-  WIFIDISCONNECT_MCU_SUCCESS,
-  WIFIDISCONNECT_MCU_FAILURE
+  WIFIDISCONNECT_MCU_SUCCESS
 } from '../actions/mcu';
 
 const initialState = {
