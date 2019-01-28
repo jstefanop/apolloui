@@ -13,16 +13,26 @@ class LoadingErrorBox extends Component {
     if (this.props.show ) {
       return (
         <Row className="animated fadeIn">
-          <Col sm={{ size: 8, offset: 2 }} md={{ size: 8, offset: 2 }} lg={{ size: 4, offset: 4 }}>
+          <Col sm={{ size: 12 }} md={{ size: 10, offset: 1 }} lg={{ size: 8, offset: 2 }} xl={{ size: 6, offset: 3 }}>
             <Jumbotron className={ this.props.bg }>
               <h1 className="display-2 text-center"><i className={'fa text-muted ' + this.props.icon}></i></h1>
               { (this.props.title) ?
                   <p className={ (this.props.centerTitle) ? 'lead text-center' : 'lead' }>{ this.props.title }</p>
                 : null }
-              { (this.props.error) ?
+              { (this.props.error && !this.props.log) ?
                   <div>
                     <p className="lead text-center">
                       <code>{ this.props.error }</code>
+                    </p>
+                    <hr className="my-4" />
+                  </div>
+                : null }
+              { (this.props.error && this.props.log) ?
+                  <div>
+                    <p className="lead">
+                      {this.props.log.split("|").map((i,key) => {
+                          return <div key={key}><code>{i}</code></div>;
+                      })}
                     </p>
                     <hr className="my-4" />
                   </div>

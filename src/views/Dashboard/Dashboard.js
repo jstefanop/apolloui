@@ -76,6 +76,7 @@ class Dashboard extends Component {
           centerTitle={true}
           subtitle="Wait at least 1 minute, if problem persists, try to restart the miner, check the settings or try to reboot the system."
           error={ minerError }
+          log={ mcu.stats.bfgminerLog }
           centerSubtitle={true}
           icon="fa-exclamation-circle animated bounce"
           showBtn={false}

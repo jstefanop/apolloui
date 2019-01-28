@@ -16,6 +16,7 @@ const initialState = {
 			temperature: null,
       minerTemperature: null,
       minerFanSpeed: null,
+      bfgminerLog: null,
       network: [],
 			memory: {
 				total: 0,

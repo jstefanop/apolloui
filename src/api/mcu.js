@@ -19,6 +19,7 @@ async function fetchMcu ({ accessToken }) {
                 minerTemperature
                 minerFanSpeed
                 activeWifi
+                bfgminerLog
                 network {
                   name
                   address
