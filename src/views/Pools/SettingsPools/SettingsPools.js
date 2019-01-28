@@ -70,6 +70,18 @@ class SettingsPools extends Component {
     };
   }
 
+  onChangePool(event, index) {
+    const { pools } = this.state;
+
+    const pool = pools.find(el => el.index === index);
+
+    pool[event.target.name] = event.target.value;
+
+    this.setState({
+      pools,
+    });
+  }
+
   handleSaveAndRestart() {
     const { saveAndRestart } = this.props;
     const { pools } = this.state;
@@ -209,12 +221,13 @@ class SettingsPools extends Component {
                       { sortBy(pools, pool => pool.index).map(pool => (
                         (!pool.donation) && <SettingsPoolItem
                           pool={ pool }
-                          disabled
+                          disabled={ false }
                           key={ pool.index }
                           toggleEnabled={ () => this.handleToggleEnabled(pool.index) }
                           onDelete={ () => this.handleDelete(pool.index) }
                           onMoveUp={ () => this.handleMove({ index: pool.index, direction: 'up' }) }
                           onMoveDown={ () => this.handleMove({ index: pool.index, direction: 'down' }) }
+                          onChange={ (evt) => this.onChangePool(evt, pool.index) }
                         />
                       ))}
                       <SettingsPoolItemForm onAdd={this.handleAdd} />

@@ -167,8 +167,8 @@ class Dashboard extends Component {
             <Col xs="12" md="6" xl="3">
               <Card className="bg-light">
                 <CardBody>
-                  <div className="h4 m-0">{ miner.stats.summary.data.discarded }</div>
-                  <div><Trans>Discarded</Trans></div>
+                  <div className="h4 m-0">{ miner.stats.summary.data.diff1Work }</div>
+                  <div><Trans>Difficulty</Trans></div>
                 </CardBody>
               </Card>
             </Col>
@@ -202,7 +202,7 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className={ minerModeIcon(settings.minerMode) + ' fa text-gray'}></i></div>
-                  <div className="h4 m-0">{ settings.minerMode || 'Not set' }</div>
+                  <div className="h4 m-0 text-uppercase">{ settings.minerMode || 'Not set' }</div>
                   <div><Trans>Miner mode</Trans></div>
                 </CardBody>
               </Card>
