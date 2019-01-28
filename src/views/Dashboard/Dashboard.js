@@ -168,7 +168,7 @@ class Dashboard extends Component {
             <Col xs="12" md="6" xl="3">
               <Card className="bg-light">
                 <CardBody>
-                  <div className="h4 m-0">{ miner.stats.summary.data.diff1Work }</div>
+                  <div className="h4 m-0">{ Math.round(miner.stats.devs.data[0].lastShareDifficulty * 65535) }</div>
                   <div><Trans>Difficulty</Trans></div>
                 </CardBody>
               </Card>

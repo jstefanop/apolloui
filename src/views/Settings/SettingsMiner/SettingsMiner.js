@@ -227,7 +227,7 @@ class SettingsMiner extends Component {
                       disabled={minerMode === 'custom'}
                     />
                     <CardTitle><i className="fa fa-diagnoses mr-2"></i><Trans>Miner custom mode</Trans></CardTitle>
-                    <CardSubtitle className="text-muted"><Trans>DANGER zone!</Trans></CardSubtitle>
+                    <CardSubtitle className="text-muted"><i className="fa fa-exclamation-triangle mr-2 mt-2"></i><Trans>DANGER zone!</Trans></CardSubtitle>
                   </CardHeader>
                   <CardBody>
                     <div className="lead">
