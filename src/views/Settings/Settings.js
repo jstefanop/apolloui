@@ -71,6 +71,7 @@ class Settings extends Component {
         frequency,
         fan,
         customApproval,
+        apiAllow,
         leftSidebarVisibility,
         leftSidebarExtended,
         rightSidebarVisibility,
@@ -120,7 +121,7 @@ class Settings extends Component {
         { /* Miner conf */ }
         <SettingsMiner
           {...{
-            minerMode, voltage, frequency, fan, customApproval
+            minerMode, voltage, frequency, fan, customApproval, apiAllow
           }}
           onChange={this.onChange}
         />

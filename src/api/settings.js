@@ -14,6 +14,7 @@ async function fetchSettings({ accessToken }) {
                 voltage
                 frequency
                 fan
+                apiAllow
                 customApproval
                 connectedWifi
                 leftSidebarVisibility
@@ -46,6 +47,7 @@ async function saveSettings({ accessToken, settings }) {
                 voltage
                 frequency
                 fan
+                apiAllow
                 customApproval
                 connectedWifi
                 leftSidebarVisibility

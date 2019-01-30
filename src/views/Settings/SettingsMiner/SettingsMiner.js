@@ -11,6 +11,8 @@ import {
   Col,
   Row,
   Form,
+  ListGroup,
+  ListGroupItem
 } from 'reactstrap';
 
 import 'rc-slider/assets/index.css';
@@ -103,6 +105,7 @@ class SettingsMiner extends Component {
       voltage,
       fan,
       frequency,
+      apiAllow,
       onChange
     } = this.props;
 
@@ -304,7 +307,7 @@ class SettingsMiner extends Component {
             </Row>
 
             <Row>
-              <Col xl="12">
+              <Col xl="6">
                 <Card>
                   <CardHeader>
                     <CardTitle><i className="fa fa-wind mr-2"></i><Trans>Miner fan speed</Trans></CardTitle>
@@ -336,6 +339,39 @@ class SettingsMiner extends Component {
                               </Card>
                             </div>
                           </div>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col xl="6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle><i className="fa fa-cogs mr-2"></i><Trans>Miner configuration</Trans></CardTitle>
+                    <CardSubtitle className="text-muted"><Trans>Adjust more advanced settings</Trans></CardSubtitle>
+                  </CardHeader>
+                  <CardBody>
+                    <Form>
+                      <Row form>
+                        <Col lg={12}>
+                          <ListGroup flush>
+                            <ListGroupItem>
+                              <div className="clearfix">
+                                <AppSwitch
+                                  className="float-left mr-2"
+                                  variant="pill"
+                                  label
+                                  color="success"
+                                  checked={apiAllow}
+                                  size=""
+                                  onChange={() => onChange({ value: !apiAllow, name: 'apiAllow' })}
+                                />
+                                <div><Trans>API Allow</Trans></div>
+                              </div>
+                              <div className="mt-1 small text-muted"><Trans>Set --api-allow option to allow access to Bfgminer API from your LAN</Trans></div>
+                            </ListGroupItem>
+                          </ListGroup>
                         </Col>
                       </Row>
                     </Form>
