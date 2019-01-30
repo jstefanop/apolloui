@@ -316,7 +316,7 @@ class SettingsMiner extends Component {
                   <CardBody>
                     <Form>
                       <Row form>
-                        <Col lg={12} xl={6}>
+                        <Col lg={12}>
                           <div>
                             <div className="clearfix">
                               <h4>Fan { (fan) ? <span>at <b>{fan}<span className="small">%</span></b></span> : <Badge size="sm" color="success">Auto</Badge> }</h4>
