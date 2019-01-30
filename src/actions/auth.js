@@ -55,6 +55,7 @@ export function saveInitialSetup({ password, poolSetup }) {
         username: poolSetup.username,
         password: poolSetup.password,
         proxy: poolSetup.proxy,
+        index: 1
       }, {
         accessToken: result.accessToken,
       }));

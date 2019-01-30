@@ -114,7 +114,7 @@ class ModalsSetup extends Component {
         url: poolUrl,
         username: poolUsername,
         password: poolPassword,
-        proxy: poolProxy,
+        proxy: poolProxy
       };
     }
 
