@@ -20,7 +20,8 @@ import { saveSettings, saveSettingsAndRestartMiner } from '../../actions/setting
 
 const restartFields = [
   'minerMode',
-  'frequency'
+  'frequency',
+  'apiAllow'
 ];
 
 class Settings extends Component {
