@@ -2,14 +2,14 @@
   "name": "ApolloUI",
   "version": "0.0.2",
   "description": "Dashboard for Apollo miner from Futurebit",
-  "author": "Cryptofy GmbH",
-  "homepage": "https://cryptofy.ch",
-  "copyright": "Copyright 2018 Crytpofy GmbH",
+  "author": "FutureBit LLC",
+  "homepage": "https://www.futurebit.io",
+  "copyright": "Copyright 2018 FutureBit LLC",
   "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:CryptofyCH/futurebit.git"
+    "url": "git@github.com:jstefanop/apolloui.git"
   },
   "dependencies": {
     "@coreui/coreui": "^2.0.15",
@@ -73,7 +73,7 @@
     "eject": "react-scripts eject"
   },
   "bugs": {
-    "url": "https://github.com/CryptofyCH/futurebit/issues"
+    "url": "https://github.com/jstefanop/apolloui/issues"
   },
   "eslintConfig": {
     "extends": "react-app"

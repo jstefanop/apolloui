@@ -12,4 +12,4 @@ $ yarn
 $ npm start
 ```
 
-This is a submodule of https://github.com/CryptofyCH/apolloapi
+This is a submodule of https://github.com/jstefanop/apolloapi
