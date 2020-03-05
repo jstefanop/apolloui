@@ -6,6 +6,11 @@ export default {
       icon: 'icon-speedometer'
     },
     {
+      name: 'Node',
+      url: '/node',
+      icon: 'fa fa-network-wired'
+    },
+    {
       name: 'Settings',
       url: '/settings',
       icon: 'fa fa-cog'

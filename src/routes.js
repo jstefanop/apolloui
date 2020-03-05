@@ -16,6 +16,11 @@ const Dashboard = Loadable({
   loading: Loading,
 });
 
+const Node = Loadable({
+  loader: () => import('./views/Settings'),
+  loading: Loading,
+});
+
 const Settings = Loadable({
   loader: () => import('./views/Settings'),
   loading: Loading,
@@ -31,6 +36,7 @@ const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/login', name: 'Login', component: Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+  { path: '/node', name: 'Node', component: Settings },
   { path: '/settings', name: 'Settings', component: Settings },
   { path: '/pools', name: 'Pools', component: Pools },
   { path: '/miner/start', name: 'Start miner', component: MinerManage },
