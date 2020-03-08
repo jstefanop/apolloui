@@ -25,6 +25,7 @@ import DefaultHeader from './DefaultHeader';
 
 import { fetchMcu } from '../../actions/mcu';
 import { onlineMiner, fetchMiner } from '../../actions/miner';
+import { fetchNode } from '../../actions/node';
 
 class DefaultLayout extends Component {
 
@@ -33,6 +34,7 @@ class DefaultLayout extends Component {
       this.props.onlineMiner();
       this.props.fetchMcu();
       this.props.fetchMiner();
+      this.props.fetchNode();
     }
 
     poller();
@@ -46,7 +48,7 @@ class DefaultLayout extends Component {
     if (this.intervalHandler) {
         clearTimeout(this.intervalHandler);
         this.intervalHandler = null;
-    } 
+    }
   }
 
   render() {
@@ -83,7 +85,7 @@ class DefaultLayout extends Component {
             <AppBreadcrumb className="bg-light" appRoutes={routes}/>
             <Container fluid>
               {
-                isLoggedIn 
+                isLoggedIn
                   ? <Switch>
                       {routes.map((route, idx) => {
                           return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
@@ -125,6 +127,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchMiner: () => {
       dispatch(fetchMiner())
+    },
+    fetchNode: () => {
+      dispatch(fetchNode())
     }
   }
 }

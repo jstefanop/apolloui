@@ -10,6 +10,7 @@ import minerManage from './minerManage';
 import mcuWifiScan from './mcuWifiScan';
 import mcuWifiConnect from './mcuWifiConnect';
 import mcuWifiDisconnect from './mcuWifiDisconnect';
+import nodeStats from './nodeStats';
 import backup from './backup';
 
 export default combineReducers({
@@ -24,5 +25,6 @@ export default combineReducers({
   mcuWifiScan,
   mcuWifiConnect,
   mcuWifiDisconnect,
-  backup,
+  nodeStats,
+  backup
 });
