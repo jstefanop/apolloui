@@ -4,16 +4,14 @@ import {
   FETCH_NODE_FAILURE
 } from '../actions/node';
 
+// So far, peerInfo is array of objects with: addr and subver
 const initialState = {
 	data: {
 		stats: {
 			initial: true,
 			blockCount: null,
 			connectionCount: null,
-			peerInfo: {
-        addr: null,
-        subver: null
-      }
+			peerInfo: []
 		}
 	},
   	loading: false,
