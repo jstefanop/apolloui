@@ -16,6 +16,10 @@ async function fetchNode ({ accessToken }) {
                   addr
                   subver
                 }
+                error {
+                  code
+                  message
+                }
               }
             }
             ${ERROR_QUERY}

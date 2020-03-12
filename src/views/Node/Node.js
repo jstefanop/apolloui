@@ -17,9 +17,35 @@ class Node extends Component {
     // TODO: Use loadingNode
     const { loadingNode, node, nodeError } = this.props;
 
+    // Something is very wrong and likely not loading error
+    if (nodeError) {
+      return (
+        <div ref='main'>
+          <Alert color='warning'>There is a problem fetching system stats (<b>{nodeError}</b>)</Alert>
+        </div>
+      )
+    } else if (node && node.stats && node.stats.error) {
+      // Handle loading errors (e.g., Litecoin client off, loading, etc.)
+      let loadingErrorMessage = null
+      // If Litecoin client off, display constant message
+      if (node.stats.error.code === 'ECONNREFUSED') {
+        loadingErrorMessage = 'Node is currently offline'
+      } else if (node.stats.error.code === '-28') {
+        loadingErrorMessage = 'Node is currently loading'
+      } else {
+        // Every other loading error
+        loadingErrorMessage = node.stats.error.message
+      }
+
+      return (
+        <div ref='main'>
+          <Alert color='warning'>There is a problem fetching system stats (<b>{loadingErrorMessage}</b>)</Alert>
+        </div>
+      )
+    }
+
     return (
       <div ref='main'>
-        {nodeError && <Alert color='warning'>There is a problem fetching system stats (<b>{nodeError}</b>)</Alert>}
         <div className='animated fadeIn'>
           <Row>
             <Col xs='12' md='6'>

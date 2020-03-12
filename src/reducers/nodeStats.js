@@ -11,11 +11,12 @@ const initialState = {
 			initial: true,
 			blockCount: null,
 			connectionCount: null,
-			peerInfo: []
+      peerInfo: [],
+      error: null
 		}
 	},
-  	loading: false,
-  	error: null
+  loading: false,
+  error: null
 };
 
 export default function nodeReducer(state = initialState, action) {

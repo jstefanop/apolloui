@@ -30,6 +30,6 @@ export function handleApiResponse (res, path) {
   if (data.result === undefined && data.error === undefined) {
     data.error = { message: 'Internal error'}
   }
-  
+
   return data
 }
