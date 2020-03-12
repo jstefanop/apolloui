@@ -15,7 +15,16 @@ import { Trans } from '@lingui/macro';
 class Node extends Component {
   render() {
     // TODO: Use loadingNode
-    const { loadingNode, node, nodeError } = this.props;
+    const { loadingNode, mcu, node, nodeError } = this.props;
+
+    // If less memory than 500 MB, return Alert and prevent page load
+    if (mcu && mcu.stats && mcu.stats.memory && mcu.stats.memory.total && mcu.stats.memory.total < 500000) {
+      return (
+        <div ref='main'>
+          <Alert color='warning'>There is a problem fetching system stats (<b>MCU must have at least 512 MB of memory to view this page</b>)</Alert>
+        </div>
+      )
+    }
 
     // Something is very wrong and likely not loading error
     if (nodeError) {
@@ -109,6 +118,7 @@ class Node extends Component {
 const mapStateToProps = (state) => {
   return {
     loadingNode: state.nodeStats.loading,
+    mcu: state.mcuStats.data,
     node: state.nodeStats.data,
     nodeError: state.nodeStats.error
   }
