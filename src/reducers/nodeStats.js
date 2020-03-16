@@ -6,15 +6,19 @@ import {
 
 // So far, peerInfo is array of objects with: addr and subver
 const initialState = {
-	data: {
-		stats: {
-			initial: true,
-			blockCount: null,
-			connectionCount: null,
+  data: {
+    stats: {
+      initial: true,
+      blockCount: null,
+      connectionCount: null,
+      miningInfo: {
+        difficulty: null,
+        networkhashps: null
+      },
       peerInfo: [],
       error: null
-		}
-	},
+    }
+  },
   loading: false,
   error: null
 };

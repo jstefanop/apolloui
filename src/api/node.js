@@ -12,6 +12,10 @@ async function fetchNode ({ accessToken }) {
                 timestamp
                 blockCount
                 connectionCount
+                miningInfo {
+                  difficulty
+                  networkhashps
+                }
                 peerInfo {
                   addr
                   subver

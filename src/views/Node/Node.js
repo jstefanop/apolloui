@@ -12,6 +12,8 @@ import {
 import { I18n } from "@lingui/react";
 import { Trans } from '@lingui/macro';
 
+import DashboardWidget from '../Widgets/DashboardWidget';
+
 class Node extends Component {
   render() {
     // TODO: Use loadingNode
@@ -53,14 +55,32 @@ class Node extends Component {
       )
     }
 
+    const { blockCount, connectionCount, miningInfo, peerInfo } = node.stats;
+
     return (
       <div ref='main'>
         <div className='animated fadeIn'>
           <Row>
+            <Col xs='12' md='6' xl='6'>
+              <DashboardWidget
+                bgColor='bg-light'
+                icon='fa fa-fire'
+                value={miningInfo.networkhashps && `${(miningInfo.networkhashps / 1000000000000).toFixed(2)} Th/s`}
+                title='Network Hashrate'
+                hideProgress={true}
+                progressColor='success'
+                progressValue={100}
+                secondaryTitle='Network Difficulty'
+                secondaryValue={miningInfo.difficulty && miningInfo.difficulty.toFixed(2)}
+              />
+            </Col>
+          </Row>
+
+          <Row>
             <Col xs='12' md='6'>
               <Card className="bg-light">
                 <CardBody>
-                  <div className="h4 m-0">{node.stats.blockCount}</div>
+                  <div className="h4 m-0">{blockCount}</div>
                   <div><Trans>Blocks</Trans></div>
                 </CardBody>
               </Card>
@@ -69,7 +89,7 @@ class Node extends Component {
             <Col xs='12' md='6'>
               <Card className="bg-light">
                 <CardBody>
-                  <div className="h4 m-0">{node.stats.connectionCount}</div>
+                  <div className="h4 m-0">{connectionCount}</div>
                   <div><Trans>Connections</Trans></div>
                 </CardBody>
               </Card>
@@ -90,7 +110,7 @@ class Node extends Component {
                         </tr>
                       </thead>
                       <tbody className="bg-white">
-                        {node.stats.peerInfo.map(function(peer, index) {
+                        {peerInfo.map(function(peer, index) {
                           return (
                             <tr key={index}>
                               <td>
