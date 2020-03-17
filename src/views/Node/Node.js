@@ -57,7 +57,7 @@ class Node extends Component {
       )
     }
 
-    const { blockchainInfo, blockCount, connectionCount, miningInfo, peerInfo } = node.stats;
+    const { blockchainInfo, connectionCount, miningInfo, peerInfo } = node.stats;
 
     // Truncate instead of round: blockchainInfo.verificationProgress
     // Since being stuck at 99.99% looks better than 100.00%

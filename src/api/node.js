@@ -16,7 +16,6 @@ async function fetchNode ({ accessToken }) {
                   medianTime
                   verificationProgress
                 }
-                blockCount
                 connectionCount
                 miningInfo {
                   difficulty

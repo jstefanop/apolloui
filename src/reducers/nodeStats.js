@@ -15,7 +15,6 @@ const initialState = {
         medianTime: null,
         verificationProgress: null
       },
-      blockCount: null,
       connectionCount: null,
       miningInfo: {
         difficulty: null,
