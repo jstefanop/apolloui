@@ -9,6 +9,12 @@ const initialState = {
   data: {
     stats: {
       initial: true,
+      blockchainInfo: {
+        blocks: null,
+        initialBlockDownload: null,
+        medianTime: null,
+        verificationProgress: null
+      },
       blockCount: null,
       connectionCount: null,
       miningInfo: {

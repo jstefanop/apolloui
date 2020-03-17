@@ -10,6 +10,12 @@ async function fetchNode ({ accessToken }) {
             result {
               stats {
                 timestamp
+                blockchainInfo {
+                  blocks
+                  initialBlockDownload
+                  medianTime
+                  verificationProgress
+                }
                 blockCount
                 connectionCount
                 miningInfo {

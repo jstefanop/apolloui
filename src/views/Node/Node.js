@@ -9,6 +9,8 @@ import {
   Table
 } from 'reactstrap';
 
+import moment from 'moment';
+
 import { I18n } from "@lingui/react";
 import { Trans } from '@lingui/macro';
 
@@ -55,12 +57,39 @@ class Node extends Component {
       )
     }
 
-    const { blockCount, connectionCount, miningInfo, peerInfo } = node.stats;
+    const { blockchainInfo, blockCount, connectionCount, miningInfo, peerInfo } = node.stats;
 
+    // Truncate instead of round: blockchainInfo.verificationProgress
+    // Since being stuck at 99.99% looks better than 100.00%
     return (
       <div ref='main'>
         <div className='animated fadeIn'>
           <Row>
+            <Col xs='12' md='6' xl='6'>
+              {blockchainInfo.initialBlockDownload ?
+                <DashboardWidget
+                  bgColor='bg-light'
+                  icon='fa fa-clock'
+                  value={blockchainInfo.blocks}
+                  title='Current Blocks'
+                  progressColor='success'
+                  progressValue={100}
+                  secondaryTitle='Last Block'
+                  secondaryValue={blockchainInfo.medianTime && (moment().subtract(blockchainInfo.medianTime, 'seconds')).format('mm:ss')}
+                /> :
+                <DashboardWidget
+                  bgColor='bg-light'
+                  icon='fa fa-clock'
+                  value={blockchainInfo.blocks}
+                  title='Current Blocks'
+                  progressColor='warning'
+                  progressValue={blockchainInfo.verificationProgress && parseInt(blockchainInfo.verificationProgress * 100)}
+                  secondaryTitle='Block Sync Progress'
+                  secondaryValue={blockchainInfo.verificationProgress && `${(Math.floor(blockchainInfo.verificationProgress * 100 * 100) / 100).toFixed(2)}%`}
+                />
+              }
+            </Col>
+
             <Col xs='12' md='6' xl='6'>
               <DashboardWidget
                 bgColor='bg-light'
@@ -77,15 +106,6 @@ class Node extends Component {
           </Row>
 
           <Row>
-            <Col xs='12' md='6'>
-              <Card className="bg-light">
-                <CardBody>
-                  <div className="h4 m-0">{blockCount}</div>
-                  <div><Trans>Blocks</Trans></div>
-                </CardBody>
-              </Card>
-            </Col>
-
             <Col xs='12' md='6'>
               <Card className="bg-light">
                 <CardBody>
