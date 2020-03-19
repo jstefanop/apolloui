@@ -12,9 +12,8 @@ async function fetchNode ({ accessToken }) {
                 timestamp
                 blockchainInfo {
                   blocks
-                  initialBlockDownload
+                  headers
                   medianTime
-                  verificationProgress
                 }
                 connectionCount
                 miningInfo {

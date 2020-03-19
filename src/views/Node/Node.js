@@ -59,14 +59,14 @@ class Node extends Component {
 
     const { blockchainInfo, connectionCount, miningInfo, peerInfo } = node.stats;
 
-    // Truncate instead of round: blockchainInfo.verificationProgress
+    // Truncate instead of round: secondaryValue
     // Since being stuck at 99.99% looks better than 100.00%
     return (
       <div ref='main'>
         <div className='animated fadeIn'>
           <Row>
             <Col xs='12' md='6' xl='6'>
-              {blockchainInfo.initialBlockDownload ?
+              {blockchainInfo.blocks && blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
                 <DashboardWidget
                   bgColor='bg-light'
                   icon='fa fa-clock'
@@ -75,17 +75,19 @@ class Node extends Component {
                   progressColor='success'
                   progressValue={100}
                   secondaryTitle='Last Block'
-                  secondaryValue={blockchainInfo.medianTime && (moment().subtract(blockchainInfo.medianTime, 'seconds')).format('mm:ss')}
-                /> :
+                  secondaryValue={blockchainInfo.medianTime && moment().subtract(blockchainInfo.medianTime, 'seconds').format('mm:ss')}
+                />
+              }
+              {blockchainInfo.blocks && blockchainInfo.headers && blockchainInfo.blocks > blockchainInfo.headers &&
                 <DashboardWidget
                   bgColor='bg-light'
                   icon='fa fa-clock'
-                  value={blockchainInfo.blocks}
-                  title='Current Blocks'
+                  value={`${blockchainInfo.blocks} / ${blockchainInfo.headers}`}
+                  title='Syncing Blocks'
                   progressColor='warning'
-                  progressValue={blockchainInfo.verificationProgress && parseInt(blockchainInfo.verificationProgress * 100)}
+                  progressValue={parseInt((blockchainInfo.blocks / blockchainInfo.headers) * 100)}
                   secondaryTitle='Block Sync Progress'
-                  secondaryValue={blockchainInfo.verificationProgress && `${(Math.floor(blockchainInfo.verificationProgress * 100 * 100) / 100).toFixed(2)}%`}
+                  secondaryValue={`${(Math.floor((blockchainInfo.blocks / blockchainInfo.headers) * 100 * 100) / 100).toFixed(2)}%`}
                 />
               }
             </Col>
