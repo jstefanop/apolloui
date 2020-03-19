@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
+      name: 'Miner Dashboard',
       url: '/dashboard',
       icon: 'icon-speedometer'
     },
