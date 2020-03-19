@@ -11,8 +11,8 @@ const initialState = {
       initial: true,
       blockchainInfo: {
         blocks: null,
-        headers: null,
-        medianTime: null
+        blockTime: null,
+        headers: null
       },
       connectionCount: null,
       miningInfo: {

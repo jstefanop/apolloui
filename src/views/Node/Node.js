@@ -75,7 +75,7 @@ class Node extends Component {
                   progressColor='success'
                   progressValue={100}
                   secondaryTitle='Last Block'
-                  secondaryValue={blockchainInfo.medianTime && moment().subtract(blockchainInfo.medianTime, 'seconds').format('mm:ss')}
+                  secondaryValue={blockchainInfo.blockTime && moment().utc().subtract(blockchainInfo.blockTime, 'seconds').format('mm:ss')}
                 />
               }
               {blockchainInfo.headers && blockchainInfo.blocks < blockchainInfo.headers &&
