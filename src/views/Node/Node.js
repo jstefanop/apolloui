@@ -68,7 +68,7 @@ class Node extends Component {
             <Col xs='12' md='6' xl='6'>
               {blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
                 <DashboardWidget
-                  bgColor='bg-light'
+                  bgColor='bg-gray-300'
                   icon='fa fa-clock'
                   value={blockchainInfo.blocks}
                   title='Current Blocks'
@@ -80,7 +80,7 @@ class Node extends Component {
               }
               {blockchainInfo.headers && blockchainInfo.blocks < blockchainInfo.headers &&
                 <DashboardWidget
-                  bgColor='bg-light'
+                  bgColor='bg-gray-300'
                   icon='fa fa-clock'
                   value={`${blockchainInfo.blocks} / ${blockchainInfo.headers}`}
                   title='Syncing Blocks'
