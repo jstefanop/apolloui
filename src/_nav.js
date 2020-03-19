@@ -8,7 +8,24 @@ export default {
     {
       name: 'Node',
       url: '/node',
-      icon: 'fa fa-network-wired'
+      icon: 'fa fa-network-wired',
+      children: [
+        {
+          name: 'Dashboard',
+          url: '/node',
+          icon: 'icon-speedometer'
+        },
+        {
+          name: 'Start',
+          url: '/miner/start',
+          icon: 'fa fa-play'
+        },
+        {
+          name: 'Stop',
+          url: '/miner/stop',
+          icon: 'fa fa-stop'
+        }
+      ]
     },
     {
       name: 'Settings',
@@ -26,19 +43,19 @@ export default {
       children: [{
         name: 'Start',
         url: '/miner/start',
-        icon: 'fa fa-play',
+        icon: 'fa fa-play'
       }, {
         name: 'Stop',
         url: '/miner/stop',
-        icon: 'fa fa-stop',
+        icon: 'fa fa-stop'
       }, {
         name: 'Restart',
         url: '/miner/restart',
-        icon: 'fa fa-redo',
+        icon: 'fa fa-redo'
       }]
     },
     {
-      divider: true,
+      divider: true
     },
     {
       name: 'System',
@@ -46,11 +63,11 @@ export default {
       children: [{
         name: 'Reboot',
         url: '/mcu/reboot',
-        icon: 'fa fa-spinner',
+        icon: 'fa fa-spinner'
       }, {
         name: 'Shutdown',
         url: '/mcu/shutdown',
-        icon: 'fa fa-power-off',
+        icon: 'fa fa-power-off'
       }]
     },
     {
@@ -58,7 +75,7 @@ export default {
       url: '/logout',
       icon: 'fa fa-sign-out-alt',
       class: 'mt-auto',
-      variant: 'info',
-    },
-  ],
+      variant: 'info'
+    }
+  ]
 };
