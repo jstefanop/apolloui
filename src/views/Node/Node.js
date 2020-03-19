@@ -66,7 +66,7 @@ class Node extends Component {
         <div className='animated fadeIn'>
           <Row>
             <Col xs='12' md='6' xl='6'>
-              {blockchainInfo.blocks && blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
+              {blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
                 <DashboardWidget
                   bgColor='bg-light'
                   icon='fa fa-clock'
@@ -78,7 +78,7 @@ class Node extends Component {
                   secondaryValue={blockchainInfo.medianTime && moment().subtract(blockchainInfo.medianTime, 'seconds').format('mm:ss')}
                 />
               }
-              {blockchainInfo.blocks && blockchainInfo.headers && blockchainInfo.blocks > blockchainInfo.headers &&
+              {blockchainInfo.headers && blockchainInfo.blocks < blockchainInfo.headers &&
                 <DashboardWidget
                   bgColor='bg-light'
                   icon='fa fa-clock'
@@ -96,7 +96,7 @@ class Node extends Component {
               <DashboardWidget
                 bgColor='bg-light'
                 icon='fa fa-fire'
-                value={miningInfo.networkhashps && `${(miningInfo.networkhashps / 1000000000000).toFixed(2)} Th/s`}
+                value={!!(miningInfo.networkhashps) && `${(miningInfo.networkhashps / 1000000000000).toFixed(2)} Th/s`}
                 title='Network Hashrate'
                 hideProgress={true}
                 progressColor='success'
