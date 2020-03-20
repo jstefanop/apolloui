@@ -8,27 +8,27 @@ import { McuManage } from './views/Mcu';
 
 const Login = Loadable({
   loader: () => import('./views/Login'),
-  loading: Loading,
+  loading: Loading
 });
 
 const Dashboard = Loadable({
   loader: () => import('./views/Dashboard'),
-  loading: Loading,
+  loading: Loading
 });
 
 const Node = Loadable({
   loader: () => import('./views/Node'),
-  loading: Loading,
+  loading: Loading
 });
 
 const Settings = Loadable({
   loader: () => import('./views/Settings'),
-  loading: Loading,
+  loading: Loading
 });
 
 const Pools = Loadable({
   loader: () => import('./views/Pools'),
-  loading: Loading,
+  loading: Loading
 });
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config

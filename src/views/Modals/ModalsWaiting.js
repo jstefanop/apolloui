@@ -15,8 +15,6 @@ import { Loading } from '../Loading';
 import { Trans } from '@lingui/macro';
 
 class ModalsWaiting extends Component {
-  
-
   render() {
     return (
       <div>

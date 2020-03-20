@@ -7,5 +7,5 @@ export {
   ModalsSetup,
   ModalsRawStats,
   ModalsWaiting,
-  ModalsRestore,
+  ModalsRestore
 };
