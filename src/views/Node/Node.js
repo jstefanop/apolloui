@@ -65,7 +65,7 @@ class Node extends Component {
       <div ref='main'>
         <div className='animated fadeIn'>
           <Row>
-            <Col xs='12' md='6' xl='6'>
+            <Col xs='12' md='6'>
               {blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
                 <DashboardWidget
                   bgColor='bg-gray-300'
@@ -92,7 +92,7 @@ class Node extends Component {
               }
             </Col>
 
-            <Col xs='12' md='6' xl='6'>
+            <Col xs='12' md='6'>
               <DashboardWidget
                 bgColor='bg-light'
                 icon='fa fa-fire'
@@ -104,6 +104,24 @@ class Node extends Component {
                 secondaryTitle='Network Difficulty'
                 secondaryValue={miningInfo.difficulty && miningInfo.difficulty.toFixed(2)}
               />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs='12' md='6'>
+              {connectionCount &&
+                <DashboardWidget
+                  bgColor='bg-gray-300'
+                  icon='fa fa-broadcast-tower'
+                  value={`${connectionCount} / 16`}
+                  title='Connections'
+                  progressColor={connectionCount > 8 ? 'success': 'danger'}
+                  progressValue={parseInt((connectionCount / 16) * 100)}
+                  secondaryTitle={connectionCount === 8 ? 'Only inbound connections detected, please enable port 9333 on your router port forwarding rules for your Apollo IP address' : null}
+                  wrapSecondary={true}
+                  hideSecondaryValue={true}
+                />
+              }
             </Col>
           </Row>
 
