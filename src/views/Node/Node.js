@@ -59,6 +59,28 @@ class Node extends Component {
 
     const { blockchainInfo, connectionCount, miningInfo, peerInfo } = node.stats;
 
+    // Calculate sizeOnUsb
+    let sizeOnUsbInGb = null;
+    if (mcu && mcu.stats && mcu.stats.disks) {
+      const usbDisk = mcu.stats.disks.filter((disk) => {
+        return disk.mountPoint === '/media/usb0';
+      })[0];
+
+      if (usbDisk) { sizeOnUsbInGb = usbDisk.total / 1000000000; }
+    }
+
+    let sizeOnDiskInGb = null;
+    if (blockchainInfo.sizeOnDisk) {
+      sizeOnDiskInGb = blockchainInfo.sizeOnDisk / 1000000000;
+    }
+
+    let sizeProgressValue = null;
+    let sizeSecondaryValue = null;
+    if (sizeOnUsbInGb && sizeOnDiskInGb) {
+      sizeProgressValue = parseInt((sizeOnDiskInGb / sizeOnUsbInGb) * 100);
+      sizeSecondaryValue = (((sizeOnUsbInGb - sizeOnDiskInGb) / sizeOnUsbInGb) * 100).toFixed(2);
+    }
+
     // Truncate instead of round: secondaryValue
     // Since being stuck at 99.99% looks better than 100.00%
     return (
@@ -120,6 +142,21 @@ class Node extends Component {
                   secondaryTitle={connectionCount === 8 ? 'Only inbound connections detected, please enable port 9333 on your router port forwarding rules for your Apollo IP address' : null}
                   wrapSecondary={true}
                   hideSecondaryValue={true}
+                />
+              }
+            </Col>
+
+            <Col xs='12' md='6'>
+              {blockchainInfo.sizeOnDisk &&
+                <DashboardWidget
+                  bgColor='bg-gray-300'
+                  icon='fa fa-hdd'
+                  value={`${sizeOnDiskInGb.toFixed(2)} GB`}
+                  title='Blockchain Size'
+                  progressColor={sizeProgressValue > 90 ? 'danger' : sizeProgressValue > 70 ? 'warning' : 'success'}
+                  progressValue={sizeProgressValue}
+                  secondaryTitle='Remaining Space'
+                  secondaryValue={`${sizeSecondaryValue}%`}
                 />
               }
             </Col>

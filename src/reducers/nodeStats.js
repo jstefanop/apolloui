@@ -12,7 +12,8 @@ const initialState = {
       blockchainInfo: {
         blocks: null,
         blockTime: null,
-        headers: null
+        headers: null,
+        sizeOnDisk: null
       },
       connectionCount: null,
       miningInfo: {

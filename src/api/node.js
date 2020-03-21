@@ -14,6 +14,7 @@ async function fetchNode ({ accessToken }) {
                   blocks
                   blockTime
                   headers
+                  sizeOnDisk
                 }
                 connectionCount
                 miningInfo {
@@ -38,6 +39,11 @@ async function fetchNode ({ accessToken }) {
     path: 'Node.stats',
     accessToken
   })
+
+  // Convert large sizeOnDisk back to number
+  if (result && result.stats && result.stats.blockchainInfo && result.stats.blockchainInfo.sizeOnDisk) {
+    result.stats.blockchainInfo.sizeOnDisk = parseInt(result.stats.blockchainInfo.sizeOnDisk)
+  }
 
   return { result, error }
 }
