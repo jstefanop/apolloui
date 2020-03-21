@@ -66,7 +66,7 @@ class Node extends Component {
         return disk.mountPoint === '/media/usb0';
       })[0];
 
-      if (usbDisk) { sizeOnUsbInGb = usbDisk.total / 1000000000; }
+      if (usbDisk) { sizeOnUsbInGb = usbDisk.total / 1000000; }
     }
 
     let sizeOnDiskInGb = null;
