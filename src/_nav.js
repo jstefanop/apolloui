@@ -17,12 +17,12 @@ export default {
         },
         {
           name: 'Start',
-          url: '/miner/start',
+          url: '/node/start',
           icon: 'fa fa-play'
         },
         {
           name: 'Stop',
-          url: '/miner/stop',
+          url: '/node/stop',
           icon: 'fa fa-stop'
         }
       ]

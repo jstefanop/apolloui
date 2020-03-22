@@ -2,8 +2,6 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import {
   Alert,
-  Card,
-  CardBody,
   Col,
   Row,
   Table

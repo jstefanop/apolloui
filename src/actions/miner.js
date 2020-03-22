@@ -94,16 +94,14 @@ export const restartMinerSuccess = data => ({
 
 export function restartMiner() {
   return async (dispatch, getState) => {
-    const {
-      error,
-    } = await MinerAPI.restartMiner({ accessToken: getState().auth.accessToken });
+    const { error } = await MinerAPI.restartMiner({ accessToken: getState().auth.accessToken });
 
-	    if (error) {
-	      dispatch(setError({ message: error.message }))
-	    } else {
-	      dispatch(restartMinerSuccess())
-	    }
-  	}
+    if (error) {
+      dispatch(setError({ message: error.message }))
+    } else {
+      dispatch(restartMinerSuccess())
+    }
+  }
 }
 
 export const STOP_MINER_SUCCESS = 'STOP_MINER_SUCCESS';

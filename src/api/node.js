@@ -48,4 +48,44 @@ async function fetchNode ({ accessToken }) {
   return { result, error }
 }
 
-export default { fetchNode }
+async function startNode ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Node {
+        Node {
+          start {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Node.start',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+async function stopNode ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Node {
+        Node {
+          stop {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Node.stop',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+export default {
+  fetchNode,
+  startNode,
+  stopNode
+}
