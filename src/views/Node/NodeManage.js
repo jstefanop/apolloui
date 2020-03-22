@@ -12,8 +12,8 @@ class NodeManage extends Component {
     this.state = {
       modalsWaiting: false,
       progressValue: 0,
-      title: 'Please wait while the node warms up',
-      subtitle: 'This takes about 30 seconds — after that you will be redirected to the dashboard',
+      title: 'Please wait while node is starting up',
+      subtitle: 'This takes 5–15 minutes, and you will be directed to the node dashboard',
       showProgress: true,
       icon: 'fa-cog fa-spin'
     };
@@ -28,8 +28,8 @@ class NodeManage extends Component {
       case '/node/stop':
         this.props.stopNode();
         this.setState({
-          title: 'Node is stopping...',
-          subtitle: 'You will be redirected to the dashboard in a few seconds',
+          title: 'Node is shutting down...',
+          subtitle: 'Do not power down your Apollo until the node has fully shut down, which can take up to a minute',
           showProgress: false,
           icon: 'fa-stop-circle animated flash'
         });
