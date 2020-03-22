@@ -129,19 +129,17 @@ class Node extends Component {
 
           <Row>
             <Col xs='12' md='6'>
-              {connectionCount &&
-                <DashboardWidget
-                  bgColor='bg-gray-300'
-                  icon='fa fa-broadcast-tower'
-                  value={`${connectionCount} / 16`}
-                  title='Connections'
-                  progressColor={connectionCount > 8 ? 'success': 'danger'}
-                  progressValue={parseInt((connectionCount / 16) * 100)}
-                  secondaryTitle={connectionCount === 8 ? 'Only inbound connections detected, please enable port 9333 on your router port forwarding rules for your Apollo IP address' : null}
-                  wrapSecondary={true}
-                  hideSecondaryValue={true}
-                />
-              }
+              <DashboardWidget
+                bgColor='bg-gray-300'
+                icon='fa fa-broadcast-tower'
+                value={`${connectionCount} / 16`}
+                title='Connections'
+                progressColor={connectionCount > 8 ? 'success': 'danger'}
+                progressValue={parseInt((connectionCount / 16) * 100)}
+                secondaryTitle={connectionCount === 8 ? 'Only inbound connections detected, please enable port 9333 on your router port forwarding rules for your Apollo IP address' : null}
+                wrapSecondary={true}
+                hideSecondaryValue={true}
+              />
             </Col>
 
             <Col xs='12' md='6'>
