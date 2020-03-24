@@ -33,7 +33,7 @@ class NodeManage extends Component {
           showProgress: false,
           icon: 'fa-stop-circle animated flash'
         });
-        timeout = 5000;
+        timeout = 60000;
         break;
       default:
         break;
