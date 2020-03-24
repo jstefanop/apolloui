@@ -14,10 +14,35 @@ import { Trans } from '@lingui/macro';
 
 import DashboardWidget from '../Widgets/DashboardWidget';
 
+import { LoadingErrorBox } from '../Loading';
+
 class Node extends Component {
   render() {
     // TODO: Use loadingNode
     const { loadingNode, mcu, node, nodeError } = this.props;
+
+    // Node offline state
+    if (node && node.stats && node.stats.error && node.stats.error.code === 'ECONNREFUSED') {
+      const loadingErrorBoxSubtitle = 'Double-check your USB node drive is plugged in the USB port in the back of' +
+        ' your Apollo, properly formatted with the folder name "Litecoin" in the root directory, and press the Start' +
+        ' button below'
+
+      return (
+        <LoadingErrorBox
+          show={true}
+          bg='bg-0'
+          title='Node is offline'
+          centerTitle={true}
+          subtitle={loadingErrorBoxSubtitle}
+          error={false}
+          centerSubtitle={true}
+          icon='fa-toggle-off animated bounce'
+          showBtn={true}
+          btnTo='/node/start'
+          btnText='Start'
+        />
+      )
+    }
 
     // If less memory than 500 MB, return Alert and prevent page load
     if (mcu && mcu.stats && mcu.stats.memory && mcu.stats.memory.total && mcu.stats.memory.total < 500000) {
@@ -38,10 +63,9 @@ class Node extends Component {
     } else if (node && node.stats && node.stats.error) {
       // Handle loading errors (e.g., Litecoin client off, loading, etc.)
       let loadingErrorMessage = null
+
       // If Litecoin client off, display constant message
-      if (node.stats.error.code === 'ECONNREFUSED') {
-        loadingErrorMessage = 'Node is currently offline'
-      } else if (node.stats.error.code === '-28') {
+      if (node.stats.error.code === '-28') {
         loadingErrorMessage = 'Node is currently loading'
       } else {
         // Every other loading error
