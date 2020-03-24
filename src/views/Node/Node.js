@@ -21,6 +21,25 @@ class Node extends Component {
     // TODO: Use loadingNode
     const { loadingNode, mcu, node, nodeError } = this.props;
 
+    // If less memory than 500 MB, return Alert and prevent page load
+    if (mcu && mcu.stats && mcu.stats.memory && mcu.stats.memory.total && mcu.stats.memory.total < 500000) {
+      return (
+        <LoadingErrorBox
+          show={true}
+          bg='bg-0'
+          title='Batch 1 controllers do not have the necessary RAM to run a full node'
+          centerTitle={true}
+          subtitle='We made a Batch 1 upgrade kit available below'
+          error={false}
+          centerSubtitle={true}
+          icon='fa-exclamation-triangle animated bounce'
+          showLink={true}
+          linkTo='https://google.com'
+          linkText='Link placeholder'
+        />
+      )
+    }
+
     // Node offline state
     if (node && node.stats && node.stats.error && node.stats.error.code === 'ECONNREFUSED') {
       const loadingErrorBoxSubtitle = 'Double-check your USB node drive is plugged in the USB port in the back of' +
@@ -41,15 +60,6 @@ class Node extends Component {
           btnTo='/node/start'
           btnText='Start'
         />
-      )
-    }
-
-    // If less memory than 500 MB, return Alert and prevent page load
-    if (mcu && mcu.stats && mcu.stats.memory && mcu.stats.memory.total && mcu.stats.memory.total < 500000) {
-      return (
-        <div ref='main'>
-          <Alert color='warning'>There is a problem fetching system stats (<b>MCU must have at least 512 MB of memory to view this page</b>)</Alert>
-        </div>
       )
     }
 

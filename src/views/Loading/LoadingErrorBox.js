@@ -10,7 +10,7 @@ import {
 class LoadingErrorBox extends Component {
 
   render() {
-    if (this.props.show ) {
+    if (this.props.show) {
       return (
         <Row className="animated fadeIn">
           <Col sm={{ size: 12 }} md={{ size: 10, offset: 1 }} lg={{ size: 8, offset: 2 }} xl={{ size: 6, offset: 3 }}>
@@ -49,6 +49,15 @@ class LoadingErrorBox extends Component {
                     </p>
                   </div>
                 : null }
+
+              {this.props.showLink &&
+                <div>
+                  <p className={this.props.centerTitle ? 'lead text-center' : 'lead'}>
+                    <a href={this.props.linkTo} target='_blank'>{this.props.linkText}</a>
+                  </p>
+                </div>
+              }
+
               { (this.props.showProgress) ?
                   <Progress className="progress-xs my-3" color="secondary" value={ this.props.progress } />
                 : null }
