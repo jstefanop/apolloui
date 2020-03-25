@@ -14,13 +14,14 @@ class NodeManage extends Component {
       progressValue: 0,
       title: 'Please wait while node is starting up',
       subtitle: 'This takes 5–15 minutes, and you will be directed to the node dashboard',
-      showProgress: true,
+      showProgress: false,
       icon: 'fa-cog fa-spin'
     };
   }
 
   componentDidMount () {
-    let timeout = 30000;
+    // Set startNode to a delay that will never be reached on a successful Node launch: 25 minutes
+    let timeout = 1500000;
     switch (this.props.location.pathname) {
       case '/node/start':
         this.props.startNode();
@@ -61,7 +62,24 @@ class NodeManage extends Component {
     }
   }
 
+  componentDidUpdate () {
+    const { node, redirect } = this.props;
+
+    // If headers present, redirect to Node page
+    if (node && node.stats && node.stats.blockchainInfo && node.stats.blockchainInfo.headers) {
+      redirect();
+    }
+  }
+
   render() {
+    const { node } = this.props;
+
+    // Display loading message
+    let secondSubtitle = null;
+    if (node && node.stats && node.stats.error && node.stats.error.code && node.stats.error.code === '-28') {
+      secondSubtitle = node.stats.error.message;
+    }
+
     return (
       <div>
         <LoadingErrorBox
@@ -70,6 +88,7 @@ class NodeManage extends Component {
           title={this.state.title}
           centerTitle={true}
           subtitle={this.state.subtitle}
+          secondSubtitle={secondSubtitle}
           centerSubtitle={true}
           icon={this.state.icon}
           showBtn={false}
@@ -95,4 +114,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NodeManage);
+const mapStateToProps = (state) => {
+  return { node: state.nodeStats.data };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NodeManage);

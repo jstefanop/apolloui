@@ -237,7 +237,7 @@ const mapStateToProps = (state) => {
     mcu: state.mcuStats.data,
     node: state.nodeStats.data,
     nodeError: state.nodeStats.error
-  }
+  };
 };
 
 export default connect(mapStateToProps)(Node);

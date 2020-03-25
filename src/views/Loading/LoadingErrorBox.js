@@ -37,11 +37,16 @@ class LoadingErrorBox extends Component {
                     <hr className="my-4" />
                   </div>
                 : null }
-              { (this.props.subtitle) ?
-                  <div>
-                    <p className={ (this.props.centerSubtitle) ? 'text-muted text-center' : 'text-muted' }>{ this.props.subtitle }</p>
-                  </div>
-                : null }
+
+              {this.props.subtitle &&
+                <div>
+                  <p className={this.props.centerSubtitle ? 'text-muted text-center' : 'text-muted'}>{this.props.subtitle}</p>
+                  {this.props.secondSubtitle &&
+                    <p className={this.props.centerSubtitle ? 'text-muted text-center' : 'text-muted'}>{this.props.secondSubtitle}</p>
+                  }
+                </div>
+              }
+
               { (this.props.showBtn) ?
                   <div>
                     <p className={ (this.props.centerTitle) ? 'lead text-center' : 'lead' }>
