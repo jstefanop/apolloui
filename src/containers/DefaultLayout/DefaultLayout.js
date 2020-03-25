@@ -54,6 +54,7 @@ class DefaultLayout extends Component {
   render() {
     const {
       isLoggedIn,
+      mcu,
       settings
     } = this.props
 
@@ -66,6 +67,11 @@ class DefaultLayout extends Component {
     let asideOptions = {
       fixed: true,
       display: (settings.rightSidebarVisibility) ? 'lg' : ''
+    }
+
+    // If less memory than 500 MB, hide Start and Stop buttons for Node
+    if (mcu && mcu.stats && mcu.stats.memory && mcu.stats.memory.total && mcu.stats.memory.total < 500000) {
+      navigation.items[1].children = [{ name: 'Dashboard', url: '/node', icon: 'icon-speedometer' }]
     }
 
     return (
@@ -114,6 +120,7 @@ class DefaultLayout extends Component {
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.accessToken != null,
+  mcu: state.mcuStats.data,
   settings: state.settings
 })
 
