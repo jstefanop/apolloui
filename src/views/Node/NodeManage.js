@@ -13,7 +13,7 @@ class NodeManage extends Component {
       modalsWaiting: false,
       progressValue: 0,
       title: 'Please wait while node is starting up',
-      subtitle: 'This takes 5–15 minutes, and you will be directed to the node dashboard',
+      subtitle: 'This takes 5–15 minutes, and you will be redirected to the node dashboard',
       showProgress: false,
       icon: 'fa-cog fa-spin'
     };
