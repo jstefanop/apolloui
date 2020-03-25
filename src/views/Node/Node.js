@@ -35,7 +35,7 @@ class Node extends Component {
           icon='fa-exclamation-triangle animated bounce'
           showLink={true}
           linkTo='https://shop.futurebit.io'
-          linkText='FutureBit Store'
+          linkText='FutureBit Batch 1 Upgrade Kit'
         />
       )
     }
