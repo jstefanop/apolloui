@@ -63,11 +63,13 @@ class NodeManage extends Component {
   }
 
   componentDidUpdate () {
-    const { node, redirect } = this.props;
+    const { location, node, redirect } = this.props;
 
-    // If headers present, redirect to Node page
-    if (node && node.stats && node.stats.blockchainInfo && node.stats.blockchainInfo.headers) {
-      redirect();
+    if (location && location.pathname && location.pathname === '/node/start') {
+      // If headers present, redirect to Node page
+      if (node && node.stats && node.stats.blockchainInfo && node.stats.blockchainInfo.headers) {
+        redirect();
+      }
     }
   }
 
