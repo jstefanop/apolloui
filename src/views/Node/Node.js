@@ -34,8 +34,8 @@ class Node extends Component {
           centerSubtitle={true}
           icon='fa-exclamation-triangle animated bounce'
           showLink={true}
-          linkTo='https://google.com'
-          linkText='Link placeholder'
+          linkTo='https://shop.futurebit.io'
+          linkText='FutureBit Store'
         />
       )
     }
