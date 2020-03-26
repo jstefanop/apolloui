@@ -30,6 +30,15 @@ class Node extends Component {
       }
     }
 
+    if (node && node.stats && node.stats.error && node.stats.error.code) {
+      const errorCode = node.stats.error.code;
+
+      // Code of -32602 means 500
+      if (errorCode === 'ESOCKETTIMEDOUT' || errorCode === 'ETIMEDOUT' || errorCode === '-32602') {
+        return false;
+      }
+    }
+
     return true;
   }
 
