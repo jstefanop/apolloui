@@ -21,14 +21,12 @@ class Node extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const { node } = this.props;
 
-    if (node && node.stats && node.stats.blockchainInfo && node.stats.blockchainInfo.headers) {
-      if (nextProps && nextProps.stats && nextProps.stats.error && nextProps.stats.error.code) {
-        const errorCode = nextProps.stats.error.code;
+    if (nextProps && nextProps.stats && nextProps.stats.error && nextProps.stats.error.code) {
+      const errorCode = nextProps.stats.error.code;
 
-        // Code of -32602 means 500
-        if (errorCode === 'ESOCKETTIMEDOUT' || errorCode === 'ETIMEDOUT' || errorCode === '-32602') {
-          return false;
-        }
+      // Code of -32602 means 500
+      if (errorCode === 'ESOCKETTIMEDOUT' || errorCode === 'ETIMEDOUT' || errorCode === '-32602') {
+        return false;
       }
     }
 
