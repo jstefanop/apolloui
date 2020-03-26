@@ -19,10 +19,8 @@ import { LoadingErrorBox } from '../Loading';
 class Node extends Component {
   // If node once had headers but now has error, do not render again
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('nextProps', nextProps)
-    console.log('this.props', this.props)
-    if (nextProps && nextProps.stats && nextProps.stats.error && nextProps.stats.error.code) {
-      const errorCode = nextProps.stats.error.code;
+    if (nextProps && nextProps.node && nextProps.node.stats && nextProps.node.stats.error && nextProps.node.stats.error.code) {
+      const errorCode = nextProps.node.stats.error.code;
 
       // Code of -32602 means 500
       if (errorCode === 'ESOCKETTIMEDOUT' || errorCode === 'ETIMEDOUT' || errorCode === '-32602') {
