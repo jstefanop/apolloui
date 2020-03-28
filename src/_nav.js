@@ -1,9 +1,31 @@
 export default {
   items: [
     {
-      name: 'Miner Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer'
+      name: 'Miner',
+      url: '/miner',
+      icon: 'fa fa-hdd',
+      children: [
+        {
+          name: 'Dashboard',
+          url: '/miner',
+          icon: 'icon-speedometer'
+        },
+        {
+          name: 'Start',
+          url: '/miner/start',
+          icon: 'fa fa-play'
+        },
+        {
+          name: 'Stop',
+          url: '/miner/stop',
+          icon: 'fa fa-stop'
+        },
+        {
+          name: 'Restart',
+          url: '/miner/restart',
+          icon: 'fa fa-redo'
+        }
+      ]
     },
     {
       name: 'Node',
@@ -36,23 +58,6 @@ export default {
       name: 'Pools',
       url: '/pools',
       icon: 'fa fa-database'
-    },
-    {
-      name: 'Miner',
-      icon: 'fa fa-hdd',
-      children: [{
-        name: 'Start',
-        url: '/miner/start',
-        icon: 'fa fa-play'
-      }, {
-        name: 'Stop',
-        url: '/miner/stop',
-        icon: 'fa fa-stop'
-      }, {
-        name: 'Restart',
-        url: '/miner/restart',
-        icon: 'fa fa-redo'
-      }]
     },
     {
       divider: true

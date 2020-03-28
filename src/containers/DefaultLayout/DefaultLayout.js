@@ -100,7 +100,7 @@ class DefaultLayout extends Component {
                             : (null);
                         },
                       )}
-                      <Redirect from="/" to="/dashboard" />
+                      <Redirect from="/" to="/miner" />
                     </Switch>
                   : <Redirect to="/login" />
               }

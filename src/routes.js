@@ -36,15 +36,18 @@ const Pools = Loadable({
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/login', name: 'Login', component: Login },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+
+  { path: '/miner', exact: true, name: 'Miner', component: Dashboard },
+  { path: '/miner/start', name: 'Start miner', component: MinerManage },
+  { path: '/miner/stop', name: 'Stop miner', component: MinerManage },
+  { path: '/miner/restart', name: 'Restart miner', component: MinerManage },
+
   { path: '/node', exact: true, name: 'Node', component: Node },
   { path: '/node/start', name: 'Start node', component: NodeManage },
   { path: '/node/stop', name: 'Stop node', component: NodeManage },
+
   { path: '/settings', name: 'Settings', component: Settings },
   { path: '/pools', name: 'Pools', component: Pools },
-  { path: '/miner/start', name: 'Start miner', component: MinerManage },
-  { path: '/miner/restart', name: 'Restart miner', component: MinerManage },
-  { path: '/miner/stop', name: 'Stop miner', component: MinerManage },
   { path: '/mcu/reboot', name: 'Reboot Mcu', component: McuManage },
   { path: '/mcu/shutdown', name: 'Shutdown Mcu', component: McuManage },
   { path: '/logout', name: 'Logout', component: Logout }
