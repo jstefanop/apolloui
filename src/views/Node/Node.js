@@ -138,7 +138,7 @@ class Node extends Component {
                 <DashboardWidget
                   bgColor='bg-dark'
                   icon='fa fa-clock'
-                  value={blockchainInfo.blocks}
+                  value={blockchainInfo.blocks.toLocaleString()}
                   title='Current Blocks'
                   progressColor='success'
                   progressValue={100}
@@ -150,7 +150,7 @@ class Node extends Component {
                 <DashboardWidget
                   bgColor='bg-dark'
                   icon='fa fa-clock'
-                  value={`${blockchainInfo.blocks} / ${blockchainInfo.headers}`}
+                  value={`${blockchainInfo.blocks.toLocaleString()} / ${blockchainInfo.headers.toLocaleString()}`}
                   title='Syncing Blocks'
                   progressColor='warning'
                   progressValue={parseInt((blockchainInfo.blocks / blockchainInfo.headers) * 100)}
@@ -164,13 +164,13 @@ class Node extends Component {
               <DashboardWidget
                 bgColor='bg-info'
                 icon='fa fa-fire'
-                value={!!(miningInfo.networkhashps) ? `${(miningInfo.networkhashps / 1000000000000).toFixed(2)} Th/s` : '0 Th/s'}
+                value={!!(miningInfo.networkhashps) ? `${(miningInfo.networkhashps / 1000000000000).toFixed(2)} TH/s` : '0 TH/s'}
                 title='Network Hashrate'
                 hideProgress={true}
                 progressColor='success'
                 progressValue={100}
                 secondaryTitle='Network Difficulty'
-                secondaryValue={miningInfo.difficulty && miningInfo.difficulty.toFixed(2)}
+                secondaryValue={miningInfo.difficulty && miningInfo.difficulty.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               />
             </Col>
           </Row>
