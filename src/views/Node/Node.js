@@ -136,7 +136,7 @@ class Node extends Component {
             <Col xs='12' md='6'>
               {blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
                 <DashboardWidget
-                  bgColor='bg-gray-300'
+                  bgColor='bg-dark'
                   icon='fa fa-clock'
                   value={blockchainInfo.blocks}
                   title='Current Blocks'
@@ -148,7 +148,7 @@ class Node extends Component {
               }
               {blockchainInfo.headers && blockchainInfo.blocks < blockchainInfo.headers &&
                 <DashboardWidget
-                  bgColor='bg-gray-300'
+                  bgColor='bg-dark'
                   icon='fa fa-clock'
                   value={`${blockchainInfo.blocks} / ${blockchainInfo.headers}`}
                   title='Syncing Blocks'
@@ -162,7 +162,7 @@ class Node extends Component {
 
             <Col xs='12' md='6'>
               <DashboardWidget
-                bgColor='bg-light'
+                bgColor='bg-info'
                 icon='fa fa-fire'
                 value={!!(miningInfo.networkhashps) ? `${(miningInfo.networkhashps / 1000000000000).toFixed(2)} Th/s` : '0 Th/s'}
                 title='Network Hashrate'
@@ -193,7 +193,7 @@ class Node extends Component {
             <Col xs='12' md='6'>
               {blockchainInfo.sizeOnDisk &&
                 <DashboardWidget
-                  bgColor='bg-gray-300'
+                  bgColor='bg-gray-200'
                   icon='fa fa-hdd'
                   value={`${sizeOnDiskInGb.toFixed(2)} GB`}
                   title='Blockchain Size'
