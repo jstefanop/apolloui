@@ -17,6 +17,7 @@ import {
 
 import { Trans } from '@lingui/macro';
 
+import { Loading } from '../Loading';
 import { saveInitialSetup } from '../../actions/auth';
 
 class ModalsSetup extends Component {
@@ -32,6 +33,7 @@ class ModalsSetup extends Component {
       repeatPassword: '',
       passwordError: '',
       repeatPasswordError: '',
+      saving: false
     };
 
     this.handleSave = this.handleSave.bind(this);
@@ -118,6 +120,7 @@ class ModalsSetup extends Component {
       };
     }
 
+    this.setState({ saving: true });
     saveSetup({ password, poolSetup });
   }
 
@@ -132,6 +135,7 @@ class ModalsSetup extends Component {
       poolPassword,
       poolProxy,
       poolFieldErrors,
+      saving
     } = this.state;
 
     const {
@@ -156,6 +160,7 @@ class ModalsSetup extends Component {
                   <div className="small text-muted">
                     <Trans>
                       You can create an account on <a href="https://www.litecoinpool.org" rel="noopener noreferrer" target="_blank">Litecoinpool.org</a> and use <code>stratum+tcp://litecoinpool.org:3333</code> as pool url or you can use any other pool compatible with Scrypt algorithm.
+                      Visit <a href="https://www.litecoinpool.org/help" rel="noopener noreferrer" target="_blank">Litecoinpool.org/help</a> for additional information on how pool mining works and detailed FAQ on setting up your account.
                     </Trans>
                   </div>
                   <CardBody>
@@ -245,7 +250,10 @@ class ModalsSetup extends Component {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSave}>Save</Button>
+            {saving
+              ? <Loading />
+              : <Button color="primary" onClick={this.handleSave}>Save</Button>
+            }
           </ModalFooter>
         </Modal>
       </div>
@@ -254,7 +262,7 @@ class ModalsSetup extends Component {
 }
 
 const mapStateToProps = state => ({
-  show: state.auth.status !== 'done',
+  show: state.auth.status === 'pending'
 });
 
 const mapDispatchToProps = dispatch => ({
