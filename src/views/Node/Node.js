@@ -48,7 +48,7 @@ class Node extends Component {
           centerSubtitle={true}
           icon='fa-exclamation-triangle animated bounce'
           showLink={true}
-          linkTo='https://shop.futurebit.io'
+          linkTo='https://shop.futurebit.io/products/apollo-full-node-upgrade-kit'
           linkText='FutureBit Batch 1 Upgrade Kit'
         />
       )
