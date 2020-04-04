@@ -1,6 +1,5 @@
 {
     "RESTART": "",
-    "<0>* Required</0>Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "<0>* Required</0>Please set a password for this dashboard to prevent unauthorized access. ",
     "Accepted": "",
     "Architecture": "",
     "Auto adjust fan": "",
@@ -96,7 +95,7 @@
     "You need to restart your miner to apply changes.": "",
     "Your controller should be connected to Wifi now. Try to go to <0>{address}</0> before disconnecting the ethernet cable.": "Your controller should be connected to WIFI now. Try to go to <0>{address}</0> before disconnecting the ethernet cable. Please note, if new IP does not work, you might need to reboot the system and remove the ethernet cable for the miner to connect to your WIFI network. ",
     "stratum+tcp://us.litecoinpool.org:3333": "",
-    "<0>* Required</0> Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "Updating your password will lock the dashboard. You will need to unlock the dashboard with your new password. If you forget this password you will need to re-image your SD card, there is no way to recover it.",
+    "<0>* Required</0> Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "<0>* Required</0> Please set a password for this dashboard to prevent unauthorized access. If you forget this password you will need to re-image your SD card, there is no way to recover it.",
     "Active": "",
     "Active wifi": "",
     "Adjust the fan speed or set it automatic": "",
