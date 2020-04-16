@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
+import { push } from 'connected-react-router'
 import {
   Alert,
   Col,
@@ -33,7 +34,7 @@ class Node extends Component {
 
   render() {
     // TODO: Use loadingNode
-    const { loadingNode, mcu, node, nodeError } = this.props;
+    const { loadingNode, mcu, node, nodeError, redirectToNodeManage } = this.props;
 
     // If less memory than 500 MB, return Alert and prevent page load
     if (mcu && mcu.stats && mcu.stats.memory && mcu.stats.memory.total && mcu.stats.memory.total < 500000) {
@@ -55,26 +56,30 @@ class Node extends Component {
     }
 
     // Node offline state
-    if (node && node.stats && node.stats.error && node.stats.error.code === 'ECONNREFUSED') {
-      const loadingErrorBoxSubtitle = 'Double-check your USB node drive is plugged in the USB port in the back of' +
-        ' your Apollo, properly formatted with the folder name "Litecoin" in the root directory, and press the Start' +
-        ' button below'
+    if (node && node.stats && node.stats.error) {
+      if (node.stats.error.code === 'ECONNREFUSED') {
+        const loadingErrorBoxSubtitle = 'Double-check your USB node drive is plugged in the USB port in the back of' +
+          ' your Apollo, properly formatted with the folder name "Litecoin" in the root directory, and press the Start' +
+          ' button below'
 
-      return (
-        <LoadingErrorBox
-          show={true}
-          bg='bg-0'
-          title='Node is offline'
-          centerTitle={true}
-          subtitle={loadingErrorBoxSubtitle}
-          error={false}
-          centerSubtitle={true}
-          icon='fa-toggle-off animated bounce'
-          showBtn={true}
-          btnTo='/node/start'
-          btnText='Start'
-        />
-      )
+        return (
+          <LoadingErrorBox
+            show={true}
+            bg='bg-0'
+            title='Node is offline'
+            centerTitle={true}
+            subtitle={loadingErrorBoxSubtitle}
+            error={false}
+            centerSubtitle={true}
+            icon='fa-toggle-off animated bounce'
+            showBtn={true}
+            btnTo='/node/start'
+            btnText='Start'
+          />
+        )
+      } else if (node.stats.error.code === '-28') {
+        redirectToNodeManage();
+      }
     }
 
     // Something is very wrong and likely not loading error
@@ -245,6 +250,14 @@ class Node extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    redirectToNodeManage: () => {
+      dispatch(push('/node/start'))
+    }
+  }
+}
+
 const mapStateToProps = (state) => {
   return {
     loadingNode: state.nodeStats.loading,
@@ -254,4 +267,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Node);
+export default connect(mapStateToProps, mapDispatchToProps)(Node);
