@@ -120,13 +120,6 @@ class SettingsPoolItemForm extends Component {
       <I18n>
         {({ i18n }) => (
           <Row form>
-            <Col md={1}>
-              <FormGroup>
-                <div className="text-right" style={{ marginTop: '36px' }}>
-                  <AppSwitch className="" variant="pill" label color="success" checked={enabled} size="lg" onClick={this.toggleEnabled} />
-                </div>
-              </FormGroup>
-            </Col>
             <Col md={3}>
               <FormGroup>
                 <Label for="poolUrl"><Trans>Url</Trans></Label>
@@ -180,24 +173,7 @@ class SettingsPoolItemForm extends Component {
             </Col>
             <Col md={2}>
               <FormGroup>
-                <Label for="poolProxy"><Trans>Proxy</Trans></Label>
-                <Input
-                  type="text"
-                  name="proxy"
-                  id="poolProxy"
-                  placeholder="http://192.168.1.1:3333"
-                  bsSize="lg"
-                  value={proxy}
-                  onChange={this.onChange}
-                />
-                <span className="text-danger">
-                  {errors.proxy}
-                </span>
-              </FormGroup>
-            </Col>
-            <Col md={2}>
-              <FormGroup>
-                <Button size="lg" className="btn-light" style={{ marginTop: '29px' }} onClick={this.handleAdd}><i className="fa fa-plus" /></Button>
+                <Button size="lg" className="btn-light" style={{ marginTop: '29px' }} onClick={this.handleAdd}><i className="fa fa-check" /></Button>
               </FormGroup>
             </Col>
           </Row>

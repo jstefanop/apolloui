@@ -229,48 +229,10 @@ class SettingsPools extends Component {
                           onChange={ (evt) => this.onChangePool(evt, pool.index) }
                         />
                       ))}
-                      <SettingsPoolItemForm onAdd={this.handleAdd} />
+                      { pools.length && !donation && <SettingsPoolItemForm onAdd={this.handleAdd} /> }
                     </CardBody>
                   </Card>
 
-                </Col>
-              </Row>
-              <Row>
-                <Col lg="12">
-                  <Card>
-                    <CardHeader>
-                      <AppSwitch
-                        className="float-left mr-2"
-                        variant="pill"
-                        label
-                        color="primary"
-                        checked={ donation }
-                        size="sm"
-                        onChange={() => this.onSelect(!donation)}
-                      />
-                      <CardTitle><Trans>Donation pool</Trans> { (donation) && <span>{ donationValue }%</span> }</CardTitle>
-                      <CardSubtitle className="text-muted">
-                        Donate a bit of your hashrate to FutureBit to support next development.
-                      </CardSubtitle>
-                    </CardHeader>
-                    <CardBody>
-                      <Form>
-                        <Row form className="m-3 mb-4 justify-content-center">
-                          <Col xl="8">
-                            <Slider
-                              min={ this.marks.donation.min }
-                              max={ this.marks.donation.max }
-                              marks={ this.marks.donation.data }
-                              step={ this.marks.donation.step }
-                              disabled={ !donation }
-                              defaultValue={ donationValue }
-                              onChange={(val) => this.onChange(val)}
-                            />
-                          </Col>
-                        </Row>
-                      </Form>
-                    </CardBody>
-                  </Card>
                 </Col>
               </Row>
             </div>

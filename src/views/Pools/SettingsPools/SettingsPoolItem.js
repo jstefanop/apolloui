@@ -34,13 +34,6 @@ export default function (props) {
     <I18n>
       {({ i18n }) => (
         <Row form>
-          <Col md={1}>
-            <FormGroup>
-              <div className="text-right" style={{ marginTop: '36px' }}>
-                <AppSwitch className="" variant="pill" label color="success" checked={enabled} size="lg" onClick={toggleEnabled} />
-              </div>
-            </FormGroup>
-          </Col>
           <Col md={3}>
             <FormGroup>
               <Label for="poolUrl"><Trans>Url</Trans></Label>
@@ -61,14 +54,6 @@ export default function (props) {
           </Col>
           <Col md={2}>
             <FormGroup>
-              <Label for="poolProxy"><Trans>Proxy (Optional)</Trans></Label>
-              <Input type="text" name="proxy" id="poolProxy" bsSize="lg" disabled={disabled} onChange={ onChange } value={proxy || ''} className={ (donation) ? 'donation-color' : '' } />
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <FormGroup>
-              <Button size="lg" className="btn-default" style={{ marginTop: '29px', marginRight: '5px' }} onClick={onMoveUp}><i className="fa fa-arrow-up" /></Button>
-              <Button size="lg" className="btn-default" style={{ marginTop: '29px', marginRight: '5px' }} onClick={onMoveDown}><i className="fa fa-arrow-down" /></Button>
               <Button size="lg" className="btn-danger" style={{ marginTop: '29px' }} disabled={donation ? true : false} onClick={onDelete}><i className="fa fa-times" /></Button>
             </FormGroup>
           </Col>

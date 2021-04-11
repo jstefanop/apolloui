@@ -127,7 +127,7 @@ class SettingsGeneral extends Component {
                   </p>
                   <Form>
                     <Row form>
-                      <Col md={6}>
+                      <Col lg={12} xl={6}>
                         <FormGroup>
                           <Label for="password"><Trans>Password</Trans></Label>
                           <Input
@@ -143,7 +143,7 @@ class SettingsGeneral extends Component {
                           </span>
                         </FormGroup>
                       </Col>
-                      <Col md={6}>
+                      <Col lg={12} xl={6}>
                         <FormGroup>
                           <Label for="repeatPassword"><Trans>Repeat password</Trans></Label>
                           <Input

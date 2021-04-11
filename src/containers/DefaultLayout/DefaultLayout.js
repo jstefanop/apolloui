@@ -54,9 +54,11 @@ class DefaultLayout extends Component {
 
   render() {
     const {
-      isLoggedIn,
+      isloggedin,
       mcu,
-      settings
+      settings,
+      location,
+      history
     } = this.props
 
     let sidebarOptions = {
@@ -84,7 +86,7 @@ class DefaultLayout extends Component {
           <AppSidebar { ...sidebarOptions }>
             <AppSidebarHeader />
             <AppSidebarForm />
-            <AppSidebarNav navConfig={navigation} {...this.props} />
+            <AppSidebarNav navConfig={navigation} location={location} history={history} />
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
@@ -92,7 +94,7 @@ class DefaultLayout extends Component {
             <AppBreadcrumb className="bg-light" appRoutes={routes}/>
             <Container fluid>
               {
-                isLoggedIn
+                isloggedin
                   ? <Switch>
                       {routes.map((route, idx) => {
                           return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
@@ -120,7 +122,7 @@ class DefaultLayout extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.accessToken != null,
+  isloggedin: state.auth.accessToken != null,
   mcu: state.mcuStats.data,
   settings: state.settings
 })

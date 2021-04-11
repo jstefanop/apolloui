@@ -44,7 +44,7 @@ class DefaultHeader extends Component {
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
-            <span className="text-muted small">Apollo Web</span> <Badge pill color="light">v{ process.env.REACT_APP_VERSION }</Badge> <Badge pill color="warning">beta</Badge>
+            <span className="text-muted small">Apollo Web</span> <Badge pill color="light">v{ process.env.REACT_APP_VERSION }</Badge> <Badge pill color="primary">BTC</Badge>
           </NavItem>
         </Nav>
         <AppAsideToggler className="d-md-down-none" />
