@@ -13,7 +13,8 @@ async function fetchSettings({ accessToken }) {
                 minerMode
                 voltage
                 frequency
-                fan
+                fan_low
+                fan_high
                 apiAllow
                 customApproval
                 connectedWifi
@@ -46,7 +47,8 @@ async function saveSettings({ accessToken, settings }) {
                 minerMode
                 voltage
                 frequency
-                fan
+                fan_low
+                fan_high
                 apiAllow
                 customApproval
                 connectedWifi

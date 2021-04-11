@@ -26,49 +26,59 @@ class SettingsMiner extends Component {
     super(props);
 
     this.marks = {
-      frequency: {
-        min: 299,
-        max: 858,
-        step: 13,
-        data: {
-          299: 'Min',
-          439: '439MHz',
-          579: '579MHz',
-          719: '719MHz',
-          858: 'Max'
-        }
-      },
       voltage: {
-        min: 644,
-        max: 911,
-        step: 4.15,
+        min: 30,
+        max: 100,
+        step: 10,
         data: {
-          644: 'Min',
-          710.75: '710.75mV',
-          777.5: '777.5mV',
-          845.25: '845.25mV',
-          911: 'Max'
+          30: 'Min',
+          40: '40%',
+          50: '50%',
+          60: '60%',
+          70: '70%',
+          80: '80%',
+          90: '90%',
+          100: 'Max'
         }
       },
-      fan: {
-        min: 0,
-        max: 100,
+      frequency: {
+        min: 25,
+        max: 60,
+        step: 1,
         data: {
-          0: 'Min',
-          25: '25%',
-          50: '50%',
-          75: '75%',
-          100: 'Max'
+          25: 'Min',
+          32: '32',
+          39: '39',
+          46: '46',
+          53: '53',
+          60: 'Max'
+        }
+      },
+      fan_low: {
+        min: 40,
+        max: 70,
+        steps: 5,
+        data: {
+          40: 'Min',
+          50: '50°c',
+          60: '60°c',
+          70: 'Max',
+        }
+      },
+      fan_high: {
+        min: 60,
+        max: 90,
+        steps: 5,
+        data: {
+          60: 'Min',
+          70: '70°c',
+          80: '80°c',
+          90: 'Max',
         }
       }
     };
 
-    this.state = {
-      autoFan: props.fan === 0 ? true : false
-    };
-
     this.onSelect = this.onSelect.bind(this);
-    this.autoFanSwitchChange = this.autoFanSwitchChange.bind(this);
     this.onReset = this.onReset.bind(this);
   }
 
@@ -87,27 +97,18 @@ class SettingsMiner extends Component {
     onChange({ name: 'minerMode', value: mode });
   }
 
-  autoFanSwitchChange() {
-    const {
-      onChange,
-    } = this.props;
-
-    this.setState({
-      autoFan: !this.state.autoFan
-    });
-
-    onChange({ name: 'fan', value: (this.state.autoFan) ? 50 : 0 });
-  }
-
   render() {
     const {
       minerMode,
       voltage,
-      fan,
+      fan_low,
+      fan_high,
       frequency,
       apiAllow,
       onChange
     } = this.props;
+
+    const autoFan = fan_low === 40 && fan_high === 60 ? true : false;
 
     return (
       <I18n>
@@ -246,7 +247,7 @@ class SettingsMiner extends Component {
                         <Col lg={12} xl={6}>
                           <div>
                             <div className="clearfix">
-                              <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">mV</span></b></h4>
+                              <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">%</span></b></h4>
                             </div>
                             <div>
                               <p className="text-muted ">
@@ -273,7 +274,7 @@ class SettingsMiner extends Component {
                         <Col lg={12} xl={6}>
                           <div>
                             <div className="clearfix">
-                              <h4><Trans>Frequency</Trans> <b>{frequency}<span className="small">MHz</span></b></h4>
+                              <h4><Trans>Frequency</Trans> <b>{frequency}<span className="small"></span></b></h4>
                             </div>
                             <div>
                               <p className="text-muted ">
@@ -319,59 +320,40 @@ class SettingsMiner extends Component {
                         <Col lg={12}>
                           <div>
                             <div className="clearfix">
-                              <h4>Fan { (fan) ? <span>at <b>{fan}<span className="small">%</span></b></span> : <Badge size="sm" color="success">Auto</Badge> }</h4>
+                              <h4>Fan { (autoFan) ? <Badge size="sm" color="success">Auto</Badge> : <span>min temp <b>{fan_low}<span className="small">°c</span></b> max temp <b>{fan_high}<span className="small">°c</span></b></span>  }</h4>
                             </div>
                             <div>
                               <p className="text-muted ">
-                                <Trans>Put the slider to the minimum to set automatic fan speed, or choose yours.</Trans>
+                                <Trans>Put the sliders to the minimum to set automatic fan speed, or choose yours.</Trans>
                               </p>
                               <Card className="border-0">
                                 <CardBody>
+                                  <label><i className="fa fa-angle-double-down mr-2"></i>Minimum temperature to start fan</label>
                                   <Slider
-                                    min={this.marks.fan.min}
-                                    max={this.marks.fan.max}
+                                    min={this.marks.fan_low.min}
+                                    max={this.marks.fan_low.max}
                                     step={5}
-                                    marks={this.marks.fan.data}
-                                    value={fan}
-                                    onChange={val => onChange({ value: val, name: 'fan' })}
+                                    marks={this.marks.fan_low.data}
+                                    value={fan_low}
+                                    onChange={val => onChange({ value: val, name: 'fan_low' })}
+                                  />
+                                </CardBody>
+                              </Card>
+                              <Card className="border-0">
+                                <CardBody>
+                                  <label><i className="fa fa-angle-double-up mr-2"></i>Minimum temperature for maximum fan</label>
+                                  <Slider
+                                    min={this.marks.fan_high.min}
+                                    max={this.marks.fan_high.max}
+                                    step={5}
+                                    marks={this.marks.fan_high.data}
+                                    value={fan_high}
+                                    onChange={val => onChange({ value: val, name: 'fan_high' })}
                                   />
                                 </CardBody>
                               </Card>
                             </div>
                           </div>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col xl="6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle><i className="fa fa-cogs mr-2"></i><Trans>Miner configuration</Trans></CardTitle>
-                    <CardSubtitle className="text-muted"><Trans>Adjust more advanced settings</Trans></CardSubtitle>
-                  </CardHeader>
-                  <CardBody>
-                    <Form>
-                      <Row form>
-                        <Col lg={12}>
-                          <ListGroup flush>
-                            <ListGroupItem>
-                              <div className="clearfix">
-                                <AppSwitch
-                                  className="float-left mr-2"
-                                  variant="pill"
-                                  label
-                                  color="success"
-                                  checked={apiAllow}
-                                  size=""
-                                  onChange={() => onChange({ value: !apiAllow, name: 'apiAllow' })}
-                                />
-                                <div><Trans>API Allow</Trans></div>
-                              </div>
-                              <div className="mt-1 small text-muted"><Trans>Set --api-allow option to allow access to Bfgminer API from your LAN</Trans></div>
-                            </ListGroupItem>
-                          </ListGroup>
                         </Col>
                       </Row>
                     </Form>

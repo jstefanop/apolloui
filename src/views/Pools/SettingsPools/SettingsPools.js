@@ -195,7 +195,6 @@ class SettingsPools extends Component {
       <I18n>
         {({ i18n }) => (
           <div className="animated fadeIn">
-          
             { (isChanged) &&
             <Row>
               <Col lg="12">

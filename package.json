@@ -21,7 +21,6 @@
     "@lingui/react": "^2.7.0",
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
-    "babel-loader": "^8.0.4",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.2",
     "classnames": "^2.2.6",
@@ -60,13 +59,13 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-macros": "^2.4.2",
     "eslint-config-airbnb": "^17.1.0",
-    "react-scripts": "^2.0.4"
+    "react-scripts": "^4.0"
   },
   "scripts": {
     "add-locale": "lingui add-locale",
     "extract": "lingui extract",
     "compile": "lingui compile",
-    "start": "react-scripts start",
+    "start": "npm rebuild node-sass && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
