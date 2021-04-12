@@ -229,7 +229,7 @@ class SettingsPools extends Component {
                           onChange={ (evt) => this.onChangePool(evt, pool.index) }
                         />
                       ))}
-                      { pools.length && !donation && <SettingsPoolItemForm onAdd={this.handleAdd} /> }
+                      { !pools.length && <SettingsPoolItemForm onAdd={this.handleAdd} /> }
                     </CardBody>
                   </Card>
 

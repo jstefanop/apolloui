@@ -65,7 +65,7 @@ class SettingsPoolItemForm extends Component {
     const errors = {};
 
     if (!url) {
-      errors.url = 'URL is required.';
+      errors.url = 'Required';
     } else {
       try {
         new URL(url); // eslint-disable-line no-new
@@ -83,11 +83,11 @@ class SettingsPoolItemForm extends Component {
     }
 
     if (!username) {
-      errors.username = 'Username is required.';
+      errors.username = 'Required';
     }
 
     if (!password) {
-      errors.password = 'Password is required.';
+      errors.password = 'Required';
     }
 
     if (Object.keys(errors).length !== 0) {
@@ -120,7 +120,7 @@ class SettingsPoolItemForm extends Component {
       <I18n>
         {({ i18n }) => (
           <Row form>
-            <Col md={3}>
+            <Col md={6}>
               <FormGroup>
                 <Label for="poolUrl"><Trans>Url</Trans></Label>
                 <Input
@@ -137,7 +137,7 @@ class SettingsPoolItemForm extends Component {
                 </span>
               </FormGroup>
             </Col>
-            <Col md={3}>
+            <Col md={4}>
               <FormGroup>
                 <Label for="poolUsername"><Trans>Username</Trans></Label>
                 <Input
@@ -171,7 +171,7 @@ class SettingsPoolItemForm extends Component {
                 </span>
               </FormGroup>
             </Col>
-            <Col md={2}>
+            <Col md={1}>
               <FormGroup>
                 <Button size="lg" className="btn-light" style={{ marginTop: '29px' }} onClick={this.handleAdd}><i className="fa fa-check" /></Button>
               </FormGroup>

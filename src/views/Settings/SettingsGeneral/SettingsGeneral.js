@@ -177,7 +177,7 @@ class SettingsGeneral extends Component {
                 <CardBody>
                   <Form>
                     <Row>
-                      <Col lg={12} xl={6}>
+                      <Col xl={12}>
                         <ListGroup flush>
                           <ListGroupItem>
                             <div className="clearfix">
@@ -226,10 +226,6 @@ class SettingsGeneral extends Component {
                             </div>
                             <div className="mt-1 small text-muted"><Trans>Set it to Celsius or Fahrenheit</Trans></div>
                           </ListGroupItem>
-                        </ListGroup>
-                      </Col>
-                      <Col lg={12} xl={6}>
-                        <ListGroup flush>
                           <ListGroupItem>
                             <div className="clearfix">
                               <AppSwitch

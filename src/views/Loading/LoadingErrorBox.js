@@ -29,11 +29,11 @@ class LoadingErrorBox extends Component {
                 : null }
               { (this.props.error && this.props.log) ?
                   <div>
-                    <p className="lead">
+                    <div className="lead">
                       {this.props.log.split("|").map((i,key) => {
-                          return <div key={key}><code>{i}</code></div>;
+                          return <p key={key}><code>{i}</code></p>;
                       })}
-                    </p>
+                    </div>
                     <hr className="my-4" />
                   </div>
                 : null }

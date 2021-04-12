@@ -34,13 +34,13 @@ export default function (props) {
     <I18n>
       {({ i18n }) => (
         <Row form>
-          <Col md={3}>
+          <Col md={6}>
             <FormGroup>
               <Label for="poolUrl"><Trans>Url</Trans></Label>
               <Input type="text" name="url" id="poolUrl" bsSize="lg" disabled={disabled} onChange={ onChange } value={url} className={ (donation) ? 'donation-color' : '' } />
             </FormGroup>
           </Col>
-          <Col md={3}>
+          <Col md={4}>
             <FormGroup>
               <Label for="poolUsername"><Trans>Username</Trans></Label>
               <Input type="text" name="username" id="poolUsername" bsSize="lg" disabled={disabled} onChange={ onChange } value={username} className={ (donation) ? 'donation-color' : '' } />
@@ -52,7 +52,7 @@ export default function (props) {
               <Input type="text" name="password" id="poolPassword" bsSize="lg" disabled={disabled} onChange={ onChange } value={password || ''} className={ (donation) ? 'donation-color' : '' } />
             </FormGroup>
           </Col>
-          <Col md={2}>
+          <Col md={1}>
             <FormGroup>
               <Button size="lg" className="btn-danger" style={{ marginTop: '29px' }} disabled={donation ? true : false} onClick={onDelete}><i className="fa fa-times" /></Button>
             </FormGroup>

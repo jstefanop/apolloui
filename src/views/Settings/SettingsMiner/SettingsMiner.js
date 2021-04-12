@@ -86,8 +86,8 @@ class SettingsMiner extends Component {
     const {
       onChange,
     } = this.props;
-    if (option === 'frequency') onChange({ name: 'frequency', value: 598});
-    if (option === 'voltage') onChange({ name: 'voltage', value: 747});
+    if (option === 'voltage') onChange({ name: 'voltage', value: 30});
+    if (option === 'frequency') onChange({ name: 'frequency', value: 25});
   }
 
   onSelect(mode) {
@@ -109,6 +109,7 @@ class SettingsMiner extends Component {
     } = this.props;
 
     const autoFan = fan_low === 40 && fan_high === 60 ? true : false;
+    console.log(this.props)
 
     return (
       <I18n>
@@ -308,27 +309,26 @@ class SettingsMiner extends Component {
             </Row>
 
             <Row>
-              <Col xl="6">
+              <Col xl="12">
                 <Card>
                   <CardHeader>
-                    <CardTitle><i className="fa fa-wind mr-2"></i><Trans>Miner fan speed</Trans></CardTitle>
+                    <CardTitle><i className="fa fa-wind mr-2"></i><Trans>Miner fan speed</Trans> { (autoFan) && <Badge size="sm" color="success">Auto</Badge> }</CardTitle>
                     <CardSubtitle className="text-muted"><Trans>Adjust the fan speed or set it automatic</Trans></CardSubtitle>
                   </CardHeader>
                   <CardBody>
                     <Form>
                       <Row form>
-                        <Col lg={12}>
+                        <Col lg={12} xl={6}>
                           <div>
                             <div className="clearfix">
-                              <h4>Fan { (autoFan) ? <Badge size="sm" color="success">Auto</Badge> : <span>min temp <b>{fan_low}<span className="small">°c</span></b> max temp <b>{fan_high}<span className="small">°c</span></b></span>  }</h4>
+                              <h4>Minimum temperature to start fan <b>{fan_low}<span className="small">°c</span></b></h4>
                             </div>
                             <div>
                               <p className="text-muted ">
-                                <Trans>Put the sliders to the minimum to set automatic fan speed, or choose yours.</Trans>
+                                <Trans>This is the minimum temperature needed to start the fan.</Trans>
                               </p>
                               <Card className="border-0">
                                 <CardBody>
-                                  <label><i className="fa fa-angle-double-down mr-2"></i>Minimum temperature to start fan</label>
                                   <Slider
                                     min={this.marks.fan_low.min}
                                     max={this.marks.fan_low.max}
@@ -339,9 +339,20 @@ class SettingsMiner extends Component {
                                   />
                                 </CardBody>
                               </Card>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col lg={12} xl={6}>
+                          <div>
+                            <div className="clearfix">
+                              <h4>Minimum temperature for maximum fan <b>{fan_high}<span className="small">°c</span></b></h4>
+                            </div>
+                            <div>
+                              <p className="text-muted ">
+                                <Trans>This is the minimum temperature needed to set the fan at maximum speed.</Trans>
+                              </p>
                               <Card className="border-0">
                                 <CardBody>
-                                  <label><i className="fa fa-angle-double-up mr-2"></i>Minimum temperature for maximum fan</label>
                                   <Slider
                                     min={this.marks.fan_high.min}
                                     max={this.marks.fan_high.max}
