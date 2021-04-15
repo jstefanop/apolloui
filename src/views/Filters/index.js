@@ -58,6 +58,13 @@ export function tempColor (value) {
 	else if (value >= 85) return 'danger'
 };
 
+export function powerColor (value) {
+	if (value && value < 200) return 'primary'
+	else if (value >= 200 && value < 250) return 'success'
+	else if (value >= 250 && value < 300) return 'warning'
+	else if (value >= 300) return 'danger'
+};
+
 export function minerModeIcon (mode) {
 	switch (mode) {
 		case 'eco': return 'fa-leaf';

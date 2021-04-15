@@ -25,6 +25,10 @@ class SettingsMiner extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      autoFan: (props.fan_low === 40 && props.fan_high === 60) || false
+    };
+
     this.marks = {
       voltage: {
         min: 30,
@@ -80,6 +84,7 @@ class SettingsMiner extends Component {
 
     this.onSelect = this.onSelect.bind(this);
     this.onReset = this.onReset.bind(this);
+    this.onSwitch = this.onSwitch.bind(this);
   }
 
   onReset(option) {
@@ -94,7 +99,20 @@ class SettingsMiner extends Component {
     const {
       onChange,
     } = this.props;
-    onChange({ name: 'minerMode', value: mode });
+    onChange({ name: mode.name, value: mode.value });
+  }
+
+  onSwitch(mode) {
+    const {
+      onChange,
+    } = this.props;
+    this.setState({
+      [mode.name]: mode.value,
+    });
+    if (mode.value) {
+      onChange({ name: 'fan_low', value: 40});
+      onChange({ name: 'fan_high', value: 60});
+    }
   }
 
   render() {
@@ -107,9 +125,6 @@ class SettingsMiner extends Component {
       apiAllow,
       onChange
     } = this.props;
-
-    const autoFan = fan_low === 40 && fan_high === 60 ? true : false;
-    console.log(this.props)
 
     return (
       <I18n>
@@ -136,7 +151,7 @@ class SettingsMiner extends Component {
                                 color="success"
                                 checked={minerMode === 'eco'}
                                 size=""
-                                onChange={() => this.onSelect('eco')}
+                                onChange={() => this.onSelect({ value: 'eco', name: 'minerMode' })}
                                 disabled={minerMode === 'eco'}
                               />
                               <h4>
@@ -164,7 +179,7 @@ class SettingsMiner extends Component {
                                 color="primary"
                                 checked={minerMode === 'balanced'}
                                 size=""
-                                onChange={() => this.onSelect('balanced')}
+                                onChange={() => this.onSelect({ value: 'balanced', name: 'minerMode' })}
                                 disabled={minerMode === 'balanced'}
                               />
                               <h4>
@@ -192,7 +207,7 @@ class SettingsMiner extends Component {
                                 color="warning"
                                 checked={minerMode === 'turbo'}
                                 size=""
-                                onChange={() => this.onSelect('turbo')}
+                                onChange={() => this.onSelect({ value: 'turbo', name: 'minerMode' })}
                                 disabled={minerMode === 'turbo'}
                               />
                               <h4>
@@ -228,7 +243,7 @@ class SettingsMiner extends Component {
                       color="danger"
                       checked={minerMode === 'custom'}
                       size=""
-                      onChange={() => this.onSelect('custom')}
+                      onChange={() => this.onSelect({ value: 'custom', name: 'minerMode' })}
                       disabled={minerMode === 'custom'}
                     />
                     <CardTitle><i className="fa fa-diagnoses mr-2"></i><Trans>Miner custom mode</Trans></CardTitle>
@@ -312,62 +327,81 @@ class SettingsMiner extends Component {
               <Col xl="12">
                 <Card>
                   <CardHeader>
-                    <CardTitle><i className="fa fa-wind mr-2"></i><Trans>Miner fan speed</Trans> { (autoFan) && <Badge size="sm" color="success">Auto</Badge> }</CardTitle>
+                    <CardTitle>
+                      <AppSwitch
+                        className="float-left mr-2"
+                        variant="pill"
+                        label
+                        color="success"
+                        checked={this.state.autoFan}
+                        size=""
+                        onChange={() => this.onSwitch({ value: !this.state.autoFan, name: 'autoFan' })}
+                      />
+                      <Badge size="sm" color={this.state.autoFan ? 'success' : 'disabled'}>{this.state.autoFan ? 'Auto' : 'Manual'}</Badge>
+                      <i className="fa fa-wind mr-2 ml-2"></i><Trans>Miner fan speed</Trans>
+                    </CardTitle>
                     <CardSubtitle className="text-muted"><Trans>Adjust the fan speed or set it automatic</Trans></CardSubtitle>
                   </CardHeader>
                   <CardBody>
-                    <Form>
-                      <Row form>
-                        <Col lg={12} xl={6}>
-                          <div>
-                            <div className="clearfix">
-                              <h4>Minimum temperature to start fan <b>{fan_low}<span className="small">°c</span></b></h4>
-                            </div>
+                    <div className="lead">
+                      <p className="text-muted ">
+                        <Trans>The Apollo comes with auto tuned fan speed, but you can set your preferred values below.</Trans>
+                      </p>
+                    </div>
+                    {!this.state.autoFan &&
+                      <Form>
+                        <Row form>
+                          <Col lg={12} xl={6}>
                             <div>
-                              <p className="text-muted ">
-                                <Trans>This is the minimum temperature needed to start the fan.</Trans>
-                              </p>
-                              <Card className="border-0">
-                                <CardBody>
-                                  <Slider
-                                    min={this.marks.fan_low.min}
-                                    max={this.marks.fan_low.max}
-                                    step={5}
-                                    marks={this.marks.fan_low.data}
-                                    value={fan_low}
-                                    onChange={val => onChange({ value: val, name: 'fan_low' })}
-                                  />
-                                </CardBody>
-                              </Card>
+                              <div className="clearfix">
+                                <h4>Temperature to start fan <b>{fan_low}<span className="small">°c</span></b></h4>
+                              </div>
+                              <div>
+                                <p className="text-muted ">
+                                  <Trans>This is the temperature needed to start the fan.</Trans>
+                                </p>
+                                <Card className="border-0">
+                                  <CardBody>
+                                    <Slider
+                                      min={this.marks.fan_low.min}
+                                      max={this.marks.fan_low.max}
+                                      step={5}
+                                      marks={this.marks.fan_low.data}
+                                      value={fan_low}
+                                      onChange={val => onChange({ value: val, name: 'fan_low' })}
+                                    />
+                                  </CardBody>
+                                </Card>
+                              </div>
                             </div>
-                          </div>
-                        </Col>
-                        <Col lg={12} xl={6}>
-                          <div>
-                            <div className="clearfix">
-                              <h4>Minimum temperature for maximum fan <b>{fan_high}<span className="small">°c</span></b></h4>
-                            </div>
+                          </Col>
+                          <Col lg={12} xl={6}>
                             <div>
-                              <p className="text-muted ">
-                                <Trans>This is the minimum temperature needed to set the fan at maximum speed.</Trans>
-                              </p>
-                              <Card className="border-0">
-                                <CardBody>
-                                  <Slider
-                                    min={this.marks.fan_high.min}
-                                    max={this.marks.fan_high.max}
-                                    step={5}
-                                    marks={this.marks.fan_high.data}
-                                    value={fan_high}
-                                    onChange={val => onChange({ value: val, name: 'fan_high' })}
-                                  />
-                                </CardBody>
-                              </Card>
+                              <div className="clearfix">
+                                <h4>Temperature for max fan speed <b>{fan_high}<span className="small">°c</span></b></h4>
+                              </div>
+                              <div>
+                                <p className="text-muted ">
+                                  <Trans>This is the temperature needed to set the fan at maximum speed.</Trans>
+                                </p>
+                                <Card className="border-0">
+                                  <CardBody>
+                                    <Slider
+                                      min={this.marks.fan_high.min}
+                                      max={this.marks.fan_high.max}
+                                      step={5}
+                                      marks={this.marks.fan_high.data}
+                                      value={fan_high}
+                                      onChange={val => onChange({ value: val, name: 'fan_high' })}
+                                    />
+                                  </CardBody>
+                                </Card>
+                              </div>
                             </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Form>
+                          </Col>
+                        </Row>
+                      </Form>
+                    }
                   </CardBody>
                 </Card>
               </Col>

@@ -13,8 +13,9 @@ import moment from 'moment';
 
 import { LoadingErrorBox } from '../Loading';
 import DashboardWidget from '../Widgets/DashboardWidget';
-import { convertTemp, displayHashrate, minerModeIcon, tempColor } from '../Filters';
+import { convertTemp, displayHashrate, minerModeIcon, powerColor } from '../Filters';
 import PoolsTable from '../Pools/PoolsTable';
+import HashboardsTable from '../HashboardsTable';
 
 import { Trans } from '@lingui/macro';
 
@@ -22,19 +23,18 @@ class Dashboard extends Component {
 
   render() {
     const { minerCheck, minerError, mcuError, mcu, miner, settings } = this.props;
-
+    
     // Miner shares
-    const minerpercentageRejected = miner.stats.summary.data.deviceRejected;
-    const minerpercentageError = miner.stats.summary.data.deviceHardware;
+    const minerpercentageError = miner.stats.master.intervals.int_0.errorRate;
     let errorsColor = 'success';
     if (minerpercentageError >= 5 && minerpercentageError <= 7.5) errorsColor = 'warning';
     else if (minerpercentageError > 7.5) errorsColor = 'danger';
 
     // Miner uptime
-    const minerUptime = moment().to(moment().subtract(miner.stats.summary.data.elapsed, 'seconds'), true);
+    const minerUptime = moment().to(moment().subtract(miner.stats.master.upTime, 'seconds'), true);
 
     // Active pool
-    const mainPool = _.find(miner.stats.pools.data, function(o) { return o.lastShareTime > 0 && o.stratumActive === true; });
+    const mainPool = miner.stats.pool;
 
     // Last share
     let lastShare = 'Not available',
@@ -97,12 +97,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
-                value={ displayHashrate(miner.stats.summary.data.workUtility * 71582788, 'h') }
+                value={ displayHashrate(miner.stats.master.intervals.int_0.bySol, 'gh') }
                 title="Current hashrate"
                 progressColor="primary"
                 progressValue="100"
-                secondaryTitle="Pool"
-                secondaryValue={(mainPool && mainPool.url) ? mainPool.url : 'Nothing active'}
+                secondaryTitle="15 Min Avg"
+                secondaryValue={ displayHashrate(miner.stats.master.intervals.int_900.bySol, 'gh') }
               ></DashboardWidget>
             </Col>
 
@@ -110,12 +110,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-info" 
                 icon="fa fa-thermometer-half" 
-                value={ convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit, true) }
-                title="Miner temperature"
-                progressColor={ tempColor(convertTemp(mcu.stats.minerTemperature, 'c')) }
-                progressValue={ convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit) }
-                secondaryTitle="MCU temperature"
-                secondaryValue={ convertTemp((Number(mcu.stats.temperature) / 1000), settings.temperatureUnit, true) }
+                value={  `${miner.stats.master.boardsW} Watt` }
+                title="Miner power usage"
+                progressColor={ powerColor(miner.stats.master.boardsW) }
+                progressValue={ miner.stats.master.boardsW * 100 / 300 }
+                secondaryTitle="Watts per TH/s"
+                secondaryValue={ miner.stats.master.wattPerGHs * 1000 }
               ></DashboardWidget>
             </Col>
 
@@ -128,7 +128,7 @@ class Dashboard extends Component {
                 progressColor={ errorsColor }
                 progressValue={ minerpercentageError * 10 }
                 secondaryTitle="Rejected"
-                secondaryValue={ minerpercentageRejected }
+                secondaryValue={ miner.stats.pool.intervals.int_0.lowDifficultyShares }
               ></DashboardWidget>
             </Col>
 
@@ -145,42 +145,15 @@ class Dashboard extends Component {
               ></DashboardWidget>
             </Col>
           </Row>
+        </div>
 
+        <div className="animated fadeIn">
           <Row>
-            <Col xs="12" md="6" xl="3">
-              <Card className="bg-light">
-                <CardBody>
-                  <div className="h4 m-0">{ miner.stats.summary.data.accepted }</div>
-                  <div><Trans>Accepted</Trans></div>
-                </CardBody>
-              </Card>
-            </Col>
-
-            <Col xs="12" md="6" xl="3">
-              <Card className="bg-light">
-                <CardBody>
-                  <div className="h4 m-0">{ miner.stats.summary.data.rejected }</div>
-                  <div><Trans>Rejected</Trans></div>
-                </CardBody>
-              </Card>
-            </Col>
-
-            <Col xs="12" md="6" xl="3">
-              <Card className="bg-light">
-                <CardBody>
-                  <div className="h4 m-0">{ Math.round(miner.stats.devs.data[0].lastShareDifficulty * 65535) }</div>
-                  <div><Trans>Difficulty</Trans></div>
-                </CardBody>
-              </Card>
-            </Col>
-
-            <Col xs="12" md="6" xl="3">
-              <Card className="bg-light">
-                <CardBody>
-                  <div className="h4 m-0">{ miner.stats.summary.data.hardwareErrors }</div>
-                  <div><Trans>HW Errors</Trans></div>
-                </CardBody>
-              </Card>
+            <Col>
+              <h4><Trans>Hashboards</Trans></h4>
+              <div>
+                <HashboardsTable miner={ miner }></HashboardsTable>
+              </div>
             </Col>
           </Row>
         </div>
@@ -190,7 +163,7 @@ class Dashboard extends Component {
             <Col>
               <h4><Trans>Pools</Trans></h4>
               <div>
-                <PoolsTable pools={ miner.stats.pools } utility={ miner.stats.summary.data.workUtility }></PoolsTable>
+                <PoolsTable pool={ miner.stats.pool } utility={ miner.stats.master.intervals.int_0.bySol }></PoolsTable>
               </div>
             </Col>
           </Row>
@@ -215,7 +188,7 @@ class Dashboard extends Component {
                   <div className="h1 text-muted float-right"><i className="fa fa-bolt text-gray"></i></div>
                   <div className="h4 m-0">
                     { (settings.minerMode === 'custom') ?
-                      <span>{settings.voltage || 0 } <small className="textmuted">mV</small></span>
+                      <span>{settings.voltage || 0 }<small className="textmuted">%</small></span>
                       : <span>Auto</span>
                     }
                   </div>
@@ -243,7 +216,12 @@ class Dashboard extends Component {
               <Card className="bg-light">
                 <CardBody>
                   <div className="h1 text-muted float-right"><i className="fa fa-wind text-gray"></i></div>
-                  <div className="h4 m-0">{ mcu.stats.minerFanSpeed } <small className="textmuted">RPM</small></div>
+                  <div className="h4 m-0">
+                    { (settings.fan_low !== 40 && settings.fan_high !== 60) ?
+                      <span>{ settings.fan_low }% / { settings.fan_high }%</span>
+                      : <span>Auto</span>
+                    }
+                  </div>
                   <div><Trans>Fan speed</Trans></div>
                 </CardBody>
               </Card>

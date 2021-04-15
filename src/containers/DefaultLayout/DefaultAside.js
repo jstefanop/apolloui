@@ -43,7 +43,6 @@ class DefaultAside extends Component {
   render() {
 
     const { miner, mcu } = this.props;
-
     return (
       <div>
         <ModalsRawStats isOpen={ this.state.modalsRawStats } toggle={ this.openModalsRawStats }></ModalsRawStats>
@@ -98,13 +97,13 @@ class DefaultAside extends Component {
                 </div>
               </div>
 
-              { (miner.stats.summary.status && miner.stats.summary.status.description) && (
+              { (miner.stats.versions.miner) && (
               <div className="aside-options">
                 <div className="clearfix mt-3">
-                  <small className="text-muted"><i className="fa fa-hdd mr-2 initialism text-secondary"></i><Trans>Bfgminer</Trans></small>
+                  <small className="text-muted"><i className="fa fa-hdd mr-2 initialism text-secondary"></i><Trans>Miner</Trans></small>
                 </div>
                 <div>
-                  <small className="">Version: <b>{ miner.stats.summary.status.description }</b></small>
+                  <small className="">Version: <b>{ miner.stats.versions.miner }</b></small>
                 </div>
               </div>
               )}
