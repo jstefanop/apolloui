@@ -10,6 +10,7 @@ async function fetchMiner ({ accessToken }) {
           stats {
             result {
               stats {
+                uuid
                 date
                 statVersion
                 versions {

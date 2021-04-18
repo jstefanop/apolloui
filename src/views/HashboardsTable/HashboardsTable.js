@@ -34,37 +34,39 @@ class HashboardsTable extends Component {
               </tr>
             </thead>
             <tbody className="bg-white">
-              <tr>
-                <td>
-                  <div className="font-weight-bold text-muted">ID</div>
-                </td>
-                <td className="">
-                  <h5 className="mb-0"><Badge color={ (miner.stats.pool.intervals.int_0.sharesSent > 0) ? 'success' : 'light' }>{ (miner.stats.pool.intervals.int_0.sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
-                </td>
-                <td>
-                  <h6 className="mb-0 font-weight-bold">
-                    <i className="fa fa-fire text-secondary"></i> { displayHashrate(miner.stats.slots.int_0.ghs, 'gh') }
-                  </h6>
-                </td>
-                <td>
-                  { miner.stats.slots.int_0.temperature }<small>°c</small>
-                </td>
-                <td>
-                  { miner.stats.fans.int_0.rpm[0] } <small>rpm</small>
-                </td>
-                <td>
-                  { (miner.stats.slots.int_0.wattPerGHs * miner.stats.slots.int_0.ghs).toFixed(0) } <small>W</small>
-                </td>
-                <td>
-                  { (miner.stats.slots.int_0.wattPerGHs * miner.stats.slots.int_0.ghs / _.sum(miner.stats.slots.int_0.currents)).toFixed(4) }
-                </td>
-                <td>
-                  { miner.stats.slots.int_0.errorRate || 0 }<small>%</small>
-                </td>
-                <td>
-                  { miner.stats.slots.int_0.chips }
-                </td>
-              </tr>
+              { miner.stats.map((hashboard, i) => 
+                <tr key={i}>
+                  <td>
+                    <div className="font-weight-bold text-muted"><small>#</small>{hashboard.uuid}</div>
+                  </td>
+                  <td className="">
+                    <h5 className="mb-0"><Badge color={ (hashboard.pool.intervals.int_0.sharesSent > 0) ? 'success' : 'light' }>{ (hashboard.pool.intervals.int_0.sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
+                  </td>
+                  <td>
+                    <h6 className="mb-0 font-weight-bold">
+                      <i className="fa fa-fire text-secondary"></i> { displayHashrate(hashboard.slots.int_0.ghs, 'gh') }
+                    </h6>
+                  </td>
+                  <td>
+                    { hashboard.slots.int_0.temperature }<small>°c</small>
+                  </td>
+                  <td>
+                    { hashboard.fans.int_0.rpm[0] } <small>rpm</small>
+                  </td>
+                  <td>
+                    { (hashboard.slots.int_0.wattPerGHs * hashboard.slots.int_0.ghs).toFixed(0) } <small>W</small>
+                  </td>
+                  <td>
+                    { (hashboard.slots.int_0.wattPerGHs * hashboard.slots.int_0.ghs / _.sum(hashboard.slots.int_0.currents)).toFixed(4) }
+                  </td>
+                  <td>
+                    { hashboard.slots.int_0.errorRate || 0 }<small>%</small>
+                  </td>
+                  <td>
+                    { hashboard.slots.int_0.chips }
+                  </td>
+                </tr>
+              )}
             </tbody>
           </Table>
         )}

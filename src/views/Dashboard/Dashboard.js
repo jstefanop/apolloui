@@ -25,13 +25,13 @@ class Dashboard extends Component {
     const { minerCheck, minerError, mcuError, mcu, miner, settings } = this.props;
     
     // Miner shares
-    const minerpercentageError = miner.stats.master.intervals.int_0.errorRate;
+    const minerpercentageError = _.sumBy(miner.stats, function(o) { return o.master.intervals.int_0.errorRate; });
     let errorsColor = 'success';
     if (minerpercentageError >= 5 && minerpercentageError <= 7.5) errorsColor = 'warning';
     else if (minerpercentageError > 7.5) errorsColor = 'danger';
 
     // Miner uptime
-    const minerUptime = moment().to(moment().subtract(miner.stats.master.upTime, 'seconds'), true);
+    const minerUptime = moment().to(moment().subtract(_.sumBy(miner.stats, function(o) { return o.master.upTime; }), 'seconds'), true);
 
     // Active pool
     const mainPool = miner.stats.pool;
@@ -97,12 +97,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
-                value={ displayHashrate(miner.stats.master.intervals.int_0.bySol, 'gh') }
+                value={ displayHashrate(_.sumBy(miner.stats, function(o) { return o.master.intervals.int_0.bySol; }), 'gh') }
                 title="Current hashrate"
                 progressColor="primary"
                 progressValue="100"
                 secondaryTitle="15 Min Avg"
-                secondaryValue={ displayHashrate(miner.stats.master.intervals.int_900.bySol, 'gh') }
+                secondaryValue={ displayHashrate(_.sumBy(miner.stats, function(o) { return o.master.intervals.int_900.bySol; }), 'gh') }
               ></DashboardWidget>
             </Col>
 
@@ -110,12 +110,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-info" 
                 icon="fa fa-thermometer-half" 
-                value={  `${miner.stats.master.boardsW} Watt` }
+                value={  `${_.sumBy(miner.stats, function(o) { return o.master.boardsW; })} Watt` }
                 title="Miner power usage"
-                progressColor={ powerColor(miner.stats.master.boardsW) }
-                progressValue={ miner.stats.master.boardsW * 100 / 300 }
+                progressColor={ powerColor(_.meanBy(miner.stats, function(o) { return o.master.boardsW; })) }
+                progressValue={ _.meanBy(miner.stats, function(o) { return o.master.boardsW; }) * 100 / 300 }
                 secondaryTitle="Watts per TH/s"
-                secondaryValue={ miner.stats.master.wattPerGHs * 1000 }
+                secondaryValue={ _.meanBy(miner.stats, function(o) { return o.master.wattPerGHs; }) * 1000 }
               ></DashboardWidget>
             </Col>
 
@@ -128,7 +128,7 @@ class Dashboard extends Component {
                 progressColor={ errorsColor }
                 progressValue={ minerpercentageError * 10 }
                 secondaryTitle="Rejected"
-                secondaryValue={ miner.stats.pool.intervals.int_0.lowDifficultyShares }
+                secondaryValue={ _.meanBy(miner.stats, function(o) { return o.pool.intervals.int_0.lowDifficultyShares; }) }
               ></DashboardWidget>
             </Col>
 
@@ -163,7 +163,7 @@ class Dashboard extends Component {
             <Col>
               <h4><Trans>Pools</Trans></h4>
               <div>
-                <PoolsTable pool={ miner.stats.pool } utility={ miner.stats.master.intervals.int_0.bySol }></PoolsTable>
+                <PoolsTable miner={ miner }></PoolsTable>
               </div>
             </Col>
           </Row>

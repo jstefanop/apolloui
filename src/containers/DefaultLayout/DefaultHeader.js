@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import { Badge, Nav, NavItem } from 'reactstrap';
@@ -36,7 +37,7 @@ class DefaultHeader extends Component {
             <Badge color={ minerCheck.online.status ? 'success' : 'danger' }>{ minerCheck.online.status ? 'ONLINE' : 'OFFLINE' }</Badge>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? displayHashrate(miner.stats.master.intervals.int_0.bySol, 'gh') : '...' }</span>
+            <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status ? displayHashrate(_.sumBy(miner.stats, function(o) { return o.master.intervals.int_0.bySol; }), 'gh') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
             <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit, true) : '...' }</span>

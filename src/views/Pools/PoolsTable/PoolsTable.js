@@ -14,8 +14,9 @@ import { I18n } from "@lingui/react"
 class PoolsTable extends Component {
 
   render() {
-    const { pool, utility } = this.props;
-
+    const { miner } = this.props;
+    const pools = _.map(miner.stats, 'pool');
+    console.log('HELLO', pools)
     return (
       <I18n>
         {({ i18n }) => (
@@ -33,32 +34,34 @@ class PoolsTable extends Component {
               </tr>
             </thead>
             <tbody className="bg-white">
-              <tr>
-                <td>
-                  <div className="font-weight-bold text-muted">{ `${pool.host}:${pool.port}` }</div>
-                </td>
-                <td className="">
-                  <h5 className="mb-0"><Badge color={ (pool.intervals.int_0.sharesSent > 0) ? 'success' : 'light' }>{ (pool.intervals.int_0.sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
-                </td>
-                <td>
-                  <h6 className="mb-0 font-weight-bold">
-                    <i className="fa fa-fire text-secondary"></i> { displayHashrate(utility, 'gh') }
-                  </h6>
-                </td>
-                <td>
-                  { pool.lastShareTime ? moment().to(moment(pool.lastShareTime, 'X')) : 'Never' }
-                </td>
-                <td>
-                  { pool.diff || 0 }
-                </td>
-                <td>
-                  { pool.intervals.int_0.sharesAccepted || 0 }
-                </td>
-                <td>
-                  { pool.intervals.int_0.sharesRejected || 0 }
-                </td>
-                <td className="text-center small">{ pool.userName }</td>
-              </tr>
+              { pools.map((pool, i) => 
+                <tr key={i}>
+                  <td>
+                    <div className="font-weight-bold text-muted">{ `${pool.host}:${pool.port}` }</div>
+                  </td>
+                  <td className="">
+                    <h5 className="mb-0"><Badge color={ (pool.intervals.int_0.sharesSent > 0) ? 'success' : 'light' }>{ (pool.intervals.int_0.sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
+                  </td>
+                  <td>
+                    <h6 className="mb-0 font-weight-bold">
+                      <i className="fa fa-fire text-secondary"></i> { displayHashrate(miner.stats[i].master.intervals.int_0.bySol, 'gh') }
+                    </h6>
+                  </td>
+                  <td>
+                    { pool.lastShareTime ? moment().to(moment(pool.lastShareTime, 'X')) : 'Never' }
+                  </td>
+                  <td>
+                    { pool.diff || 0 }
+                  </td>
+                  <td>
+                    { pool.intervals.int_0.sharesAccepted || 0 }
+                  </td>
+                  <td>
+                    { pool.intervals.int_0.sharesRejected || 0 }
+                  </td>
+                  <td className="text-center small">{ pool.userName }</td>
+                </tr>
+              )}
             </tbody>
           </Table>
         )}

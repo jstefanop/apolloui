@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     "data": {
-      "stats": {
+      "stats": [{
         "date": "2021-02-09 15:54:19",
         "statVersion": "1.2",
         "versions": {
@@ -206,7 +206,7 @@ const initialState = {
             "ping": 854
           }
         ]
-      }
+      }]
     },
     loading: false,
     "error": null

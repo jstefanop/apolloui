@@ -97,13 +97,13 @@ class DefaultAside extends Component {
                 </div>
               </div>
 
-              { (miner.stats.versions.miner) && (
+              { (miner.stats[0].versions.miner) && (
               <div className="aside-options">
                 <div className="clearfix mt-3">
                   <small className="text-muted"><i className="fa fa-hdd mr-2 initialism text-secondary"></i><Trans>Miner</Trans></small>
                 </div>
                 <div>
-                  <small className="">Version: <b>{ miner.stats.versions.miner }</b></small>
+                  <small className="">Version: <b>{ miner.stats[0].versions.miner }</b></small>
                 </div>
               </div>
               )}
