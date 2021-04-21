@@ -33,7 +33,7 @@ class HashboardsTable extends Component {
                 <th>Active ASICs</th>
               </tr>
             </thead>
-            <tbody className="bg-white">
+            <tbody className="bg-white"> 
               { miner.stats.map((hashboard, i) => 
                 <tr key={i}>
                   <td>

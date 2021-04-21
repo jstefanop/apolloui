@@ -115,7 +115,7 @@ class Dashboard extends Component {
                 progressColor={ powerColor(_.meanBy(miner.stats, function(o) { return o.master.boardsW; })) }
                 progressValue={ _.meanBy(miner.stats, function(o) { return o.master.boardsW; }) * 100 / 300 }
                 secondaryTitle="Watts per TH/s"
-                secondaryValue={ _.meanBy(miner.stats, function(o) { return o.master.wattPerGHs; }) * 1000 }
+                secondaryValue={ (_.meanBy(miner.stats, function(o) { return o.master.wattPerGHs; }) || 0) * 1000 }
               ></DashboardWidget>
             </Col>
 
@@ -128,7 +128,7 @@ class Dashboard extends Component {
                 progressColor={ errorsColor }
                 progressValue={ minerpercentageError * 10 }
                 secondaryTitle="Rejected"
-                secondaryValue={ _.meanBy(miner.stats, function(o) { return o.pool.intervals.int_0.lowDifficultyShares; }) }
+                secondaryValue={ _.meanBy(miner.stats, function(o) { return o.pool.intervals.int_0.lowDifficultyShares; }) || 0 }
               ></DashboardWidget>
             </Col>
 
