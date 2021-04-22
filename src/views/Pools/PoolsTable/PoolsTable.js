@@ -22,8 +22,8 @@ class PoolsTable extends Component {
           <Table responsive className="table-outline d-table d-sm-table">
             <thead className="bg-light">
               <tr>
+                <th><Trans>Status</Trans></th>
                 <th><Trans>Url</Trans></th>
-                <th><Trans>Active</Trans></th>
                 <th><Trans>Hashrate</Trans></th>
                 <th>Last share</th>
                 <th>Diff</th>
@@ -35,11 +35,11 @@ class PoolsTable extends Component {
             <tbody className="bg-white">
               { pools.map((pool, i) => 
                 <tr key={i}>
-                  <td>
-                    <div className="font-weight-bold text-muted">{ `${pool.host}:${pool.port}` }</div>
-                  </td>
                   <td className="">
                     <h5 className="mb-0"><Badge color={ (pool.intervals.int_0.sharesSent > 0) ? 'success' : 'light' }>{ (pool.intervals.int_0.sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
+                  </td>
+                  <td>
+                    <div className="font-weight-bold text-muted">{ `${pool.host}:${pool.port}` }</div>
                   </td>
                   <td>
                     <h6 className="mb-0 font-weight-bold">

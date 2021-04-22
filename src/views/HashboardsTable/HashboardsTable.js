@@ -22,8 +22,8 @@ class HashboardsTable extends Component {
           <Table responsive className="table-outline d-table d-sm-table">
             <thead className="bg-light">
               <tr>
-                <th><Trans>ID</Trans></th>
                 <th><Trans>Status</Trans></th>
+                <th><Trans>ID</Trans></th>
                 <th><Trans>Hashrate</Trans></th>
                 <th>Temp</th>
                 <th>Fan Speed</th>
@@ -36,11 +36,11 @@ class HashboardsTable extends Component {
             <tbody className="bg-white"> 
               { miner.stats.map((hashboard, i) => 
                 <tr key={i}>
-                  <td>
-                    <div className="font-weight-bold text-muted"><small>#</small>{hashboard.uuid}</div>
-                  </td>
                   <td className="">
                     <h5 className="mb-0"><Badge color={ (hashboard.pool.intervals.int_0.sharesSent > 0) ? 'success' : 'light' }>{ (hashboard.pool.intervals.int_0.sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
+                  </td>
+                  <td>
+                    <div className="font-weight-bold text-muted"><small>#</small>{hashboard.uuid}</div>
                   </td>
                   <td>
                     <h6 className="mb-0 font-weight-bold">
