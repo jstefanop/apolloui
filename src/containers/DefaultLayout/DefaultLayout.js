@@ -39,7 +39,9 @@ class DefaultLayout extends Component {
 
     poller();
 
-    const interval = (process.env.NODE_ENV === 'production)') ? 5000 : 300000;
+    console.log('ENV', process.env.NODE_ENV, process.env.REACT_APP_ENV);
+
+    const interval = (process.env.REACT_APP_ENV === 'production)') ? 5000 : 300000;
     this.intervalHandler = setInterval(() => {
       poller();
     }, interval);
