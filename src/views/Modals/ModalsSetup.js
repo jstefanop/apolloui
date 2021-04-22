@@ -159,8 +159,8 @@ class ModalsSetup extends Component {
                   </h5>
                   <div className="small text-muted">
                     <Trans>
-                      You can create an account on <a href="https://www.litecoinpool.org" rel="noopener noreferrer" target="_blank">Litecoinpool.org</a> and use <code>stratum+tcp://litecoinpool.org:3333</code> as pool url or you can use any other pool compatible with Scrypt algorithm.
-                      Visit <a href="https://www.litecoinpool.org/help" rel="noopener noreferrer" target="_blank">Litecoinpool.org/help</a> for additional information on how pool mining works and detailed FAQ on setting up your account.
+                      You can create an account on <a href="https://www.slushpool.com" rel="noopener noreferrer" target="_blank">Slushpool.com</a> and use <code>stratum+tcp://stratum.slushpool.com:3333</code> as pool url or you can use any other pool compatible with Scrypt algorithm.
+                      Visit <a href="https://www.slushpool.com/help" rel="noopener noreferrer" target="_blank">Slushpool.com/help</a> for additional information on how pool mining works and detailed FAQ on setting up your account.
                     </Trans>
                   </div>
                   <CardBody>
@@ -169,7 +169,7 @@ class ModalsSetup extends Component {
                         <Col md={6}>
                           <FormGroup className="mb-0">
                             <Label for="poolUrl"><Trans>Url</Trans></Label>
-                            <Input type="text" name="poolUrl" id="poolUrl" placeholder="stratum+tcp://us.litecoinpool.org:3333" bsSize="lg" value={poolUrl} onChange={this.onChange} />
+                            <Input type="text" name="poolUrl" id="poolUrl" placeholder="stratum+tcp://stratum.slushpool.com:3333" bsSize="lg" value={poolUrl} onChange={this.onChange} />
                             <span className="text-danger">
                               {poolFieldErrors.poolUrl}
                             </span>

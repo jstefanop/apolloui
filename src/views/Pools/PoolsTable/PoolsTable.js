@@ -16,7 +16,6 @@ class PoolsTable extends Component {
   render() {
     const { miner } = this.props;
     const pools = _.map(miner.stats, 'pool');
-    console.log('HELLO', pools)
     return (
       <I18n>
         {({ i18n }) => (

@@ -39,12 +39,16 @@ class Dashboard extends Component {
     // Last share
     let lastShare = 'Not available',
         lastShareTime = 0,
+        lastShareTimes = [],
         lastShareColor = 'success';
+
+    miner.stats.forEach((board) => {
+      lastShareTimes.push(moment(board.lastsharetime, 'YYYY-MM-DD HH:mm:ss').format('X'));
+    });
+
+    lastShareTime = _.max(lastShareTimes);
+    lastShare = moment(lastShareTime, 'X').fromNow();
     const timestamp = moment().format('X');
-    if (mainPool && mainPool.lastShareTime) {
-      lastShare = moment().to(moment(mainPool.lastShareTime, 'X'));
-      lastShareTime = mainPool.lastShareTime;
-    }
     const diffLastShare = timestamp - lastShareTime;
     if (diffLastShare >= 300 && diffLastShare <= 600) lastShareColor = 'warning';
     else if (diffLastShare > 600) lastShareColor = 'danger'

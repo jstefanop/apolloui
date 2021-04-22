@@ -59,7 +59,7 @@ class Node extends Component {
     if (node && node.stats && node.stats.error) {
       if (node.stats.error.code === 'ECONNREFUSED') {
         const loadingErrorBoxSubtitle = 'Double-check your USB node drive is plugged in the USB port in the back of' +
-          ' your Apollo, properly formatted with the folder name "Litecoin" in the root directory, and press the Start' +
+          ' your Apollo, properly formatted with the folder name "Bitcoin" in the root directory, and press the Start' +
           ' button below'
 
         return (
@@ -90,10 +90,10 @@ class Node extends Component {
         </div>
       )
     } else if (node && node.stats && node.stats.error) {
-      // Handle loading errors (e.g., Litecoin client off, loading, etc.)
+      // Handle loading errors (e.g., Bitcoin client off, loading, etc.)
       let loadingErrorMessage = null
 
-      // If Litecoin client off, display constant message
+      // If Bitcoin client off, display constant message
       if (node.stats.error.code === '-28') {
         loadingErrorMessage = 'Node is currently loading'
       } else {
@@ -126,7 +126,7 @@ class Node extends Component {
     }
 
     let sizeProgressValue = null;
-    let sizeSecondaryValue = null;
+    let sizeSecondaryValue = 0;
     if (sizeOnUsbInGb && sizeOnDiskInGb) {
       sizeProgressValue = parseInt((sizeOnDiskInGb / sizeOnUsbInGb) * 100);
       sizeSecondaryValue = (((sizeOnUsbInGb - sizeOnDiskInGb) / sizeOnUsbInGb) * 100).toFixed(2);

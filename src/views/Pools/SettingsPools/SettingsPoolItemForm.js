@@ -127,7 +127,7 @@ class SettingsPoolItemForm extends Component {
                   type="text"
                   name="url"
                   id="poolUrl"
-                  placeholder={i18n._(t`stratum+tcp://us.litecoinpool.org:3333`)}
+                  placeholder={i18n._(t`stratum+tcp://stratum.slushpool.com:3333`)}
                   bsSize="lg"
                   value={url}
                   onChange={this.onChange}

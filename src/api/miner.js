@@ -1,6 +1,7 @@
 
 import { ERROR_QUERY, MINER_STATUS_QUERY } from './shared'
 import { query } from './apiClient'
+import ls from 'local-storage'
 
 async function fetchMiner ({ accessToken }) {
   const { result, error } = await query({
@@ -215,6 +216,21 @@ async function fetchMiner ({ accessToken }) {
     path: 'Miner.stats',
     accessToken
   })
+
+  // Calculate lastsharetime storing shares data into local storage
+  result.stats.map((board) => {
+    const sharesSent = board.pool.intervals.int_0.sharesSent;
+    const shareTime = board.date;
+    const storedBoard = ls.get(`board_${board.uuid}`);
+    board.lastsharetime = (storedBoard) ? storedBoard.date : shareTime;
+
+    if (!storedBoard || storedBoard.sent !== sharesSent) {
+      ls.set(`board_${board.uuid}`, { date: shareTime, sent: sharesSent });
+      board.lastsharetime = shareTime
+    }
+
+    return result;
+  });
 
   return { result, error }
 }
