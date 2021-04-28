@@ -16,6 +16,12 @@ class PoolsTable extends Component {
   render() {
     const { miner } = this.props;
     const pools = _.map(miner.stats, 'pool');
+    const sharesSent = _.sumBy(pools, 'intervals.int_0.sharesSent');
+    const sharesAccepted = _.sumBy(pools, 'intervals.int_0.sharesAccepted');
+    const sharesRejected = _.sumBy(pools, 'intervals.int_0.sharesRejected');
+    const hashrate = _.sumBy(miner.stats, 'master.intervals.int_0.bySol');
+    const pool = _.maxBy(pools, 'diff');
+
     return (
       <I18n>
         {({ i18n }) => (
@@ -25,42 +31,42 @@ class PoolsTable extends Component {
                 <th><Trans>Status</Trans></th>
                 <th><Trans>Url</Trans></th>
                 <th><Trans>Hashrate</Trans></th>
-                <th>Last share</th>
                 <th>Diff</th>
+                <th>Sent</th>
                 <th>Acc</th>
                 <th>Rej</th>
-                <th className="text-center"><Trans>Username</Trans></th>
+                <th>Username</th>
               </tr>
             </thead>
             <tbody className="bg-white">
-              { pools.map((pool, i) => 
-                <tr key={i}>
+              {pool &&
+                <tr>
                   <td className="">
-                    <h5 className="mb-0"><Badge color={ (pool.intervals.int_0.sharesSent > 0) ? 'success' : 'light' }>{ (pool.intervals.int_0.sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
+                    <h5 className="mb-0"><Badge color={ (sharesSent > 0) ? 'success' : 'light' }>{ (sharesSent > 0) ? 'Active' : 'Inactive' }</Badge></h5>
                   </td>
                   <td>
                     <div className="font-weight-bold text-muted">{ `${pool.host}:${pool.port}` }</div>
                   </td>
                   <td>
                     <h6 className="mb-0 font-weight-bold">
-                      <i className="fa fa-fire text-secondary"></i> { displayHashrate(miner.stats[i].master.intervals.int_0.bySol, 'gh') }
+                      <i className="fa fa-fire text-secondary"></i> { displayHashrate(hashrate, 'gh') }
                     </h6>
-                  </td>
-                  <td>
-                    { pool.lastShareTime ? moment().to(moment(pool.lastShareTime, 'X')) : 'Never' }
                   </td>
                   <td>
                     { pool.diff || 0 }
                   </td>
                   <td>
-                    { pool.intervals.int_0.sharesAccepted || 0 }
+                    { sharesSent || 0 }
                   </td>
                   <td>
-                    { pool.intervals.int_0.sharesRejected || 0 }
+                    { sharesAccepted || 0 }
+                  </td>
+                  <td>
+                    { sharesRejected || 0 }
                   </td>
                   <td className="text-center small">{ pool.userName }</td>
                 </tr>
-              )}
+              }
             </tbody>
           </Table>
         )}

@@ -7,6 +7,7 @@ import {
 const initialState = {
 	data: {
 		stats: {
+      currentAppVersion: null,
 			initial: true,
 			hostname: null,
 			operatingSystem: null,

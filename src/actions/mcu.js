@@ -171,3 +171,24 @@ export function shutdownMcu() {
 		}
 	}
 }
+
+export const UPDATE_MCU_SUCCESS = 'UPDATE_MCU_SUCCESS';
+
+export const updateMcuSuccess = data => ({
+  type: UPDATE_MCU_SUCCESS,
+  payload: { data }
+});
+
+export function updateMcu() {
+  return async (dispatch, getState) => {
+	const {
+	  error,
+	} = await McuAPI.updateMcu({ accessToken: getState().auth.accessToken });
+
+		if (error) {
+		  dispatch(setError({ message: error.message }))
+		} else {
+		  dispatch(updateMcuSuccess())
+		}
+	}
+}

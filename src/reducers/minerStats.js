@@ -213,7 +213,6 @@ const initialState = {
 }
 
 export default function minerStatsReducer(state = initialState, action) {
-    console.log(action)
   switch(action.type) {
     case FETCH_MINER_BEGIN:
       return {
@@ -225,7 +224,7 @@ export default function minerStatsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        data: action.payload.data,
+        data: action.payload.data || { stats: null },
         error: null
       };
 

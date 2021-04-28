@@ -9,6 +9,7 @@ async function fetchMcu ({ accessToken }) {
           stats {
             result {
               stats {
+                currentAppVersion
                 timestamp
                 hostname
                 operatingSystem
@@ -162,6 +163,24 @@ async function shutdownMcu ({ accessToken }) {
   return { result, error }
 }
 
+async function updateMcu ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Mcu { 
+        Mcu {
+          update {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Mcu.update',
+    accessToken
+  })
+
+  return { result, error }
+}
+
 
 export default {
   fetchMcu,
@@ -169,5 +188,6 @@ export default {
   wifiConnectMcu,
   wifiDisconnectMcu,
   rebootMcu,
-  shutdownMcu
+  shutdownMcu,
+  updateMcu
 }

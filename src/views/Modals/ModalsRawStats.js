@@ -24,7 +24,7 @@ class ModalsRawStats extends Component {
               <Row>
                 <Col lg="12">
                   <Jumbotron>
-                    <pre>{JSON.stringify(miner.stats, null, 2) }</pre>
+                    {miner && <pre>{JSON.stringify(miner.stats, null, 2) }</pre>}
                   </Jumbotron>
                 </Col>
               </Row>

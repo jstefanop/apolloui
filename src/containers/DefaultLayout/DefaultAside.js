@@ -97,7 +97,7 @@ class DefaultAside extends Component {
                 </div>
               </div>
 
-              { (miner.stats.length && miner.stats[0].versions.miner) && (
+              { (miner && miner.stats && miner.stats.length && miner.stats[0].versions.miner) && (
               <div className="aside-options">
                 <div className="clearfix mt-3">
                   <small className="text-muted"><i className="fa fa-hdd mr-2 initialism text-secondary"></i><Trans>Miner</Trans></small>

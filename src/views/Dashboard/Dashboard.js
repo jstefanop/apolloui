@@ -33,18 +33,17 @@ class Dashboard extends Component {
     // Miner uptime
     const minerUptime = moment().to(moment().subtract(_.sumBy(miner.stats, function(o) { return o.master.upTime; }), 'seconds'), true);
 
-    // Active pool
-    const mainPool = miner.stats.pool;
-
     // Last share
     let lastShare = 'Not available',
         lastShareTime = 0,
         lastShareTimes = [],
         lastShareColor = 'success';
 
-    miner.stats.forEach((board) => {
-      lastShareTimes.push(moment(board.lastsharetime, 'YYYY-MM-DD HH:mm:ss').format('X'));
-    });
+    if (miner.stats) {
+      miner.stats.forEach((board) => {
+        lastShareTimes.push(moment(board.lastsharetime, 'YYYY-MM-DD HH:mm:ss').format('X'));
+      });
+    }
 
     lastShareTime = _.max(lastShareTimes);
     lastShare = moment(lastShareTime, 'X').fromNow();
@@ -151,6 +150,7 @@ class Dashboard extends Component {
           </Row>
         </div>
 
+        {miner.stats &&
         <div className="animated fadeIn">
           <Row>
             <Col>
@@ -161,7 +161,9 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </div>
+        }
 
+        {miner.stats &&
         <div className="animated fadeIn">
           <Row>
             <Col>
@@ -172,6 +174,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </div>
+        }
 
         <div>
           <h4><Trans>Settings</Trans></h4>        
@@ -196,7 +199,7 @@ class Dashboard extends Component {
                       : <span>Auto</span>
                     }
                   </div>
-                  <div><Trans>Miner voltage</Trans></div>
+                  <div><Trans>Miner power</Trans></div>
                 </CardBody>
               </Card>
             </Col>
@@ -222,11 +225,11 @@ class Dashboard extends Component {
                   <div className="h1 text-muted float-right"><i className="fa fa-wind text-gray"></i></div>
                   <div className="h4 m-0">
                     { (settings.fan_low !== 40 && settings.fan_high !== 60) ?
-                      <span>{ settings.fan_low }% / { settings.fan_high }%</span>
+                      <span>{ settings.fan_low }c° / { settings.fan_high }c°</span>
                       : <span>Auto</span>
                     }
                   </div>
-                  <div><Trans>Fan speed</Trans></div>
+                  <div><Trans>Fan temp settings</Trans></div>
                 </CardBody>
               </Card>
             </Col>
