@@ -44,7 +44,7 @@ class HashboardsTable extends Component {
                   </td>
                   <td>
                     <h6 className="mb-0 font-weight-bold">
-                      <i className="fa fa-fire text-secondary"></i> { displayHashrate(hashboard.master.intervals.int_0.bySol, 'gh') }
+                      <i className="fa fa-fire text-secondary"></i> { displayHashrate(hashboard.slots.int_0.ghs, 'gh') }
                     </h6>
                   </td>
                   <td>

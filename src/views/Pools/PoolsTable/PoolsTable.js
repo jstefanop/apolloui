@@ -19,7 +19,7 @@ class PoolsTable extends Component {
     const sharesSent = _.sumBy(pools, 'intervals.int_0.sharesSent');
     const sharesAccepted = _.sumBy(pools, 'intervals.int_0.sharesAccepted');
     const sharesRejected = _.sumBy(pools, 'intervals.int_0.sharesRejected');
-    const hashrate = _.sumBy(miner.stats, 'master.intervals.int_0.bySol');
+    const hashrate = _.sumBy(miner.stats, 'master.intervals.int_0.byPool');
     const pool = _.maxBy(pools, 'diff');
 
     return (

@@ -25,7 +25,7 @@ class Dashboard extends Component {
     const { minerCheck, minerError, mcuError, mcu, miner, settings } = this.props;
     
     // Miner shares
-    const minerpercentageError = _.sumBy(miner.stats, function(o) { return o.master.intervals.int_0.errorRate; });
+    const minerpercentageError = _.meanBy(miner.stats, function(o) { return o.slots.int_0.errorRate; });
     let errorsColor = 'success';
     if (minerpercentageError >= 5 && minerpercentageError <= 7.5) errorsColor = 'warning';
     else if (minerpercentageError > 7.5) errorsColor = 'danger';
@@ -100,19 +100,19 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
-                value={ displayHashrate(_.sumBy(miner.stats, function(o) { return o.master.intervals.int_0.bySol; }), 'gh') }
+                value={ displayHashrate(_.sumBy(miner.stats, function(o) { if (o.status) return o.slots.int_0.ghs; }), 'gh') }
                 title="Current hashrate"
                 progressColor="primary"
                 progressValue="100"
                 secondaryTitle="15 Min Avg"
-                secondaryValue={ displayHashrate(_.sumBy(miner.stats, function(o) { return o.master.intervals.int_900.bySol; }), 'gh') }
+                secondaryValue={ displayHashrate(_.sumBy(miner.stats, function(o) { if (o.status) return o.master.intervals.int_900.bySol; }), 'gh') }
               ></DashboardWidget>
             </Col>
 
             <Col xs="12" md="6" xl="3">
               <DashboardWidget 
                 bgColor="bg-info" 
-                icon="fa fa-thermometer-half" 
+                icon="fa fa-plug" 
                 value={  `${_.sumBy(miner.stats, function(o) { return o.master.boardsW; })} Watt` }
                 title="Miner power usage"
                 progressColor={ powerColor(_.meanBy(miner.stats, function(o) { return o.master.boardsW; })) }
@@ -131,7 +131,7 @@ class Dashboard extends Component {
                 progressColor={ errorsColor }
                 progressValue={ minerpercentageError * 10 }
                 secondaryTitle="Rejected"
-                secondaryValue={ _.meanBy(miner.stats, function(o) { return o.pool.intervals.int_0.lowDifficultyShares; }) || 0 }
+                secondaryValue={ _.sumBy(miner.stats, function(o) { return o.pool.intervals.int_0.sharesRejected; }) || 0 }
               ></DashboardWidget>
             </Col>
 
