@@ -16,10 +16,10 @@ class PoolsTable extends Component {
   render() {
     const { miner } = this.props;
     const pools = _.map(miner.stats, 'pool');
-    const sharesSent = _.sumBy(pools, 'intervals.int_0.sharesSent');
-    const sharesAccepted = _.sumBy(pools, 'intervals.int_0.sharesAccepted');
-    const sharesRejected = _.sumBy(pools, 'intervals.int_0.sharesRejected');
-    const hashrate = _.sumBy(miner.stats, 'master.intervals.int_0.byPool');
+    const sharesSent = _.sumBy(pools, (pool) => { return (pool.status) ? 'intervals.int_0.sharesSent' : 0 });
+    const sharesAccepted = _.sumBy(pools, (pool) => { return (pool.status) ? 'intervals.int_0.sharesAccepted' : 0 });
+    const sharesRejected = _.sumBy(pools, (pool) => { return (pool.status) ? 'intervals.int_0.sharesRejected' : 0 });
+    const hashrate = _.sumBy(miner.stats, (pool) => { return (pool.status) ? 'master.intervals.int_0.byPool' : 0 });
     const pool = _.maxBy(pools, 'diff');
 
     return (
@@ -48,12 +48,12 @@ class PoolsTable extends Component {
                     <div className="font-weight-bold text-muted">{ `${pool.host}:${pool.port}` }</div>
                   </td>
                   <td>
-                    <h6 className="mb-0 font-weight-bold">
+                    <h6 className={`mb-0 ${pool.status ? "font-weight-bold" : "text-secondary"}`}>
                       <i className="fa fa-fire text-secondary"></i> { displayHashrate(hashrate, 'gh') }
                     </h6>
                   </td>
                   <td>
-                    { pool.diff || 0 }
+                    { pool.status ? pool.diff : 0 }
                   </td>
                   <td>
                     { sharesSent || 0 }

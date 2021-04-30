@@ -25,13 +25,16 @@ class Dashboard extends Component {
     const { minerCheck, minerError, mcuError, mcu, miner, settings } = this.props;
     
     // Miner shares
-    const minerpercentageError = _.meanBy(miner.stats, function(o) { return o.slots.int_0.errorRate; });
+    const minerpercentageError = _.meanBy(miner.stats, function(o) { return (o.status) ? o.slots.int_0.errorRate : 0; }) || 0;
     let errorsColor = 'success';
     if (minerpercentageError >= 5 && minerpercentageError <= 7.5) errorsColor = 'warning';
     else if (minerpercentageError > 7.5) errorsColor = 'danger';
 
     // Miner uptime
-    const minerUptime = moment().to(moment().subtract(_.sumBy(miner.stats, function(o) { return o.master.upTime; }), 'seconds'), true);
+    let minerUptime = moment().to(moment().subtract(_.meanBy(miner.stats, function(o) { return (o.status) ? o.master.upTime : 0; }), 'seconds'), true);
+    miner.stats.forEach((board) => {
+      if (!board.status) minerUptime = 'Inactive';
+    });
 
     // Last share
     let lastShare = 'Not available',
@@ -113,12 +116,12 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-info" 
                 icon="fa fa-plug" 
-                value={  `${_.sumBy(miner.stats, function(o) { return o.master.boardsW; })} Watt` }
+                value={  `${_.sumBy(miner.stats, function(o) { return (o.status) ? o.master.boardsW : 0; })} Watt` }
                 title="Miner power usage"
-                progressColor={ powerColor(_.meanBy(miner.stats, function(o) { return o.master.boardsW; })) }
-                progressValue={ _.meanBy(miner.stats, function(o) { return o.master.boardsW; }) * 100 / 300 }
+                progressColor={ powerColor(_.meanBy(miner.stats, function(o) { return (o.status) ? o.master.boardsW : 0; })) }
+                progressValue={ _.meanBy(miner.stats, function(o) { return (o.status) ? o.master.boardsW : 0 }) * 100 / 300 }
                 secondaryTitle="Watts per TH/s"
-                secondaryValue={ (_.meanBy(miner.stats, function(o) { return o.master.wattPerGHs; }) || 0) * 1000 }
+                secondaryValue={ (_.meanBy(miner.stats, function(o) { return (o.status) ? o.master.wattPerGHs : 0; }) || 0) * 1000 }
               ></DashboardWidget>
             </Col>
 
@@ -131,7 +134,7 @@ class Dashboard extends Component {
                 progressColor={ errorsColor }
                 progressValue={ minerpercentageError * 10 }
                 secondaryTitle="Rejected"
-                secondaryValue={ _.sumBy(miner.stats, function(o) { return o.pool.intervals.int_0.sharesRejected; }) || 0 }
+                secondaryValue={ _.sumBy(miner.stats, function(o) { return (o.status) ? o.pool.intervals.int_0.sharesRejected : 0; }) || 0 }
               ></DashboardWidget>
             </Col>
 

@@ -159,7 +159,7 @@ class ModalsSetup extends Component {
                   </h5>
                   <div className="small text-muted">
                     <Trans>
-                      You can create an account on <a href="https://www.slushpool.com" rel="noopener noreferrer" target="_blank">Slushpool.com</a> and use <code>stratum+tcp://stratum.slushpool.com:3333</code> as pool url or you can use any other pool compatible with Scrypt algorithm.
+                      You can create an account on <a href="https://www.slushpool.com" rel="noopener noreferrer" target="_blank">Slushpool.com</a> and use <code>stratum+tcp://stratum.slushpool.com:3333</code> as pool url or you can use any other pool compatible with SHA256 algorithm.
                       Visit <a href="https://www.slushpool.com/help" rel="noopener noreferrer" target="_blank">Slushpool.com/help</a> for additional information on how pool mining works and detailed FAQ on setting up your account.
                     </Trans>
                   </div>
