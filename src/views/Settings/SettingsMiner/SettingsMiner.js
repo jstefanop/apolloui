@@ -32,8 +32,8 @@ class SettingsMiner extends Component {
     this.marks = {
       voltage: {
         min: 30,
-        max: 100,
-        step: 10,
+        max: 95,
+        step: 5,
         data: {
           30: 'Min',
           40: '40%',
@@ -42,7 +42,7 @@ class SettingsMiner extends Component {
           70: '70%',
           80: '80%',
           90: '90%',
-          100: 'Max'
+          95: 'Max'
         }
       },
       frequency: {
@@ -123,7 +123,8 @@ class SettingsMiner extends Component {
       fan_high,
       frequency,
       apiAllow,
-      onChange
+      onChange,
+      agree
     } = this.props;
 
     return (
@@ -263,14 +264,14 @@ class SettingsMiner extends Component {
                         <Col lg={12} xl={6}>
                           <div>
                             <div className="clearfix">
-                              <h4><Trans>Voltage</Trans> <b>{voltage}<span className="small">%</span></b></h4>
+                              <h4><Trans>Power</Trans> <b>{voltage}<span className="small">%</span></b></h4>
                             </div>
                             <div>
                               <p className="text-muted ">
                                 { 
                                 // eslint-disable-next-line 
                                 }
-                                <Trans>You can set your miner custom voltage or <Button color="link" onClick={() => this.onReset('voltage')}>reset</Button> to default value.</Trans>
+                                <Trans>You can set your miner custom power or <Button color="link" onClick={() => this.onReset('voltage')}>reset</Button> to default value.</Trans>
                               </p>
                               <Card className="border-0">
                                 <CardBody>
@@ -284,6 +285,17 @@ class SettingsMiner extends Component {
                                   />
                                 </CardBody>
                               </Card>
+                              {voltage >= 75 &&
+                                <Card>
+                                  <CardHeader className="bg-red">
+                                    <div className="text-white">The FutureBit APU-200 Power Supply is limited to 75% power, going beyond this will cause your system to shutdown. You accept that Futurebit will not cover any warranty claims past 75% power, and that you are using an external ATX power supply that is capable of at least 300 watts per unit and BOTH 6 pin connectors are plugged in</div>
+                                    <div className="custom-control custom-checkbox mt-2 font-weight-bold">
+                                      <input type="checkbox" className="custom-control-input" id="customCheck1" checked={agree} onChange={() => onChange({ value: !agree, name: 'agree' })} />
+                                      <label className="custom-control-label text-white" htmlFor="customCheck1">I read and accept</label>
+                                    </div>
+                                  </CardHeader>
+                                </Card>
+                              }
                             </div>
                           </div>
                         </Col>

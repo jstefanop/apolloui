@@ -114,7 +114,7 @@ class Node extends Component {
     let sizeOnUsbInGb = null;
     if (mcu && mcu.stats && mcu.stats.disks) {
       const usbDisk = mcu.stats.disks.filter((disk) => {
-        return disk.mountPoint === '/media/usb0';
+        return disk.mountPoint === '/media/nvme';
       })[0];
 
       if (usbDisk) { sizeOnUsbInGb = usbDisk.total / 1000000; }

@@ -32,6 +32,8 @@ class Settings extends Component {
       settings,
     } = this.props;
 
+    settings.agree = false;
+
     this.state = {
       settings: { ...settings },
     };
@@ -78,6 +80,7 @@ class Settings extends Component {
         leftSidebarExtended,
         rightSidebarVisibility,
         temperatureUnit,
+        agree
       },
       settings,
     } = this.state;
@@ -107,6 +110,7 @@ class Settings extends Component {
                   <Button
                     size="sm"
                     className="btn-warning text-uppercase"
+                    disabled={voltage >= 75 && !agree}
                     onClick={this.handleSaveAndRestart}
                   >
                     <Trans>Save &amp; Restart</Trans>
@@ -123,7 +127,7 @@ class Settings extends Component {
         { /* Miner conf */ }
         <SettingsMiner
           {...{
-            minerMode, voltage, frequency, fan_low, fan_high, customApproval, apiAllow
+            minerMode, voltage, frequency, fan_low, fan_high, customApproval, apiAllow, agree
           }}
           onChange={this.onChange}
         />
