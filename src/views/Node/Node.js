@@ -169,7 +169,7 @@ class Node extends Component {
               <DashboardWidget
                 bgColor='bg-info'
                 icon='fa fa-fire'
-                value={!!(miningInfo.networkhashps) ? `${(miningInfo.networkhashps / 1000000000000).toFixed(2)} TH/s` : '0 TH/s'}
+                value={!!(miningInfo.networkhashps) ? `${new Intl.NumberFormat().format(miningInfo.networkhashps / 1000000000000)} TH/s` : '0 TH/s'}
                 title='Network Hashrate'
                 hideProgress={true}
                 progressColor='success'
