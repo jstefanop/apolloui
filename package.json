@@ -4,8 +4,8 @@
   "description": "Dashboard for Apollo miner from Futurebit",
   "author": "FutureBit LLC",
   "homepage": "https://www.futurebit.io",
-  "copyright": "Copyright 2018 FutureBit LLC",
-  "license": "MIT",
+  "copyright": "Copyright 2021 FutureBit LLC",
+  "license": "CC BY-NC-ND 4.0",
   "private": true,
   "repository": {
     "type": "git",
