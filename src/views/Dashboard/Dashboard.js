@@ -25,16 +25,18 @@ class Dashboard extends Component {
     const { minerCheck, minerError, mcuError, mcu, miner, settings } = this.props;
     
     // Miner shares
-    const minerpercentageError = _.meanBy(miner.stats, function(o) { return (o.status) ? o.slots.int_0.errorRate : 0; }) || 0;
+    const minerpercentageError = _.chain(miner.stats).filter((o) => { return o.status; }).meanBy((o) => { return o.slots.int_0.errorRate; }).value() || 0;
     let errorsColor = 'success';
     if (minerpercentageError >= 5 && minerpercentageError <= 7.5) errorsColor = 'warning';
     else if (minerpercentageError > 7.5) errorsColor = 'danger';
 
     // Miner uptime
-    let minerUptime = moment().to(moment().subtract(_.meanBy(miner.stats, function(o) { return (o.status) ? o.master.upTime : 0; }), 'seconds'), true);
-    miner.stats.forEach((board) => {
-      if (!board.status) minerUptime = 'Inactive';
-    });
+    let minerUptime = moment().to(moment().subtract(_.chain(miner.stats).filter((o) => { return o.status; }).meanBy((o) => { return o.master.upTime; }).value(), 'seconds'), true);
+    if (_.every(miner.stats, ['status', false])) minerUptime = 'Inactive';
+
+    // Miner watt
+    const minerPower = _.chain(miner.stats).filter((o) => { return o.status; }).meanBy((o) => { return o.master.boardsW; }).value() || 0;
+    const minerPowerPerGh = _.chain(miner.stats).filter((o) => { return o.status; }).meanBy((o) => { return o.master.wattPerGHs; }).value() || 0;
 
     // Last share
     let lastShare = 'Not available',
@@ -118,10 +120,10 @@ class Dashboard extends Component {
                 icon="fa fa-plug" 
                 value={  `${_.sumBy(miner.stats, function(o) { return (o.status) ? o.master.boardsW : 0; })} Watt` }
                 title="Miner power usage"
-                progressColor={ powerColor(_.meanBy(miner.stats, function(o) { return (o.status) ? o.master.boardsW : 0; })) }
-                progressValue={ _.meanBy(miner.stats, function(o) { return (o.status) ? o.master.boardsW : 0 }) * 100 / 300 }
+                progressColor={ powerColor(minerPower) }
+                progressValue={ minerPower * 100 / 300 }
                 secondaryTitle="Watts per TH/s"
-                secondaryValue={ (_.meanBy(miner.stats, function(o) { return (o.status) ? o.master.wattPerGHs : 0; }) || 0) * 1000 }
+                secondaryValue={ minerPowerPerGh * 1000 }
               ></DashboardWidget>
             </Col>
 

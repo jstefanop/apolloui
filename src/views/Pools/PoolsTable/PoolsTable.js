@@ -16,10 +16,10 @@ class PoolsTable extends Component {
   render() {
     const { miner } = this.props;
     const pools = _.map(miner.stats, 'pool');
-    const sharesSent = _.sumBy(pools, (pool) => { return (pool.status) ? 'intervals.int_0.sharesSent' : 0 });
-    const sharesAccepted = _.sumBy(pools, (pool) => { return (pool.status) ? 'intervals.int_0.sharesAccepted' : 0 });
-    const sharesRejected = _.sumBy(pools, (pool) => { return (pool.status) ? 'intervals.int_0.sharesRejected' : 0 });
-    const hashrate = _.sumBy(miner.stats, (pool) => { return (pool.status) ? 'master.intervals.int_0.byPool' : 0 });
+    const sharesSent = _.sumBy(pools, (pool) => { return (pool.status) ? pool.intervals.int_0.sharesSent : 0 });
+    const sharesAccepted = _.sumBy(pools, (pool) => { return (pool.status) ? pool.intervals.int_0.sharesAccepted : 0 });
+    const sharesRejected = _.sumBy(pools, (pool) => { return (pool.status) ? pool.intervals.int_0.sharesRejected : 0 });
+    const hashrate = _.sumBy(miner.stats, (pool) => { return (pool.status) ? pool.master.intervals.int_0.byPool : 0 });
     const pool = _.maxBy(pools, 'diff');
 
     return (
