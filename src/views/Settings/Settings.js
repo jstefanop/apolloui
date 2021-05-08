@@ -87,6 +87,8 @@ class Settings extends Component {
 
     const { oldSettings } = this.props;
 
+    oldSettings.agree = settings.agree;
+
     const changed = !isEqual(settings, oldSettings);
     const restartNeeded = !isEqual(pick(settings, restartFields), pick(oldSettings, restartFields));
     return (
@@ -110,7 +112,7 @@ class Settings extends Component {
                   <Button
                     size="sm"
                     className="btn-warning text-uppercase"
-                    disabled={voltage >= 75 && !agree}
+                    disabled={minerMode === 'custom' && voltage >= 75 && !agree}
                     onClick={this.handleSaveAndRestart}
                   >
                     <Trans>Save &amp; Restart</Trans>

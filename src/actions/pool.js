@@ -40,7 +40,7 @@ export function updatePoolsAndRestartMiner(pools) {
       dispatch(setError({ message: error.message }));
     }
 
-    const newPools = result.pools;
+    const newPools = (result && result.pools) ? result.pools : null;
 
     ({ error } = await MinerAPI.restartMiner({ accessToken: getState().auth.accessToken }));
     if (error) {

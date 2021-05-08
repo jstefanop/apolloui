@@ -10,6 +10,7 @@ async function fetchSettings({ accessToken }) {
           read {
             result {
               settings {
+                agree
                 minerMode
                 voltage
                 frequency
@@ -44,6 +45,7 @@ async function saveSettings({ accessToken, settings }) {
           update (input: $input) {
             result {
               settings {
+                agree
                 minerMode
                 voltage
                 frequency
