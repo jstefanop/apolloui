@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 import { LoadingErrorBox } from '../Loading';
-import { updateMcu } from '../../actions/mcu'
+import { updateMcu, updateProgressMcu } from '../../actions/mcu'
 
 class ModalsUpdate extends Component {
   constructor(props) {
@@ -36,8 +36,10 @@ class ModalsUpdate extends Component {
     this.props.updateMcu();
 
     this.intervalHandler = setInterval(() => {
+      const updateProgress = (this.props.mcuManage && this.props.mcuManage.value) ? this.props.mcuManage.value : 0;
+      this.props.updateProgressMcu()
       this.setState({
-        progressValue: this.state.progressValue + 1.66
+        progressValue: updateProgress
       });
       if (this.state.progressValue >= 80) this.setState({ title: 'Hold on, page will reload in few seconds...'});
     }, 1000);
@@ -93,8 +95,17 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateMcu: () => {
       dispatch(updateMcu())
+    },
+    updateProgressMcu: () => {
+      dispatch(updateProgressMcu())
     }
   }
 }
 
-export default connect(null, mapDispatchToProps)(ModalsUpdate);
+const mapStateToProps = state => {
+  return {
+    mcuManage: state.mcuManage.data
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalsUpdate);

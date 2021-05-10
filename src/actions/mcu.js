@@ -192,3 +192,25 @@ export function updateMcu() {
 		}
 	}
 }
+
+export const UPDATE_PROGRESS_MCU_SUCCESS = 'UPDATE_PROGRESS_MCU_SUCCESS';
+
+export const updateProgressMcuSuccess = data => ({
+  type: UPDATE_PROGRESS_MCU_SUCCESS,
+  payload: { data }
+});
+
+export function updateProgressMcu() {
+  return async (dispatch, getState) => {
+	const {
+	  result,
+	  error,
+	} = await McuAPI.updateProgressMcu({ accessToken: getState().auth.accessToken });
+
+		if (error) {
+		  dispatch(setError({ message: error.message }))
+		} else {
+		  dispatch(updateProgressMcuSuccess(result))
+		}
+	}
+}

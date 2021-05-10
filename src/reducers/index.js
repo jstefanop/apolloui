@@ -4,6 +4,7 @@ import alert from './alert';
 import settings from './settings';
 import pools from './pools';
 import mcuStats from './mcuStats';
+import mcuManage from './mcuManage';
 import minerStats from './minerStats';
 import minerOnline from './minerOnline';
 import minerManage from './minerManage';
@@ -19,6 +20,7 @@ export default combineReducers({
   settings,
   pools,
   mcuStats,
+  mcuManage,
   minerStats,
   minerOnline,
   minerManage,

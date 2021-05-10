@@ -181,6 +181,27 @@ async function updateMcu ({ accessToken }) {
   return { result, error }
 }
 
+async function updateProgressMcu ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Mcu { 
+        Mcu {
+          updateProgress {
+            result {
+              value
+            }
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Mcu.updateProgress',
+    accessToken
+  })
+
+  return { result, error }
+}
+
 
 export default {
   fetchMcu,
@@ -189,5 +210,6 @@ export default {
   wifiDisconnectMcu,
   rebootMcu,
   shutdownMcu,
-  updateMcu
+  updateMcu,
+  updateProgressMcu
 }
