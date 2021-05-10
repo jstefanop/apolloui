@@ -34,7 +34,9 @@ class HashboardsTable extends Component {
               </tr>
             </thead>
             <tbody className="bg-white"> 
-              { miner.stats.map((hashboard, i) => 
+              { miner.stats
+                .sort((a, b) => a.uuid > b.uuid ? 1 : -1)
+                .map((hashboard, i) => 
                 <tr key={i}>
                   <td className="">
                     <h5 className="mb-0"><Badge color={ (hashboard.status) ? 'success' : 'light' }>{ (hashboard.status) ? 'Active' : 'Inactive' }</Badge></h5>
