@@ -57,7 +57,7 @@ class DefaultHeader extends Component {
             <i className="fa fa-fire mr-2"></i><span className="text-muted font-weight-bold">{ minerCheck.online.status && miner ? displayHashrate(_.sumBy(miner.stats, function(o) { if (o.status) return o.slots.int_0.ghs; }), 'gh') : '...' }</span>
           </NavItem>
           <NavItem className="px-3">
-            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? convertTemp(mcu.stats.minerTemperature, settings.temperatureUnit, true) : '...' }</span>
+            <i className="fa fa-thermometer-half mr-2"></i><span className="text-muted text-bold">{ minerCheck.online.status ? convertTemp(mcu.stats.temperature / 1000, settings.temperatureUnit, true) : '...' }</span>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>

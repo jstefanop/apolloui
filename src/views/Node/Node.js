@@ -185,11 +185,11 @@ class Node extends Component {
               <DashboardWidget
                 bgColor='bg-gray-300'
                 icon='fa fa-broadcast-tower'
-                value={`${connectionCount} / 16`}
+                value={`${connectionCount} / 32`}
                 title='Connections'
-                progressColor={connectionCount > 8 ? 'success': 'danger'}
-                progressValue={parseInt((connectionCount / 16) * 100)}
-                secondaryTitle={connectionCount === 8 ? 'Only inbound connections detected, please enable port 9333 on your router port forwarding rules for your Apollo IP address' : null}
+                progressColor={connectionCount > 16 ? 'success': 'danger'}
+                progressValue={parseInt((connectionCount / 32) * 100)}
+                secondaryTitle={connectionCount === 16 ? 'Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address' : null}
                 wrapSecondary={true}
                 hideSecondaryValue={true}
               />

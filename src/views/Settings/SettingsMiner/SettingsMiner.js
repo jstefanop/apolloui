@@ -33,7 +33,7 @@ class SettingsMiner extends Component {
       voltage: {
         min: 30,
         max: 95,
-        step: 5,
+        step: 1,
         data: {
           30: 'Min',
           40: '40%',
