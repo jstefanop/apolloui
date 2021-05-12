@@ -357,7 +357,7 @@ class SettingsMiner extends Component {
                   <CardBody>
                     <div className="lead">
                       <p className="text-muted ">
-                        <Trans>The Apollo comes with auto tuned fan speed, but you can set your preferred values below.</Trans>
+                        <Trans>The Apollo comes with auto tuned fan speed, but you can set a custom curve by toggling auto to off.</Trans>
                       </p>
                     </div>
                     {!this.state.autoFan &&
