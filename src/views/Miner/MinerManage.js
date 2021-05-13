@@ -5,14 +5,16 @@ import { push } from 'connected-react-router'
 import { LoadingErrorBox } from '../Loading';
 import { startMiner, restartMiner, stopMiner } from '../../actions/miner'
 
+import { t } from '@lingui/macro';
+
 class MinerManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalsWaiting: false,
       progressValue: 0,
-      title: 'Please wait while miner is warming up',
-      subtitle: 'This takes about 30 seconds after that you will be redirect to the dashboard',
+      title: t`Please wait while miner is warming up`,
+      subtitle: t`This takes about 30 seconds after that you will be redirect to the dashboard`,
       showProgress: true,
       icon: 'fa-cog fa-spin'
     }
@@ -30,8 +32,8 @@ class MinerManage extends Component {
       case '/miner/stop':
         this.props.stopMiner();
         this.setState({
-          title: 'Miner is stopping...',
-          subtitle: 'You will be redirect to the dashboard in few seconds',
+          title: t`Miner is stopping...`,
+          subtitle: t`You will be redirect to the dashboard in few seconds`,
           showProgress: false,
           icon: 'fa-stop-circle animated flash'
         });

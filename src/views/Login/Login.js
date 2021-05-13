@@ -7,6 +7,8 @@ import logo from '../../assets/img/brand/logo.png'
 import { Loading } from '../Loading';
 import { login } from '../../actions/auth'
 
+import { Trans } from '@lingui/macro';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -52,7 +54,7 @@ class Login extends Component {
                   <CardBody>
                     <Form onSubmit={this.handleLogin}>
                       <h1>Lockscreen</h1>
-                      <p className="text-muted">Sign In to unlock the dashboard</p>
+                      <p className="text-muted"><Trans>Sign In to unlock the dashboard</Trans></p>
                       { (!error && loading) ?
                         <Loading />
                         :

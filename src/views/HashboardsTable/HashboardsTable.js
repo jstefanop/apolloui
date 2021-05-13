@@ -22,12 +22,12 @@ class HashboardsTable extends Component {
             <th><Trans>Status</Trans></th>
             <th><Trans>ID</Trans></th>
             <th><Trans>Hashrate</Trans></th>
-            <th>Temp</th>
-            <th>Fan Speed</th>
-            <th>Power</th>
-            <th>Voltage</th>
-            <th>Error</th>
-            <th>Active ASICs</th>
+            <th><Trans>Temp</Trans></th>
+            <th><Trans>Fan Speed</Trans></th>
+            <th><Trans>Power</Trans></th>
+            <th><Trans>Voltage</Trans></th>
+            <th><Trans>Error</Trans></th>
+            <th><Trans>Active ASICs</Trans></th>
           </tr>
         </thead>
         <tbody className="bg-white"> 

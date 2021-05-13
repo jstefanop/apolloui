@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Trans } from '@lingui/macro';
 
 class Loading extends Component {
   render() {
-    return <div><i className="fa fa-spinner fa-spin mr-2"></i>Loading...</div>;
+    return <div><i className="fa fa-spinner fa-spin mr-2"></i><Trans>Loading</Trans>...</div>;
   }
 }
 

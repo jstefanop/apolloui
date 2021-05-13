@@ -10,7 +10,7 @@ import {
 
 import moment from 'moment';
 
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 
 import DashboardWidget from '../Widgets/DashboardWidget';
 
@@ -41,15 +41,15 @@ class Node extends Component {
         <LoadingErrorBox
           show={true}
           bg='bg-0'
-          title='Batch 1 controllers do not have the necessary RAM to run a full node'
+          title={t`Batch 1 controllers do not have the necessary RAM to run a full node`}
           centerTitle={true}
-          subtitle='We made a Batch 1 upgrade kit available below'
+          subtitle={t`We made a Batch 1 upgrade kit available below`}
           error={false}
           centerSubtitle={true}
           icon='fa-exclamation-triangle animated bounce'
           showLink={true}
           linkTo='https://shop.futurebit.io/products/apollo-full-node-upgrade-kit'
-          linkText='FutureBit Batch 1 Upgrade Kit'
+          linkText={t`FutureBit Batch 1 Upgrade Kit`}
         />
       )
     }
@@ -94,7 +94,7 @@ class Node extends Component {
 
       // If Bitcoin client off, display constant message
       if (node.stats.error.code === '-28') {
-        loadingErrorMessage = 'Node is currently loading'
+        loadingErrorMessage = t`Node is currently loading`
       } else {
         // Every other loading error
         loadingErrorMessage = node.stats.error.message

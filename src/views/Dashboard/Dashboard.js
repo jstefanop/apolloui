@@ -17,7 +17,7 @@ import { convertTemp, displayHashrate, minerModeIcon, powerColor } from '../Filt
 import PoolsTable from '../Pools/PoolsTable';
 import HashboardsTable from '../HashboardsTable';
 
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 
 class Dashboard extends Component {
 
@@ -62,9 +62,9 @@ class Dashboard extends Component {
         <LoadingErrorBox 
           show={ true }
           bg="bg-0"
-          title="Miner is offline"
+          title={t`Miner is offline`}
           centerTitle={ true }
-          subtitle="Try to start it"
+          subtitle={t`Try to start it`}
           error={ false }
           centerSubtitle={ true }
           icon="fa-toggle-off animated bounce"
@@ -80,9 +80,9 @@ class Dashboard extends Component {
         <LoadingErrorBox 
           show={true}
           bg="bg-0"
-          title="It seems there is a problem to communicate with the miner, check error message."
+          title={t`It seems there is a problem to communicate with the miner, check error message.`}
           centerTitle={true}
-          subtitle="Wait at least 1 minute, if problem persists, try to restart the miner, check the settings or try to reboot the system."
+          subtitle={t`Wait at least 1 minute, if problem persists, try to restart the miner, check the settings or try to reboot the system.`}
           error={ minerError }
           log={ mcu.stats.bfgminerLog }
           centerSubtitle={true}
@@ -96,7 +96,7 @@ class Dashboard extends Component {
     return (
       <div ref="main">
         { (mcuError) ?
-            <Alert color="warning">There is a problem fetching system stats (<b>{ mcuError }</b>)</Alert>
+            <Alert color="warning"><Trans>There is a problem fetching system stats</Trans> (<b>{ mcuError }</b>)</Alert>
           : null 
         }
         <div className="animated fadeIn">
@@ -106,10 +106,10 @@ class Dashboard extends Component {
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
                 value={ displayHashrate(_.sumBy(miner.stats, function(o) { if (o.status) return o.slots.int_0.ghs; }), 'gh') }
-                title="Current hashrate"
+                title={t`Current hashrate`}
                 progressColor="primary"
                 progressValue="100"
-                secondaryTitle="15 Min Avg"
+                secondaryTitle={t`15 Min Avg`}
                 secondaryValue={ displayHashrate(_.sumBy(miner.stats, function(o) { if (o.status) return o.master.intervals.int_900.bySol; }), 'gh') }
               ></DashboardWidget>
             </Col>
@@ -119,10 +119,10 @@ class Dashboard extends Component {
                 bgColor="bg-info" 
                 icon="fa fa-plug" 
                 value={  `${_.sumBy(miner.stats, function(o) { return (o.status) ? o.master.boardsW : 0; })} Watt` }
-                title="Miner power usage"
+                title={t`Miner power usage`}
                 progressColor={ powerColor(minerPower) }
                 progressValue={ minerPower * 100 / 300 }
-                secondaryTitle="Watts per TH/s"
+                secondaryTitle={t`Watts per TH/s`}
                 secondaryValue={ minerPowerPerGh * 1000 }
               ></DashboardWidget>
             </Col>
@@ -132,10 +132,10 @@ class Dashboard extends Component {
                 bgColor="bg-gray-300" 
                 icon="fa fa-exclamation-triangle" 
                 value={ minerpercentageError.toFixed(1) + '%' }
-                title="Hardware errors"
+                title={t`Hardware errors`}
                 progressColor={ errorsColor }
                 progressValue={ minerpercentageError * 10 }
-                secondaryTitle="Rejected"
+                secondaryTitle={t`Rejected`}
                 secondaryValue={ _.sumBy(miner.stats, function(o) { return (o.status) ? o.pool.intervals.int_0.sharesRejected : 0; }) || 0 }
               ></DashboardWidget>
             </Col>
@@ -145,10 +145,10 @@ class Dashboard extends Component {
                 bgColor="bg-gray-200" 
                 icon="fa fa-clock" 
                 value={ minerUptime }
-                title="Miner uptime"
+                title={t`Miner uptime`}
                 progressColor={ lastShareColor }
                 progressValue={ 100 }
-                secondaryTitle="Last share"
+                secondaryTitle={t`Last share`}
                 secondaryValue={ lastShare }
               ></DashboardWidget>
             </Col>
@@ -201,7 +201,7 @@ class Dashboard extends Component {
                   <div className="h4 m-0">
                     { (settings.minerMode === 'custom') ?
                       <span>{settings.voltage || 0 }<small className="textmuted">%</small></span>
-                      : <span>Auto</span>
+                      : <span><Trans>Auto</Trans></span>
                     }
                   </div>
                   <div><Trans>Miner power</Trans></div>
@@ -216,7 +216,7 @@ class Dashboard extends Component {
                   <div className="h4 m-0">
                     { (settings.minerMode === 'custom') ?
                       <span>{settings.frequency || 0 } <small className="textmuted">MHz</small></span>
-                      : <span>Auto</span>
+                      : <span><Trans>Auto</Trans></span>
                     }
                   </div>
                   <div><Trans>Miner frequency</Trans></div>
@@ -231,7 +231,7 @@ class Dashboard extends Component {
                   <div className="h4 m-0">
                     { (settings.fan_low !== 40 && settings.fan_high !== 60) ?
                       <span>{ settings.fan_low }c° / { settings.fan_high }c°</span>
-                      : <span>Auto</span>
+                      : <span><Trans>Auto</Trans></span>
                     }
                   </div>
                   <div><Trans>Fan temp settings</Trans></div>

@@ -28,11 +28,11 @@ class PoolsTable extends Component {
             <th><Trans>Status</Trans></th>
             <th><Trans>Url</Trans></th>
             <th><Trans>Hashrate</Trans></th>
-            <th>Diff</th>
-            <th>Sent</th>
-            <th>Acc</th>
-            <th>Rej</th>
-            <th>Username</th>
+            <th><Trans>Diff</Trans></th>
+            <th><Trans>Sent</Trans></th>
+            <th><Trans>Acc</Trans></th>
+            <th><Trans>Rej</Trans></th>
+            <th><Trans>Username</Trans></th>
           </tr>
         </thead>
         <tbody className="bg-white">

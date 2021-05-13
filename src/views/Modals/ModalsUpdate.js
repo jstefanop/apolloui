@@ -13,6 +13,8 @@ import {
 import { LoadingErrorBox } from '../Loading';
 import { updateMcu, updateProgressMcu } from '../../actions/mcu'
 
+import { Trans } from '@lingui/macro';
+
 class ModalsUpdate extends Component {
   constructor(props) {
     super(props);
@@ -74,8 +76,10 @@ class ModalsUpdate extends Component {
                   />
                   {!this.state.show &&
                     <Jumbotron>
+                      <Trans>
                       We have found a new version of Apollo Web dashboard and you should update it. Just click the button below and wait for the update process until it completes.
                       Do not refresh the page before it completes. The update could take few minutes and it will automatically refresh the page.
+                      </Trans>
                       <div style={{marginTop: '40px', textAlign: 'center'}}>
                         <Button color="warning" size="lg" onClick={ () => this.doUpdate() }>Update now</Button>
                       </div>

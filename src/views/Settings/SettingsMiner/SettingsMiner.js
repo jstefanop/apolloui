@@ -285,10 +285,10 @@ class SettingsMiner extends Component {
                           {voltage >= 75 &&
                             <Card>
                               <CardHeader className="bg-red">
-                                <div className="text-white">The FutureBit APU-200 Power Supply is limited to 75% power, going beyond this will cause your system to shutdown. You accept that Futurebit will not cover any warranty claims past 75% power, and that you are using an external ATX power supply that is capable of at least 300 watts per unit and BOTH 6 pin connectors are plugged in</div>
+                                <div className="text-white"><Trans>The FutureBit APU-200 Power Supply is limited to 75% power, going beyond this will cause your system to shutdown. You accept that Futurebit will not cover any warranty claims past 75% power, and that you are using an external ATX power supply that is capable of at least 300 watts per unit and BOTH 6 pin connectors are plugged in</Trans></div>
                                 <div className="custom-control custom-checkbox mt-2 font-weight-bold">
                                   <input type="checkbox" className="custom-control-input" id="customCheck1" checked={agree} onChange={() => onChange({ value: !agree, name: 'agree' })} />
-                                  <label className="custom-control-label text-white" htmlFor="customCheck1">I read and accept</label>
+                                  <label className="custom-control-label text-white" htmlFor="customCheck1"><Trans>I read and accept</Trans></label>
                                 </div>
                               </CardHeader>
                             </Card>
