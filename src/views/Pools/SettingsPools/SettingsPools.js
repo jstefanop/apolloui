@@ -17,7 +17,6 @@ import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 
 import { Trans } from '@lingui/macro';
-import { I18n } from '@lingui/react';
 
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
@@ -192,53 +191,49 @@ class SettingsPools extends Component {
 
     const isChanged = !isEqual(sortBy(pools, [pool => pool.index]), sortBy(oldPools, [pool => pool.index]));
     return (
-      <I18n>
-        {({ i18n }) => (
-          <div className="animated fadeIn">
-            { (isChanged) &&
-            <Row>
-              <Col lg="12">
-                <Card>
-                  <CardHeader className="bg-dark">
-                    <Button size="sm" className="btn-warning text-uppercase" onClick={this.handleSaveAndRestart} disabled={!isChanged}><Trans>Save &amp; Restart</Trans></Button>
-                    <span className="ml-2"><Trans>You need to restart your miner to apply changes.</Trans></span>
-                  </CardHeader>
-                </Card>
-              </Col>
-            </Row>
-            }
+      <div className="animated fadeIn">
+        { (isChanged) &&
+        <Row>
+          <Col lg="12">
+            <Card>
+              <CardHeader className="bg-dark">
+                <Button size="sm" className="btn-warning text-uppercase" onClick={this.handleSaveAndRestart} disabled={!isChanged}><Trans>Save &amp; Restart</Trans></Button>
+                <span className="ml-2"><Trans>You need to restart your miner to apply changes.</Trans></span>
+              </CardHeader>
+            </Card>
+          </Col>
+        </Row>
+        }
 
-            <div className="animated fadeIn">
-              <Row>
-                <Col lg="12">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle><Trans>Pools</Trans></CardTitle>
-                      <CardSubtitle className="text-muted"><Trans>Manage pools configuration for your miner</Trans></CardSubtitle>
-                    </CardHeader>
-                    <CardBody>
-                      { sortBy(pools, pool => pool.index).map(pool => (
-                        (!pool.donation) && <SettingsPoolItem
-                          pool={ pool }
-                          disabled={ false }
-                          key={ pool.index }
-                          toggleEnabled={ () => this.handleToggleEnabled(pool.index) }
-                          onDelete={ () => this.handleDelete(pool.index) }
-                          onMoveUp={ () => this.handleMove({ index: pool.index, direction: 'up' }) }
-                          onMoveDown={ () => this.handleMove({ index: pool.index, direction: 'down' }) }
-                          onChange={ (evt) => this.onChangePool(evt, pool.index) }
-                        />
-                      ))}
-                      { !pools.length && <SettingsPoolItemForm onAdd={this.handleAdd} /> }
-                    </CardBody>
-                  </Card>
+        <div className="animated fadeIn">
+          <Row>
+            <Col lg="12">
+              <Card>
+                <CardHeader>
+                  <CardTitle><Trans>Pools</Trans></CardTitle>
+                  <CardSubtitle className="text-muted"><Trans>Manage pools configuration for your miner</Trans></CardSubtitle>
+                </CardHeader>
+                <CardBody>
+                  { sortBy(pools, pool => pool.index).map(pool => (
+                    (!pool.donation) && <SettingsPoolItem
+                      pool={ pool }
+                      disabled={ false }
+                      key={ pool.index }
+                      toggleEnabled={ () => this.handleToggleEnabled(pool.index) }
+                      onDelete={ () => this.handleDelete(pool.index) }
+                      onMoveUp={ () => this.handleMove({ index: pool.index, direction: 'up' }) }
+                      onMoveDown={ () => this.handleMove({ index: pool.index, direction: 'down' }) }
+                      onChange={ (evt) => this.onChangePool(evt, pool.index) }
+                    />
+                  ))}
+                  { !pools.length && <SettingsPoolItemForm onAdd={this.handleAdd} /> }
+                </CardBody>
+              </Card>
 
-                </Col>
-              </Row>
-            </div>
-          </div>
-        )}
-      </I18n>
+            </Col>
+          </Row>
+        </div>
+      </div>
     );
   }
 }

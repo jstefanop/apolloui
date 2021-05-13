@@ -10,7 +10,6 @@ import {
 
 import moment from 'moment';
 
-import { I18n } from "@lingui/react";
 import { Trans } from '@lingui/macro';
 
 import DashboardWidget from '../Widgets/DashboardWidget';
@@ -215,32 +214,28 @@ class Node extends Component {
             <Col>
               <h4><Trans>Connections</Trans></h4>
               <div>
-                <I18n>
-                  {({ i18n }) => (
-                    <Table responsive className="table-outline d-table d-sm-table">
-                      <thead className="bg-light">
-                        <tr>
-                          <th><Trans>IP</Trans></th>
-                          <th><Trans>Client</Trans></th>
+                <Table responsive className="table-outline d-table d-sm-table">
+                  <thead className="bg-light">
+                    <tr>
+                      <th><Trans>IP</Trans></th>
+                      <th><Trans>Client</Trans></th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white">
+                    {peerInfo.map(function(peer, index) {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <div className="font-weight-bold text-muted">{peer.addr}</div>
+                          </td>
+                          <td>
+                            {peer.subver}
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody className="bg-white">
-                        {peerInfo.map(function(peer, index) {
-                          return (
-                            <tr key={index}>
-                              <td>
-                                <div className="font-weight-bold text-muted">{peer.addr}</div>
-                              </td>
-                              <td>
-                                {peer.subver}
-                              </td>
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </Table>
-                  )}
-                </I18n>
+                      )
+                    })}
+                  </tbody>
+                </Table>
               </div>
             </Col>
           </Row>
