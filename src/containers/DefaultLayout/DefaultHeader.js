@@ -37,7 +37,7 @@ class DefaultHeader extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { settings, loadingMiner, miner, mcu, loadingOnline, minerCheck, children, ...attributes } = this.props;
+    const { settings, loadingMiner, miner, mcu, version, loadingOnline, minerCheck, children, ...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -62,7 +62,7 @@ class DefaultHeader extends Component {
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
-            <span className="text-muted small">Apollo Web</span> <Badge pill color="light">v{ process.env.REACT_APP_VERSION }</Badge> <Badge pill color="primary">BTC</Badge> { mcu.stats.currentAppVersion && mcu.stats.currentAppVersion !== process.env.REACT_APP_VERSION && <Button color="warning" size="sm" onClick={ this.openModalsUpdate }>Update available</Button>}
+            <span className="text-muted small">Apollo Web</span> <Badge pill color="light">v{ process.env.REACT_APP_VERSION }</Badge> <Badge pill color="primary">BTC</Badge> { version && version !== process.env.REACT_APP_VERSION && <Button color="warning" size="sm" onClick={ this.openModalsUpdate }>Update available</Button>}
           </NavItem>
         </Nav>
         <AppAsideToggler className="d-md-down-none" />
@@ -77,6 +77,7 @@ DefaultHeader.defaultProps = defaultProps;
 
 const mapStateToProps = state => {
   return {
+    version: state.mcuVersion.data,
     mcu: state.mcuStats.data,
     loadingMiner: state.minerStats.loading,
     miner: state.minerStats.data,

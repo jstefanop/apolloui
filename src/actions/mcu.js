@@ -33,6 +33,36 @@ export function fetchMcu() {
 	};
 }
 
+export const VERSION_MCU_BEGIN = 'VERSION_MCU_BEGIN';
+
+export const VERSION_MCU_SUCCESS = 'VERSION_MCU_SUCCESS';
+
+export const versionMcuBegin = data => ({
+  type: VERSION_MCU_BEGIN
+});
+
+export const versionMcuSuccess = data => ({
+  type: VERSION_MCU_SUCCESS,
+  payload: { data }
+});
+
+export function versionMcu() {
+	return async (dispatch, getState) => {
+		dispatch(versionMcuBegin());
+		try {
+			const { result, error } = await McuAPI.versionMcu({ accessToken: getState().auth.accessToken });
+
+			if (error) {
+				dispatch(setError({ message: error.message }))
+			} else {
+				dispatch(versionMcuSuccess(result))
+			}
+		} catch (error) {
+			dispatch(setError({ message: error.message }))
+		}
+	}
+}
+
 export const WIFISCAN_MCU_BEGIN = 'WIFISCAN_MCU_BEGIN';
 
 export const WIFISCAN_MCU_SUCCESS = 'WIFISCAN_MCU_SUCCESS';

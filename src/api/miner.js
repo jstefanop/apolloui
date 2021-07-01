@@ -224,16 +224,17 @@ async function fetchMiner ({ accessToken }) {
     if (interval.asHours() < 24) return board;
   });
 
-
   result.stats = result.stats.map((board) => {
+    board.date = moment(`${board.date}+00:00`, 'YYYY-MM-DD HH:mm:ssZ').format();
     board.status = true;
     board.pool.status = true;
+
     const sharesSent = board.pool.intervals.int_0.sharesSent;
     const shareTime = board.date;
     const storedBoard = ls.get(`board_${board.uuid}`);
 
     const interval = moment.duration(moment().diff(shareTime));
-    
+
     if (interval.asMinutes() > 1) {
       board.pool.status = false;
       board.status = false;
