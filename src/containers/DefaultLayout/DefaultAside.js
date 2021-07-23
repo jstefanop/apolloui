@@ -121,10 +121,10 @@ class DefaultAside extends Component {
                       <Badge color={ network.address ? 'success' : 'light' }>{ network.address ? 'Connected' : 'Disconnected' }</Badge>
                     </div>
                     <div>
-                      <small className="">Address: <b>{ network.address || 'No address found' }</b></small>
+                      <small className=""><Trans>Address</Trans>: <b>{ network.address || 'No address found' }</b></small>
                     </div>
                     <div>
-                      <small className="">MAC: <b>{ network.mac }</b></small>
+                      <small className=""><Trans>MAC</Trans>: <b>{ network.mac }</b></small>
                     </div>
                   </div>
               })}

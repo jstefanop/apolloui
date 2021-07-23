@@ -10,7 +10,6 @@ import {
 } from 'reactstrap';
 
 import { Trans, t } from '@lingui/macro';
-import { I18n } from '@lingui/react';
 
 const cleanState = {
   enabled: true,
@@ -117,68 +116,64 @@ class SettingsPoolItemForm extends Component {
     } = this.state;
 
     return (
-      <I18n>
-        {({ i18n }) => (
-          <Row form>
-            <Col md={6}>
-              <FormGroup>
-                <Label for="poolUrl"><Trans>Url</Trans></Label>
-                <Input
-                  type="text"
-                  name="url"
-                  id="poolUrl"
-                  placeholder={i18n._(t`stratum+tcp://stratum.slushpool.com:3333`)}
-                  bsSize="lg"
-                  value={url}
-                  onChange={this.onChange}
-                />
-                <span className="text-danger">
-                  {errors.url}
-                </span>
-              </FormGroup>
-            </Col>
-            <Col md={4}>
-              <FormGroup>
-                <Label for="poolUsername"><Trans>Username</Trans></Label>
-                <Input
-                  type="text"
-                  name="username"
-                  id="poolUsername"
-                  placeholder="futurebit.1"
-                  bsSize="lg"
-                  value={username}
-                  onChange={this.onChange}
-                />
-                <span className="text-danger">
-                  {errors.username}
-                </span>
-              </FormGroup>
-            </Col>
-            <Col md={1}>
-              <FormGroup>
-                <Label for="poolPassword"><Trans>Password</Trans></Label>
-                <Input
-                  type="text"
-                  name="password"
-                  id="poolPassword"
-                  placeholder="x"
-                  bsSize="lg"
-                  value={password}
-                  onChange={this.onChange}
-                />
-                <span className="text-danger">
-                  {errors.password}
-                </span>
-              </FormGroup>
-            </Col>
-            <Col md={1}>
-              <FormGroup>
-                <Button size="lg" className="btn-light" style={{ marginTop: '29px' }} onClick={this.handleAdd}><i className="fa fa-check" /></Button>
-              </FormGroup>
-            </Col>
-          </Row>
-        )}
-      </I18n>
+      <Row form>
+        <Col md={6}>
+          <FormGroup>
+            <Label for="poolUrl"><Trans>Url</Trans></Label>
+            <Input
+              type="text"
+              name="url"
+              id="poolUrl"
+              placeholder={`stratum+tcp://stratum.slushpool.com:3333`}
+              bsSize="lg"
+              value={url}
+              onChange={this.onChange}
+            />
+            <span className="text-danger">
+              {errors.url}
+            </span>
+          </FormGroup>
+        </Col>
+        <Col md={4}>
+          <FormGroup>
+            <Label for="poolUsername"><Trans>Username</Trans></Label>
+            <Input
+              type="text"
+              name="username"
+              id="poolUsername"
+              placeholder="futurebit.1"
+              bsSize="lg"
+              value={username}
+              onChange={this.onChange}
+            />
+            <span className="text-danger">
+              {errors.username}
+            </span>
+          </FormGroup>
+        </Col>
+        <Col md={1}>
+          <FormGroup>
+            <Label for="poolPassword"><Trans>Password</Trans></Label>
+            <Input
+              type="text"
+              name="password"
+              id="poolPassword"
+              placeholder="x"
+              bsSize="lg"
+              value={password}
+              onChange={this.onChange}
+            />
+            <span className="text-danger">
+              {errors.password}
+            </span>
+          </FormGroup>
+        </Col>
+        <Col md={1}>
+          <FormGroup>
+            <Button size="lg" className="btn-light" style={{ marginTop: '29px' }} onClick={this.handleAdd}><i className="fa fa-check" /></Button>
+          </FormGroup>
+        </Col>
+      </Row>
     );
   }
 }

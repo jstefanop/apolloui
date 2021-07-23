@@ -10,8 +10,7 @@ import {
 
 import moment from 'moment';
 
-import { I18n } from "@lingui/react";
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 
 import DashboardWidget from '../Widgets/DashboardWidget';
 
@@ -42,15 +41,15 @@ class Node extends Component {
         <LoadingErrorBox
           show={true}
           bg='bg-0'
-          title='Batch 1 controllers do not have the necessary RAM to run a full node'
+          title={t`Batch 1 controllers do not have the necessary RAM to run a full node`}
           centerTitle={true}
-          subtitle='We made a Batch 1 upgrade kit available below'
+          subtitle={t`We made a Batch 1 upgrade kit available below`}
           error={false}
           centerSubtitle={true}
           icon='fa-exclamation-triangle animated bounce'
           showLink={true}
           linkTo='https://shop.futurebit.io/products/apollo-full-node-upgrade-kit'
-          linkText='FutureBit Batch 1 Upgrade Kit'
+          linkText={t`FutureBit Batch 1 Upgrade Kit`}
         />
       )
     }
@@ -95,7 +94,7 @@ class Node extends Component {
 
       // If Bitcoin client off, display constant message
       if (node.stats.error.code === '-28') {
-        loadingErrorMessage = 'Node is currently loading'
+        loadingErrorMessage = t`Node is currently loading`
       } else {
         // Every other loading error
         loadingErrorMessage = node.stats.error.message
@@ -215,32 +214,28 @@ class Node extends Component {
             <Col>
               <h4><Trans>Connections</Trans></h4>
               <div>
-                <I18n>
-                  {({ i18n }) => (
-                    <Table responsive className="table-outline d-table d-sm-table">
-                      <thead className="bg-light">
-                        <tr>
-                          <th><Trans>IP</Trans></th>
-                          <th><Trans>Client</Trans></th>
+                <Table responsive className="table-outline d-table d-sm-table">
+                  <thead className="bg-light">
+                    <tr>
+                      <th><Trans>IP</Trans></th>
+                      <th><Trans>Client</Trans></th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white">
+                    {peerInfo.map(function(peer, index) {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <div className="font-weight-bold text-muted">{peer.addr}</div>
+                          </td>
+                          <td>
+                            {peer.subver}
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody className="bg-white">
-                        {peerInfo.map(function(peer, index) {
-                          return (
-                            <tr key={index}>
-                              <td>
-                                <div className="font-weight-bold text-muted">{peer.addr}</div>
-                              </td>
-                              <td>
-                                {peer.subver}
-                              </td>
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </Table>
-                  )}
-                </I18n>
+                      )
+                    })}
+                  </tbody>
+                </Table>
               </div>
             </Col>
           </Row>

@@ -26,9 +26,9 @@ class ModalsWaiting extends Component {
                 <Col lg="12">
                   <Card className="border-0">
                     <CardBody>
-                      <h6>Please wait while miner is warming up</h6>
-                      <p className="small text-muted">This takes about 30 seconds after that you will be redirect to the dashboard</p>
-                      <p className="lead small text-muted">If something goes wrong, start from <Link to="/miner">dashboard</Link></p>
+                      <h6><Trans>Please wait while miner is warming up</Trans></h6>
+                      <p className="small text-muted"><Trans>This takes about 30 seconds after that you will be redirect to the dashboard</Trans></p>
+                      <p className="lead small text-muted"><Trans>If something goes wrong, start from <Link to="/miner">dashboard</Link></Trans></p>
                     </CardBody>
                   </Card>
                 </Col>

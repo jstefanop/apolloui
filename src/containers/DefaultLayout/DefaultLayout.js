@@ -23,7 +23,7 @@ import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 
-import { fetchMcu } from '../../actions/mcu';
+import { fetchMcu, versionMcu } from '../../actions/mcu';
 import { onlineMiner, fetchMiner } from '../../actions/miner';
 import { fetchNode } from '../../actions/node';
 
@@ -38,11 +38,16 @@ class DefaultLayout extends Component {
     }
 
     poller();
+    this.props.versionMcu();
 
     const interval = (process.env.NODE_ENV === 'production') ? 5000 : 300000;
     this.intervalHandler = setInterval(() => {
       poller();
     }, interval);
+
+    this.intervalHandlerVersion = setInterval(() => {
+      this.props.versionMcu();
+    }, 3600000);
 
     console.log('ENV', process.env.NODE_ENV, process.env.REACT_APP_ENV, interval);
   }
@@ -51,6 +56,11 @@ class DefaultLayout extends Component {
     if (this.intervalHandler) {
         clearTimeout(this.intervalHandler);
         this.intervalHandler = null;
+    }
+
+   if (this.intervalHandlerVersion) {
+        clearTimeout(this.intervalHandlerVersion);
+        this.intervalHandlerVersion = null;
     }
   }
 
@@ -136,6 +146,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchMcu: () => {
       dispatch(fetchMcu())
+    },
+    versionMcu: () => {
+      dispatch(versionMcu())
     },
     fetchMiner: () => {
       dispatch(fetchMiner())

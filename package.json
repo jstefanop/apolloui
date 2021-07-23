@@ -17,8 +17,8 @@
     "@coreui/icons": "0.3.0",
     "@coreui/react": "^2.0.9",
     "@fortawesome/fontawesome-free": "^5.4.1",
-    "@lingui/core": "^2.7.0",
-    "@lingui/react": "^2.7.0",
+    "@lingui/core": "^3.8.10",
+    "@lingui/react": "^3.8.10",
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
@@ -54,9 +54,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
-    "@lingui/babel-preset-react": "^2.7.0",
-    "@lingui/cli": "^2.7.0",
-    "@lingui/macro": "^2.7.0",
+    "@lingui/babel-preset-react": "^2.9.2",
+    "@lingui/cli": "^3.8.10",
+    "@lingui/loader": "^3.8.10",
+    "@lingui/macro": "^3.8.10",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-macros": "^2.4.2",
     "eslint-config-airbnb": "^17.1.0",
@@ -83,14 +84,5 @@
     "not dead",
     "not ie <= 9",
     "not op_mini all"
-  ],
-  "lingui": {
-    "fallbackLocale": "en",
-    "sourceLocale": "en",
-    "localeDir": "src/locales",
-    "srcPathDirs": [
-      "src"
-    ],
-    "format": "minimal"
-  }
+  ]
 }

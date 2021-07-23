@@ -9,7 +9,6 @@ async function fetchMcu ({ accessToken }) {
           stats {
             result {
               stats {
-                currentAppVersion
                 timestamp
                 hostname
                 operatingSystem
@@ -50,6 +49,25 @@ async function fetchMcu ({ accessToken }) {
       }
     `,
     path: 'Mcu.stats',
+    accessToken
+  })
+
+  return { result, error }
+}
+
+async function versionMcu ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Mcu {
+        Mcu {
+          version {
+            result
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Mcu.version',
     accessToken
   })
 
@@ -205,6 +223,7 @@ async function updateProgressMcu ({ accessToken }) {
 
 export default {
   fetchMcu,
+  versionMcu,
   wifiScanMcu,
   wifiConnectMcu,
   wifiDisconnectMcu,

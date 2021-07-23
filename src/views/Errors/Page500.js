@@ -11,7 +11,7 @@ class Page500 extends Component {
               <span className="clearfix">
                 <h1 className="float-left display-3 mr-4">500</h1>
                 <h4 className="pt-3">Houston, we have a problem!</h4>
-                <p className="text-muted float-left">The page you are looking for is temporarily unavailable.</p>
+                <p className="text-muted float-left"><Trans>The page you are looking for is temporarily unavailable.</Trans></p>
               </span>
               <InputGroup className="input-prepend">
                 <InputGroupAddon addonType="prepend">
@@ -21,7 +21,7 @@ class Page500 extends Component {
                 </InputGroupAddon>
                 <Input size="16" type="text" placeholder="What are you looking for?" />
                 <InputGroupAddon addonType="append">
-                  <Button color="info">Search</Button>
+                  <Button color="info"><Trans>Search</Trans></Button>
                 </InputGroupAddon>
               </InputGroup>
             </Col>
