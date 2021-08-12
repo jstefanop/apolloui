@@ -218,37 +218,38 @@ async function fetchMiner ({ accessToken }) {
     accessToken
   })
 
-  // Calculate lastsharetime storing shares data into local storage
-  result.stats = _.filter(result.stats, (board) => {
-    const interval = moment.duration(moment().diff(board.date));
-    if (interval.asHours() < 24) return board;
-  });
+  if (result && result.stats) {
+    // Calculate lastsharetime storing shares data into local storage
+    result.stats = _.filter(result.stats, (board) => {
+      const interval = moment.duration(moment().diff(board.date));
+      if (interval.asHours() < 24) return board;
+    });
 
-  result.stats = result.stats.map((board) => {
-    board.date = moment(`${board.date}+00:00`, 'YYYY-MM-DD HH:mm:ssZ').format();
-    board.status = true;
-    board.pool.status = true;
+    result.stats = result.stats.map((board) => {
+      board.status = true;
+      board.pool.status = true;
 
-    const sharesSent = board.pool.intervals.int_0.sharesSent;
-    const shareTime = board.date;
-    const storedBoard = ls.get(`board_${board.uuid}`);
+      const sharesSent = board.pool.intervals.int_0.sharesSent;
+      const shareTime = board.date;
+      const storedBoard = ls.get(`board_${board.uuid}`);
 
-    const interval = moment.duration(moment().diff(shareTime));
+      const interval = moment.duration(moment().diff(shareTime));
 
-    if (interval.asMinutes() > 1) {
-      board.pool.status = false;
-      board.status = false;
-    }
+      if (interval.asMinutes() > 1) {
+        board.pool.status = false;
+        board.status = false;
+      }
 
-    board.lastsharetime = (storedBoard) ? storedBoard.date : shareTime;
+      board.lastsharetime = (storedBoard) ? storedBoard.date : shareTime;
 
-    if (!storedBoard || storedBoard.sent !== sharesSent) {
-      ls.set(`board_${board.uuid}`, { date: shareTime, sent: sharesSent });
-      board.lastsharetime = shareTime
-    }
+      if (!storedBoard || storedBoard.sent !== sharesSent) {
+        ls.set(`board_${board.uuid}`, { date: shareTime, sent: sharesSent });
+        board.lastsharetime = shareTime
+      }
 
-    return board;
-  });
+      return board;
+    });
+  }
 
   return { result, error }
 }
