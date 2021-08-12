@@ -2,7 +2,7 @@
 import { ERROR_QUERY, MINER_STATUS_QUERY } from './shared'
 import { query } from './apiClient'
 import ls from 'local-storage'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 async function fetchMiner ({ accessToken }) {
   const { result, error } = await query({
@@ -226,6 +226,8 @@ async function fetchMiner ({ accessToken }) {
     });
 
     result.stats = result.stats.map((board) => {
+      // Re-format date to client timezone
+      board.date = moment(board.date).format();
       board.status = true;
       board.pool.status = true;
 

@@ -46,7 +46,7 @@ class Dashboard extends Component {
 
     if (miner.stats) {
       miner.stats.forEach((board) => {
-        lastShareTimes.push(moment(board.lastsharetime, 'YYYY-MM-DD HH:mm:ss').format('X'));
+        lastShareTimes.push(moment(board.lastsharetime).format('X'));
       });
     }
 
