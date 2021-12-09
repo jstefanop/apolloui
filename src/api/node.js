@@ -84,8 +84,27 @@ async function stopNode ({ accessToken }) {
   return { result, error }
 }
 
+async function formatNode ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Node {
+        Node {
+          format {
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Node.format',
+    accessToken
+  })
+
+  return { result, error }
+}
+
 export default {
   fetchNode,
   startNode,
-  stopNode
+  stopNode,
+  formatNode
 }

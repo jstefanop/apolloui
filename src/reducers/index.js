@@ -14,6 +14,7 @@ import mcuWifiConnect from './mcuWifiConnect';
 import mcuWifiDisconnect from './mcuWifiDisconnect';
 import nodeStats from './nodeStats';
 import backup from './backup';
+import format from './format';
 
 export default combineReducers({
   auth,
@@ -30,5 +31,6 @@ export default combineReducers({
   mcuWifiConnect,
   mcuWifiDisconnect,
   nodeStats,
-  backup
+  backup,
+  format
 });

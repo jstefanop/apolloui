@@ -57,9 +57,7 @@ class Node extends Component {
     // Node offline state
     if (node && node.stats && node.stats.error) {
       if (node.stats.error.code === 'ECONNREFUSED') {
-        const loadingErrorBoxSubtitle = 'Double-check your USB node drive is plugged in the USB port in the back of' +
-          ' your Apollo, properly formatted with the folder name "Bitcoin" in the root directory, and press the Start' +
-          ' button below'
+        const loadingErrorBoxSubtitle = t`Double-check your USB node drive is plugged in the USB port in the back of your Apollo, properly formatted with the folder name "Bitcoin" in the root directory, and press the Start button below`;
 
         return (
           <LoadingErrorBox
@@ -85,7 +83,7 @@ class Node extends Component {
     if (nodeError) {
       return (
         <div ref='main'>
-          <Alert color='warning'>There is a problem fetching system stats (<b>{nodeError}</b>)</Alert>
+          <Alert color='warning'><Trans>There is a problem fetching system stats</Trans> (<b>{nodeError}</b>)</Alert>
         </div>
       )
     } else if (node && node.stats && node.stats.error) {
@@ -102,7 +100,7 @@ class Node extends Component {
 
       return (
         <div ref='main'>
-          <Alert color='warning'>There is a problem fetching system stats (<b>{loadingErrorMessage}</b>)</Alert>
+          <Alert color='warning'><Trans>There is a problem fetching system stats</Trans> (<b>{loadingErrorMessage}</b>)</Alert>
         </div>
       )
     }
@@ -143,10 +141,10 @@ class Node extends Component {
                   bgColor='bg-dark'
                   icon='fa fa-clock'
                   value={blockchainInfo.blocks.toLocaleString()}
-                  title='Current Blocks'
+                  title={t`Current Blocks`}
                   progressColor='success'
                   progressValue={100}
-                  secondaryTitle='Last Block'
+                  secondaryTitle={t`Last Block`}
                   secondaryValue={blockchainInfo.blockTime && moment().utc().subtract(blockchainInfo.blockTime, 'seconds').format('mm:ss')}
                 />
               }
@@ -155,10 +153,10 @@ class Node extends Component {
                   bgColor='bg-dark'
                   icon='fa fa-clock'
                   value={`${blockchainInfo.blocks.toLocaleString()} / ${blockchainInfo.headers.toLocaleString()}`}
-                  title='Syncing Blocks'
+                  title={t`Syncing Blocks`}
                   progressColor='warning'
                   progressValue={parseInt((blockchainInfo.blocks / blockchainInfo.headers) * 100)}
-                  secondaryTitle='Block Sync Progress'
+                  secondaryTitle={t`Block Sync Progress`}
                   secondaryValue={`${(Math.floor((blockchainInfo.blocks / blockchainInfo.headers) * 100 * 100) / 100).toFixed(2)}%`}
                 />
               }
@@ -169,11 +167,11 @@ class Node extends Component {
                 bgColor='bg-info'
                 icon='fa fa-fire'
                 value={!!(miningInfo.networkhashps) ? `${new Intl.NumberFormat().format(miningInfo.networkhashps / 1000000000000)} TH/s` : '0 TH/s'}
-                title='Network Hashrate'
+                title={t`Network Hashrate`}
                 hideProgress={true}
                 progressColor='success'
                 progressValue={100}
-                secondaryTitle='Network Difficulty'
+                secondaryTitle={t`Network Difficulty`}
                 secondaryValue={miningInfo.difficulty && miningInfo.difficulty.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               />
             </Col>
@@ -185,10 +183,10 @@ class Node extends Component {
                 bgColor='bg-gray-300'
                 icon='fa fa-broadcast-tower'
                 value={`${connectionCount} / 32`}
-                title='Connections'
+                title={t`Connections`}
                 progressColor={connectionCount > 16 ? 'success': 'danger'}
                 progressValue={parseInt((connectionCount / 32) * 100)}
-                secondaryTitle={connectionCount === 16 ? 'Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address' : null}
+                secondaryTitle={connectionCount === 16 ? t`Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address` : null}
                 wrapSecondary={true}
                 hideSecondaryValue={true}
               />
@@ -203,7 +201,7 @@ class Node extends Component {
                   title='Blockchain Size'
                   progressColor={sizeProgressValue > 90 ? 'danger' : sizeProgressValue > 70 ? 'warning' : 'success'}
                   progressValue={sizeProgressValue}
-                  secondaryTitle='Remaining Space'
+                  secondaryTitle={t`Remaining Space`}
                   secondaryValue={`${sizeSecondaryValue}%`}
                 />
               }
