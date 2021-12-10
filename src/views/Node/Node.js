@@ -105,7 +105,7 @@ class Node extends Component {
       )
     }
 
-    const { blockchainInfo, connectionCount, miningInfo, peerInfo } = node.stats;
+    const { blockchainInfo, connectionCount, miningInfo, peerInfo, networkInfo } = node.stats;
 
     // Calculate sizeOnUsb
     let sizeOnUsbInGb = null;
@@ -154,6 +154,7 @@ class Node extends Component {
                   icon='fa fa-clock'
                   value={`${blockchainInfo.blocks.toLocaleString()} / ${blockchainInfo.headers.toLocaleString()}`}
                   title={t`Syncing Blocks`}
+                  subTitle={`${networkInfo.subversion}`}
                   progressColor='warning'
                   progressValue={parseInt((blockchainInfo.blocks / blockchainInfo.headers) * 100)}
                   secondaryTitle={t`Block Sync Progress`}
@@ -186,7 +187,7 @@ class Node extends Component {
                 title={t`Connections`}
                 progressColor={connectionCount > 16 ? 'success': 'danger'}
                 progressValue={parseInt((connectionCount / 32) * 100)}
-                secondaryTitle={connectionCount === 16 ? t`Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address` : null}
+                secondaryTitle={connectionCount < 11 ? t`Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address` : null}
                 wrapSecondary={true}
                 hideSecondaryValue={true}
               />

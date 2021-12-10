@@ -25,6 +25,10 @@ async function fetchNode ({ accessToken }) {
                   addr
                   subver
                 }
+                networkInfo {
+                  version
+                  subversion
+                }
                 error {
                   code
                   message

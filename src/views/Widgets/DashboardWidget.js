@@ -46,7 +46,7 @@ class DashboardWidget extends Component {
         <CardBody className="widget">
           <div className="h1 text-muted float-right"><i className={this.props.icon + ' text-gray'}></i></div>
           <div className="h4 m-0">{this.props.value}</div>
-          <div>{this.props.title}</div>
+          <div>{this.props.title} {this.props.subTitle && <small><strong>{this.props.subTitle}</strong></small>}</div>
           <Progress className={`progress-xs my-3 ${hideProgress ? 'invisible' : ''}`} color={this.props.progressColor} value={this.props.progressValue} />
           <small className={this.state.widgetClasses}>
             {this.props.secondaryTitle}{hideSecondaryValue ? null : ':'} <b>{this.props.secondaryValue}</b>
