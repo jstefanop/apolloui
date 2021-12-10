@@ -141,5 +141,10 @@
   "Network Difficulty": "Network Difficulty",
   "Connections": "Connections",
   "Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address": "Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address",
-  "Remaining Space": "Remaining Space"
+  "Remaining Space": "Remaining Space",
+  "This action completely erases attached NVMe SSD, and sets its up as a new Bitcoin Node drive. Only use to setup new drives, or if your current node drive is corrupted and won’t start up.": "This action completely erases attached NVMe SSD, and sets it up as a new Bitcoin Node drive. Only use to setup new drives, or if your current node drive is corrupted and won’t start up.",
+  "ALL DATA ON DRIVE WILL BE LOST": "ALL DATA ON DRIVE WILL BE LOST",
+  "Please wait while the disk is being formatted": "Please wait while the disk is being formatted",
+  "this could require a couple of minutes": "this will require a couple of minutes to complete",
+  "Disk was formatted, please manually start the node": "Disk was formatted, the node will now restart"
 }
