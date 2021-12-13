@@ -137,6 +137,7 @@ class Node extends Component {
     return (
       <div ref='main'>
         <div className='animated fadeIn'>
+          <div style={{marginBottom: '20px'}}>Bitcoin Core <strong>{version && `v${version[0]}`}</strong></div>
           <Row>
             <Col xs='12' md='6'>
               {blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
@@ -157,7 +158,6 @@ class Node extends Component {
                   icon='fa fa-clock'
                   value={`${blockchainInfo.blocks.toLocaleString()} / ${blockchainInfo.headers.toLocaleString()}`}
                   title={t`Syncing Blocks`}
-                  subTitle={`Bitcoin Core v${version[0]}`}
                   progressColor='warning'
                   progressValue={parseInt((blockchainInfo.blocks / blockchainInfo.headers) * 100)}
                   secondaryTitle={t`Block Sync Progress`}
