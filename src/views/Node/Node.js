@@ -107,6 +107,9 @@ class Node extends Component {
 
     const { blockchainInfo, connectionCount, miningInfo, peerInfo, networkInfo } = node.stats;
 
+    // Get version
+    const version = (networkInfo.subversion) && networkInfo.subversion.match(/\d+(\.\d+)+/);
+
     // Calculate sizeOnUsb
     let sizeOnUsbInGb = null;
     if (mcu && mcu.stats && mcu.stats.disks) {
@@ -154,7 +157,7 @@ class Node extends Component {
                   icon='fa fa-clock'
                   value={`${blockchainInfo.blocks.toLocaleString()} / ${blockchainInfo.headers.toLocaleString()}`}
                   title={t`Syncing Blocks`}
-                  subTitle={`${networkInfo.subversion}`}
+                  subTitle={`Bitcoin Core v${version[0]}`}
                   progressColor='warning'
                   progressValue={parseInt((blockchainInfo.blocks / blockchainInfo.headers) * 100)}
                   secondaryTitle={t`Block Sync Progress`}
