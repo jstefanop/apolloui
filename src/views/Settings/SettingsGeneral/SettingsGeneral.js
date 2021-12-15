@@ -19,12 +19,14 @@ import {
   ListGroupItem,
 } from 'reactstrap';
 import ModalsRestore from '../../Modals/ModalsRestore';
+import ModalsFormat from '../..//Modals/ModalsFormat';
 
 import { Trans } from '@lingui/macro';
 
 import { changePassword as changePasswordAction } from '../../../actions/auth';
 import { backupConfiguration as backupConfigurationAction } from '../../../actions/backup';
 import { toggleRestoreModal as toggleRestoreModalAction } from '../../../actions/backup';
+import { toggleFormatModal as toggleFormatModalAction } from '../../../actions/format';
 
 class SettingsGeneral extends Component {
   constructor(props) {
@@ -35,12 +37,14 @@ class SettingsGeneral extends Component {
       repeatPassword: '',
       passwordError: '',
       repeatPasswordError: '',
+      modalFormat: false
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleBackupConfiguration = this.handleBackupConfiguration.bind(this);
     this.handletoggleRestoreModal = this.handletoggleRestoreModal.bind(this);
+    this.handletoggleFormatModal = this.handletoggleFormatModal.bind(this);
   }
 
   onChange(evt) {
@@ -91,6 +95,14 @@ class SettingsGeneral extends Component {
     } = this.props;
 
     toggleRestoreModal(true);
+  }
+
+  handletoggleFormatModal() {
+    const {
+      toggleFormatModal,
+    } = this.props;
+
+    toggleFormatModal(true);
   }
 
   render() {
@@ -248,8 +260,8 @@ class SettingsGeneral extends Component {
           { /* Backup/Reset */ }
           <Card>
             <CardHeader>
-              <CardTitle><i className="fa fa-save mr-2"></i><Trans>Backup &amp; Reset</Trans></CardTitle>
-              <CardSubtitle className="text-muted"><Trans>Use this tools to backup, restore and reset configurations</Trans></CardSubtitle>
+              <CardTitle><i className="fa fa-save mr-2"></i><Trans>Extra settings</Trans></CardTitle>
+              <CardSubtitle className="text-muted"><Trans>Backup, restore, reset configurations and format disk</Trans></CardSubtitle>
             </CardHeader>
             <CardBody>
               <Form>
@@ -258,14 +270,20 @@ class SettingsGeneral extends Component {
                     <ListGroup flush>
                       <ListGroupItem>
                         <div className="">
-                          <Button className="mr-2 text-uppercase" color="primary" size="sm" onClick={this.handleBackupConfiguration}><Trans>Backup</Trans></Button>
+                          <Button className="mr-2 text-uppercase" color="primary" size="sm" onClick={ this.handleBackupConfiguration }><Trans>Backup</Trans></Button>
                           <div className="mt-1 small text-muted"><Trans>Create a backup file of dashboard, miner and pools configurations</Trans></div>
                         </div>
                       </ListGroupItem>
                       <ListGroupItem>
                         <div className="">
-                          <Button className="mr-2 text-uppercase" color="primary" size="sm" onClick={this.handletoggleRestoreModal}><Trans>Restore</Trans></Button>
+                          <Button className="mr-2 text-uppercase" color="primary" size="sm" onClick={ this.handletoggleRestoreModal }><Trans>Restore</Trans></Button>
                           <div className="mt-1 small text-muted"><Trans>Restore all configurations from a backup file</Trans></div>
+                        </div>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        <div className="">
+                          <Button className="mr-2 text-uppercase" color="warning" size="sm" onClick={ this.handletoggleFormatModal }><Trans>Format Node NVMe SSD</Trans></Button>
+                          <div className="mt-1 small text-muted"><Trans>Use this tool for formatting and setting up your Node NVMe SSD</Trans></div>
                         </div>
                       </ListGroupItem>
                     </ListGroup>
@@ -277,6 +295,7 @@ class SettingsGeneral extends Component {
         </CardDeck>
 
         <ModalsRestore />
+        <ModalsFormat />
       </div>
     );
   }
@@ -291,6 +310,9 @@ const mapDispatchToProps = dispatch => ({
   },
   toggleRestoreModal: (status) => {
     dispatch(toggleRestoreModalAction({ status }));
+  },
+  toggleFormatModal: (status) => {
+    dispatch(toggleFormatModalAction({ status }));
   },
 });
 

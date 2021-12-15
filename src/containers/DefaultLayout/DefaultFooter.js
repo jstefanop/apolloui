@@ -17,7 +17,6 @@ class DefaultFooter extends Component {
     return (
       <React.Fragment>
         <span>ApolloUI &copy; {(new Date().getFullYear())} <a href="https://futurebit.io" rel="noopener noreferrer" target="_blank">Futurebit</a></span>
-        <span className="ml-auto"><Trans>Powered by</Trans> <a href="https://getminera.com" rel="noopener noreferrer" target="_blank">Minera</a></span>
       </React.Fragment>
     );
   }

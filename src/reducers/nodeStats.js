@@ -21,6 +21,10 @@ const initialState = {
         networkhashps: null
       },
       peerInfo: [],
+      networkInfo: {
+        version: null,
+        subversion: null
+      },
       error: null
     }
   },
