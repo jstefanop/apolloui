@@ -1,6 +1,5 @@
 {
     "RESTART": "",
-    "<0>* Required</0>Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "<0>* Required</0>Please set a password for this dashboard to prevent unauthorized access. ",
     "Accepted": "",
     "Architecture": "",
     "Auto adjust fan": "",
@@ -13,8 +12,10 @@
     "Change the password to access the dashboard": "",
     "Changing the password will lock the dashboard. You will need to use the new password to unlock it.": "Updating your password will lock the dashboard. You will need to unlock the dashboard with your new password. ",
     "Clicking the button your system will scan for available wifi networks. Be aware that connecting to a Wifi network you will need to connect to the new Wifi IP address you have to find in your LAN.": "Wifi functionality is currently an ALPHA feature and very buggy. Click the scan button to search for available wifi networks. Once connected you will need to navigate to the new Wifi IP address in your local network. ",
+    "Client": "",
     "Connect": "",
     "Connect your system controller to a Wifi instead using ethernet": "",
+    "Connections": "",
     "Create a backup file of dashboard, miner and pools configurations": "",
     "Custom mode": "",
     "Discarded": "",
@@ -26,6 +27,7 @@
     "HW Errors": "",
     "Hashrate": "",
     "Hostname": "",
+    "IP": "",
     "In ECO mode your miner will consume less power (about <0>1.0W/MHs</0>) but its hashrate will be slower. This mode is recommende if you want have less noise and less possible to overheat your miner.": "In ECO mode your miner will at its most effiecent (about <0>1.0W/MHs</0>) but its hashrate will be slightly slower. This mode is recommended, and will produce the least amount of noise and heat.",
     "In Turbo mode your miner will consume more power (about <0>1.4W/MHs</0>) and so its hashrate will be faster. This mode is good to gain the maximum profit but you need to take care of possible overheat.": "In Turbo mode your miner will be the least effiecent (about <0>1.4W/MHs</0>) but its hashrate will be slightly faster. This mode is only recommended for expert users, and you should monitor your miner for possible overheating.",
     "In custom mode you can control frequency and voltage of your miner for your specific needs. This mode is for expert users and is not recommended if you don't know what you are doing. You could harm your miner.": "",
@@ -93,7 +95,7 @@
     "You need to restart your miner to apply changes.": "",
     "Your controller should be connected to Wifi now. Try to go to <0>{address}</0> before disconnecting the ethernet cable.": "Your controller should be connected to WIFI now. Try to go to <0>{address}</0> before disconnecting the ethernet cable. Please note, if new IP does not work, you might need to reboot the system and remove the ethernet cable for the miner to connect to your WIFI network. ",
     "stratum+tcp://us.litecoinpool.org:3333": "",
-    "<0>* Required</0> Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "Updating your password will lock the dashboard. You will need to unlock the dashboard with your new password. ",
+    "<0>* Required</0> Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "<0>* Required</0> Please set a password for this dashboard to prevent unauthorized access. If you forget this password you will need to re-image your SD card, there is no way to recover it.",
     "Active": "",
     "Active wifi": "",
     "Adjust the fan speed or set it automatic": "",
@@ -115,6 +117,6 @@
     "Quota": "",
     "TURBO": "",
     "The Apollo comes with tuned preset values (look above) which offer a good range of operating modes, by selecting custom you risk damaging your device and FutureBit will not be responsible for any or all damage caused by over-clocking or over-volting": "The Apollo comes with tuned preset values (above), which offer a good range of operating modes. By selecting custom you risk damaging your device and FutureBit will not be responsible for any or all damage caused by over-clocking or over-volting\n",
-    "You can create an account on <0>Litecoinpool.org</0> and use <1>stratum+tcp://litecoinpool.org:3333</1> as pool url or you can use any other pool compatible with Scrypt algorithm.": "You can create an account on <0>Litecoinpool.org</0> and use <1>stratum+tcp://litecoinpool.org:3333</1> as the pool url or you can use any other pool compatible with Scrypt algorithm coins.",
+    "You can create an account on <0>Litecoinpool.org</0> and use <1>stratum+tcp://litecoinpool.org:3333</1> as pool url or you can use any other pool compatible with Scrypt algorithm. Visit <2>Litecoinpool.org/help</2> for additional information on how pool mining works and detailed FAQ on setting up your account.": "You can create an account on <0>Litecoinpool.org</0> and use <1>stratum+tcp://litecoinpool.org:3333</1> as the pool url or you can use any other pool compatible with Scrypt algorithm coins. Visit <2>Litecoinpool.org/help</2> for additional information on how pool mining works and detailed FAQ on setting up your account.",
     "You need to save your settings to apply changes (miner won't be restarted).": ""
 }

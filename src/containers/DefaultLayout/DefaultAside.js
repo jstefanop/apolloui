@@ -156,6 +156,7 @@ const mapStateToProps = state => {
     mcu: state.mcuStats.data,
     mcuError: state.mcuStats.error,
     miner: state.minerStats.data,
+    node: state.nodeStats.data,
     settings: state.settings,
     wifiAddress: state.mcuWifiConnect.data
   }

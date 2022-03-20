@@ -59,17 +59,17 @@ class MinerManage extends Component {
     if (this.timeoutHandler) {
         clearTimeout(this.timeoutHandler);
         this.timeoutHandler = null;
-    } 
+    }
     if (this.intervalHandler) {
         clearTimeout(this.intervalHandler);
         this.intervalHandler = null;
-    } 
+    }
   }
 
   render() {
     return (
       <div>
-        <LoadingErrorBox 
+        <LoadingErrorBox
           show={true}
           bg="bg-0"
           title={ this.state.title }
@@ -98,7 +98,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(stopMiner())
     },
     redirect: () => {
-      dispatch(push('/dashboard'))
+      dispatch(push('/miner'))
     }
   }
 }
