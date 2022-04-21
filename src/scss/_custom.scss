@@ -33,6 +33,12 @@
      vertical-align: inherit;
 }
 
+.main-error {
+	margin: 50px;
+    padding: 50px;
+    background: white;
+}
+
 @media (min-width: 1380px) {
 	.modal-lg {
 		max-width: 1200px;
