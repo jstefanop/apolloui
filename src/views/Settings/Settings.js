@@ -14,6 +14,7 @@ import pick from 'lodash/pick';
 import { Trans } from '@lingui/macro';
 
 import SettingsMiner from './SettingsMiner/SettingsMiner';
+import SettingsNode from './SettingsNode/SettingsNode';
 import SettingsWifi from './SettingsWifi/SettingsWifi';
 import SettingsGeneral from './SettingsGeneral/SettingsGeneral';
 import { saveSettings, saveSettingsAndRestartMiner } from '../../actions/settings';
@@ -80,6 +81,8 @@ class Settings extends Component {
         leftSidebarExtended,
         rightSidebarVisibility,
         temperatureUnit,
+        nodeRpcPassword,
+        nodeEnableTor,
         agree
       },
       settings,
@@ -134,8 +137,15 @@ class Settings extends Component {
           onChange={this.onChange}
         />
 
-        { /* Wifi */ }
+        { /* Node conf */ }
+        <SettingsNode
+          {...{
+            nodeRpcPassword, nodeEnableTor
+          }}
+          onChange={this.onChange}
+        />
 
+        { /* Wifi */ }
         <SettingsWifi />
 
         { /* General options */ }

@@ -23,6 +23,8 @@ async function fetchSettings({ accessToken }) {
                 leftSidebarExtended
                 rightSidebarVisibility
                 temperatureUnit
+                nodeRpcPassword
+                nodeEnableTor
               }
             }
             ${ERROR_QUERY}
@@ -58,6 +60,8 @@ async function saveSettings({ accessToken, settings }) {
                 leftSidebarExtended
                 rightSidebarVisibility
                 temperatureUnit
+                nodeRpcPassword
+                nodeEnableTor
               }
             }
             ${ERROR_QUERY}

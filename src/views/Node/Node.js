@@ -32,8 +32,7 @@ class Node extends Component {
   }
 
   render() {
-    // TODO: Use loadingNode
-    const { loadingNode, mcu, node, nodeError, redirectToNodeManage } = this.props;
+    const { loadingNode, mcu, node, nodeError, redirectToNodeManage, settings } = this.props;
 
     // If less memory than 500 MB, return Alert and prevent page load
     if (mcu && mcu.stats && mcu.stats.memory && mcu.stats.memory.total && mcu.stats.memory.total < 500000) {
@@ -137,7 +136,7 @@ class Node extends Component {
     return (
       <div ref='main'>
         <div className='animated fadeIn'>
-          <div style={{marginBottom: '20px'}}>Bitcoin Core <strong>{version && `v${version[0]}`}</strong></div>
+          <div style={{marginBottom: '20px'}}>Bitcoin Core <strong>{version && `v${version[0]}`}</strong> - TOR is <i className={settings.nodeEnableTor ? 'fa fa-lock mr-2 initialism text-secondary' : 'fa fa-lock-open mr-2 initialism text-secondary'} /><strong>{settings.nodeEnableTor ? 'enabled' : 'disabled'}</strong></div>
           <Row>
             <Col xs='12' md='6'>
               {blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&
@@ -260,7 +259,8 @@ const mapStateToProps = (state) => {
     loadingNode: state.nodeStats.loading,
     mcu: state.mcuStats.data,
     node: state.nodeStats.data,
-    nodeError: state.nodeStats.error
+    nodeError: state.nodeStats.error,
+    settings: state.settings,
   };
 };
 
