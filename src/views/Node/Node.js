@@ -136,7 +136,7 @@ class Node extends Component {
     return (
       <div ref='main'>
         <div className='animated fadeIn'>
-          <div style={{marginBottom: '20px'}}>Bitcoin Core <strong>{version && `v${version[0]}`}</strong> - TOR is <i className={settings.nodeEnableTor ? 'fa fa-lock mr-2 initialism text-secondary' : 'fa fa-lock-open mr-2 initialism text-secondary'} /><strong>{settings.nodeEnableTor ? 'enabled' : 'disabled'}</strong></div>
+          <div style={{marginBottom: '20px'}}>Bitcoin Core <strong>{version && `v${version[0]}`}</strong> - TOR<i className={settings.nodeEnableTor ? 'fa fa-lock mr-2 ml-2 initialism text-success' : 'fa fa-lock-open mr-2 ml-2 initialism'} /><strong>{settings.nodeEnableTor ? 'enabled' : 'disabled'}</strong></div>
           <Row>
             <Col xs='12' md='6'>
               {blockchainInfo.headers && blockchainInfo.blocks === blockchainInfo.headers &&

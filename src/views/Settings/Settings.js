@@ -17,7 +17,7 @@ import SettingsMiner from './SettingsMiner/SettingsMiner';
 import SettingsNode from './SettingsNode/SettingsNode';
 import SettingsWifi from './SettingsWifi/SettingsWifi';
 import SettingsGeneral from './SettingsGeneral/SettingsGeneral';
-import { saveSettings, saveSettingsAndRestartMiner } from '../../actions/settings';
+import { fetchSettings, saveSettings, saveSettingsAndRestartMiner } from '../../actions/settings';
 
 const restartFields = [
   'minerMode',
@@ -65,6 +65,10 @@ class Settings extends Component {
     const { settings } = this.state;
 
     saveAndRestart(settings);
+  }
+
+  componentDidMount() {
+    this.props.fetch();
   }
 
   render() {
@@ -168,6 +172,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetch: () => {
+    dispatch(fetchSettings());
+  },
   save: (settings) => {
     dispatch(saveSettings(settings));
   },
