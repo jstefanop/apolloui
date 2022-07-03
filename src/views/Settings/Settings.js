@@ -18,6 +18,7 @@ import SettingsNode from './SettingsNode/SettingsNode';
 import SettingsWifi from './SettingsWifi/SettingsWifi';
 import SettingsGeneral from './SettingsGeneral/SettingsGeneral';
 import { fetchSettings, saveSettings, saveSettingsAndRestartMiner } from '../../actions/settings';
+import { fetchNodeConf } from '../../actions/node';
 
 const restartFields = [
   'minerMode',
@@ -56,6 +57,7 @@ class Settings extends Component {
   handleSave() {
     const { save } = this.props;
     const { settings } = this.state;
+    this.props.fetchNodeConf();
 
     save(settings);
   }
@@ -69,6 +71,7 @@ class Settings extends Component {
 
   componentDidMount() {
     this.props.fetch();
+    this.props.fetchNodeConf();
   }
 
   render() {
@@ -87,12 +90,13 @@ class Settings extends Component {
         temperatureUnit,
         nodeRpcPassword,
         nodeEnableTor,
+        nodeUserConf,
         agree
       },
       settings,
     } = this.state;
 
-    const { oldSettings } = this.props;
+    const { oldSettings, nodeConf } = this.props;
 
     oldSettings.agree = settings.agree;
 
@@ -144,7 +148,7 @@ class Settings extends Component {
         { /* Node conf */ }
         <SettingsNode
           {...{
-            nodeRpcPassword, nodeEnableTor
+            nodeRpcPassword, nodeEnableTor, nodeUserConf, nodeConf
           }}
           onChange={this.onChange}
         />
@@ -167,6 +171,7 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => ({
+  nodeConf: state.nodeConf,
   settings: state.settings,
   oldSettings: state.settings,
 });
@@ -181,6 +186,9 @@ const mapDispatchToProps = dispatch => ({
   saveAndRestart: (settings) => {
     dispatch(saveSettingsAndRestartMiner(settings));
   },
+  fetchNodeConf: () => {
+    dispatch(fetchNodeConf())
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

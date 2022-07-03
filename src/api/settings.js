@@ -25,6 +25,7 @@ async function fetchSettings({ accessToken }) {
                 temperatureUnit
                 nodeRpcPassword
                 nodeEnableTor
+                nodeUserConf
               }
             }
             ${ERROR_QUERY}
@@ -62,6 +63,7 @@ async function saveSettings({ accessToken, settings }) {
                 temperatureUnit
                 nodeRpcPassword
                 nodeEnableTor
+                nodeUserConf
               }
             }
             ${ERROR_QUERY}

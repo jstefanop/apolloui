@@ -131,6 +131,10 @@ class Node extends Component {
       sizeSecondaryValue = (((sizeOnUsbInGb - sizeOnDiskInGb) / sizeOnUsbInGb) * 100).toFixed(2);
     }
 
+    let secondaryTitle = null;
+    if (settings.nodeEnableTor) secondaryTitle = t`Your connection is anonymous because you are using Tor. Connections may take more time to be discovered.`
+    else if (!settings.nodeEnableTor && connectionCount < 11) secondaryTitle = t`Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address.`
+
     // Truncate instead of round: secondaryValue
     // Since being stuck at 99.99% looks better than 100.00%
     return (
@@ -189,7 +193,7 @@ class Node extends Component {
                 title={t`Connections`}
                 progressColor={connectionCount > 16 ? 'success': 'danger'}
                 progressValue={parseInt((connectionCount / 32) * 100)}
-                secondaryTitle={connectionCount < 11 ? t`Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address` : null}
+                secondaryTitle={secondaryTitle}
                 wrapSecondary={true}
                 hideSecondaryValue={true}
               />

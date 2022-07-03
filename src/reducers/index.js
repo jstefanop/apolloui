@@ -13,6 +13,7 @@ import mcuWifiScan from './mcuWifiScan';
 import mcuWifiConnect from './mcuWifiConnect';
 import mcuWifiDisconnect from './mcuWifiDisconnect';
 import nodeStats from './nodeStats';
+import nodeConf from './nodeConf';
 import backup from './backup';
 import format from './format';
 
@@ -31,6 +32,7 @@ export default combineReducers({
   mcuWifiConnect,
   mcuWifiDisconnect,
   nodeStats,
+  nodeConf,
   backup,
   format
 });

@@ -106,9 +106,31 @@ async function formatNode ({ accessToken }) {
   return { result, error }
 }
 
+async function fetchNodeConf ({ accessToken }) {
+  const { result, error } = await query({
+    query: `
+      query Node {
+        Node {
+          conf {
+            result {
+              bitcoinConf
+            }
+            ${ERROR_QUERY}
+          }
+        }
+      }
+    `,
+    path: 'Node.conf',
+    accessToken
+  })
+
+  return { result, error }
+}
+
 export default {
   fetchNode,
   startNode,
   stopNode,
-  formatNode
+  formatNode,
+  fetchNodeConf
 }

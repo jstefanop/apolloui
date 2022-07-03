@@ -6,6 +6,9 @@ export const FETCH_NODE_SUCCESS = 'FETCH_NODE_SUCCESS';
 export const FETCH_NODE_FAILURE = 'FETCH_NODE_FAILURE';
 export const START_NODE_SUCCESS = 'START_NODE_SUCCESS';
 export const STOP_NODE_SUCCESS = 'STOP_NODE_SUCCESS';
+export const FETCH_NODE_CONF_BEGIN = 'FETCH_NODE_CONF_BEGIN';
+export const FETCH_NODE_CONF_SUCCESS = 'FETCH_NODE_CONF_SUCCESS';
+export const FETCH_NODE_CONF_FAILURE = 'FETCH_NODE_CONF_FAILURE';
 
 export const fetchNodeBegin = () => ({
   type: FETCH_NODE_BEGIN
@@ -29,6 +32,20 @@ export const startNodeSuccess = (data) => ({
 export const stopNodeSuccess = (data) => ({
   type: STOP_NODE_SUCCESS,
   payload: { data }
+});
+
+export const fetchNodeConfBegin = () => ({
+  type: FETCH_NODE_CONF_BEGIN
+});
+
+export const fetchNodeConfSuccess = (data) => ({
+  type: FETCH_NODE_CONF_SUCCESS,
+  payload: { data }
+});
+
+export const fetchNodeConfFailure = ({ error }) => ({
+  type: FETCH_NODE_CONF_FAILURE,
+  error
 });
 
 export function fetchNode() {
@@ -70,4 +87,21 @@ export function stopNode() {
       dispatch(stopNodeSuccess())
     }
   }
+}
+
+export function fetchNodeConf() {
+  return async (dispatch, getState) => {
+    dispatch(fetchNodeConfBegin());
+
+    const {
+      result,
+      error
+    } = await NodeAPI.fetchNodeConf({ accessToken: getState().auth.accessToken });
+
+    if (error) {
+      dispatch(fetchNodeConfFailure({ error: error.message }));
+    } else {
+      dispatch(fetchNodeConfSuccess(result));
+    }
+  };
 }

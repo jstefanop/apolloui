@@ -44,7 +44,9 @@ class SettingsMiner extends Component {
   render() {
     const {
       nodeRpcPassword,
-      nodeEnableTor
+      nodeEnableTor,
+      nodeUserConf,
+      nodeConf
     } = this.props;
 
     return (
@@ -97,11 +99,45 @@ class SettingsMiner extends Component {
                             { 
                             // eslint-disable-next-line 
                             }
-                            This is your personal Bitcoin node password: <strong>{nodeRpcPassword}</strong>
+                            <Trans>This is your personal Bitcoin node password</Trans>: <strong>{nodeRpcPassword}</strong>
                           </p>
                         </div>
                       </div>
                     </Col>
+                    {(nodeConf.data && nodeConf.data.bitcoinConf) &&
+                      <Col lg={12} xl={12}>
+                        <div>
+                          <div>
+                            <div className="clearfix">
+                              <h4><i className="fa fa-cog mr-2 initialism text-secondary"></i><Trans>Node configuration</Trans></h4>
+                            </div>
+                            <p className="text-muted ">
+                              { 
+                              // eslint-disable-next-line 
+                              }
+                              <Trans>This is the current node configuration, you can add more lines to it, but you can't change the default ones.</Trans>
+                            </p>
+                            <div className="bg-light p-3">
+                              <code style={{whiteSpace: 'pre-line'}}>{nodeConf.data.bitcoinConf}</code>
+                            </div>
+                            <p className="text-muted mt-3">
+                              { 
+                              // eslint-disable-next-line 
+                              }
+                              <Trans>Your extra lines</Trans> <small>(<Trans>note: there isn't any validation, so you know what you are doing</Trans>)</small>:
+                            </p>
+                            <div className="mt-3">
+                              <textarea 
+                                rows="10"
+                                className="form-control"
+                                defaultValue={nodeUserConf}
+                                onChange={(e) => this.onSwitch({ value: e.target.value, name: 'nodeUserConf' })}
+                              ></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                    }
                   </Row>
                 </Form>
               </CardBody>
