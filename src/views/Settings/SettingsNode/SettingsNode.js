@@ -118,7 +118,7 @@ class SettingsMiner extends Component {
                               <Trans>This is the current node configuration, you can add more lines to it, but you can't change the default ones.</Trans>
                             </p>
                             <div className="bg-light p-3">
-                              <code style={{whiteSpace: 'pre-line'}}>{nodeConf.data.bitcoinConf}</code>
+                              <code style={{whiteSpace: 'pre-line'}}>{nodeConf.data.bitcoinConf.replace(/\#USER_INPUT_START[\s\S]*?\#USER_INPUT_END/, '')}</code>
                             </div>
                             <p className="text-muted mt-3">
                               { 
