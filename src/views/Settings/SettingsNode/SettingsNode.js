@@ -115,16 +115,7 @@ class SettingsMiner extends Component {
                               { 
                               // eslint-disable-next-line 
                               }
-                              <Trans>This is the current node configuration, you can add more lines to it, but you can't change the default ones.</Trans>
-                            </p>
-                            <div className="bg-light p-3">
-                              <code style={{whiteSpace: 'pre-line'}}>{nodeConf.data.bitcoinConf.replace(/\#USER_INPUT_START[\s\S]*?\#USER_INPUT_END/, '')}</code>
-                            </div>
-                            <p className="text-muted mt-3">
-                              { 
-                              // eslint-disable-next-line 
-                              }
-                              <Trans>Your extra lines</Trans> <small>(<Trans>note: there isn't any validation, so you know what you are doing</Trans>)</small>:
+                              <Trans>This is where you can put your extra configuration lines to the bitcoin.conf file.</Trans> <small>(<Trans>note: there isn't any validation, so you know what you are doing</Trans>)</small>
                             </p>
                             <div className="mt-3">
                               <textarea 
