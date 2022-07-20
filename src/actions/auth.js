@@ -36,6 +36,10 @@ export function saveInitialSetup({ password, poolSetup }) {
   return async (dispatch) => {
     let { result, error } = await AuthAPI.saveSetup({ password });
 
+    // We have to wait because the saveSetup
+    // API above has to restart the apollo-ui app
+    await new Promise(r => setTimeout(r, 5000));
+
     if (error) {
       dispatch(setError({ message: error.message }));
       return;
