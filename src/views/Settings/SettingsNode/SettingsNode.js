@@ -57,7 +57,7 @@ class SettingsMiner extends Component {
             <Card>
               <CardHeader>
                 <CardTitle><i className="fa fa-network-wired mr-2"></i><Trans>Node</Trans></CardTitle>
-                <CardSubtitle className="text-muted"><Trans>Manage Bitcoin node configuration</Trans></CardSubtitle>
+                <CardSubtitle className="text-muted"><Trans>Manage Bitcoin Node Configuration</Trans></CardSubtitle>
               </CardHeader>
               <CardBody>
                 <Form>
@@ -84,7 +84,7 @@ class SettingsMiner extends Component {
                             { 
                             // eslint-disable-next-line 
                             }
-                            <Trans>Connect Bitcoin only over the Tor network to increase security and anonymity. Note: the Bitcoin node will be restarted to apply the new configuration.</Trans>
+                            <Trans>Connect your Bitcoin Node over the Tor network to increase security and anonymity. Note: you need to press the Save button on the top of the page after changing settings in this section, and your node will be restarted to apply.</Trans>
                           </p>
                         </div>
                       </div>
@@ -99,7 +99,7 @@ class SettingsMiner extends Component {
                             { 
                             // eslint-disable-next-line 
                             }
-                            <Trans>This is your personal Bitcoin node password</Trans>: <strong>{nodeRpcPassword}</strong>
+                            <Trans>This is your personal Bitcoin Node RPC password (username is futurebit, use these two values to connect external wallets/services directly to your BTC node)</Trans>: <strong>{nodeRpcPassword}</strong>
                           </p>
                         </div>
                       </div>
@@ -115,7 +115,7 @@ class SettingsMiner extends Component {
                               { 
                               // eslint-disable-next-line 
                               }
-                              <Trans>This is where you can put your extra configuration lines to the bitcoin.conf file.</Trans> <small>(<Trans>note: there isn't any validation, so you know what you are doing</Trans>)</small>
+                              <Trans>Add additional configuration lines to the bitcoin.conf file.</Trans> <small>(<Trans>Note: this section is for advanced users, and no validation is performed. You can add things like ipallow to allow external devices that host wallets etc to connect directly to your node for broadcasting transactions etc. </Trans>)</small>
                             </p>
                             <div className="mt-3">
                               <textarea 
