@@ -14,9 +14,11 @@ import pick from 'lodash/pick';
 import { Trans } from '@lingui/macro';
 
 import SettingsMiner from './SettingsMiner/SettingsMiner';
+import SettingsNode from './SettingsNode/SettingsNode';
 import SettingsWifi from './SettingsWifi/SettingsWifi';
 import SettingsGeneral from './SettingsGeneral/SettingsGeneral';
-import { saveSettings, saveSettingsAndRestartMiner } from '../../actions/settings';
+import { fetchSettings, saveSettings, saveSettingsAndRestartMiner } from '../../actions/settings';
+import { fetchNodeConf } from '../../actions/node';
 
 const restartFields = [
   'minerMode',
@@ -55,6 +57,7 @@ class Settings extends Component {
   handleSave() {
     const { save } = this.props;
     const { settings } = this.state;
+    this.props.fetchNodeConf();
 
     save(settings);
   }
@@ -64,6 +67,11 @@ class Settings extends Component {
     const { settings } = this.state;
 
     saveAndRestart(settings);
+  }
+
+  componentDidMount() {
+    this.props.fetch();
+    this.props.fetchNodeConf();
   }
 
   render() {
@@ -80,12 +88,15 @@ class Settings extends Component {
         leftSidebarExtended,
         rightSidebarVisibility,
         temperatureUnit,
+        nodeRpcPassword,
+        nodeEnableTor,
+        nodeUserConf,
         agree
       },
       settings,
     } = this.state;
 
-    const { oldSettings } = this.props;
+    const { oldSettings, nodeConf } = this.props;
 
     oldSettings.agree = settings.agree;
 
@@ -134,8 +145,15 @@ class Settings extends Component {
           onChange={this.onChange}
         />
 
-        { /* Wifi */ }
+        { /* Node conf */ }
+        <SettingsNode
+          {...{
+            nodeRpcPassword, nodeEnableTor, nodeUserConf, nodeConf
+          }}
+          onChange={this.onChange}
+        />
 
+        { /* Wifi */ }
         <SettingsWifi />
 
         { /* General options */ }
@@ -153,17 +171,24 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => ({
+  nodeConf: state.nodeConf,
   settings: state.settings,
   oldSettings: state.settings,
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetch: () => {
+    dispatch(fetchSettings());
+  },
   save: (settings) => {
     dispatch(saveSettings(settings));
   },
   saveAndRestart: (settings) => {
     dispatch(saveSettingsAndRestartMiner(settings));
   },
+  fetchNodeConf: () => {
+    dispatch(fetchNodeConf())
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

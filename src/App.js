@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
+import ErrorBoundary from './Error';
 import './App.scss';
 
 // Containers
@@ -23,17 +24,19 @@ const App = () => {
   }, [])
 
   return (
-    <I18nProvider i18n={i18n}>
-      <Alert/>
-      <ConnectedRouter history={history}>
-        <Switch>
-          <Route exact path="/login" name="Login Page" component={Login} />
-          <Route exact path="/404" name="Page 404" component={Page404} />
-          <Route exact path="/500" name="Page 500" component={Page500} />
-          <Route path="/" name="Home" component={DefaultLayout} />
-        </Switch>
-      </ConnectedRouter>
-    </I18nProvider>
+    <ErrorBoundary>
+      <I18nProvider i18n={i18n}>
+        <Alert/>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route exact path="/login" name="Login Page" component={Login} />
+            <Route exact path="/404" name="Page 404" component={Page404} />
+            <Route exact path="/500" name="Page 500" component={Page500} />
+            <Route path="/" name="Home" component={DefaultLayout} />
+          </Switch>
+        </ConnectedRouter>
+      </I18nProvider>
+    </ErrorBoundary>
   )
 }
 

@@ -2,7 +2,7 @@ FROM amd64/node:14-alpine AS frontend
 
 RUN apk update
 
-RUN apk --no-cache add pkgconfig autoconf automake libtool nasm build-base zlib-dev python py-pip
+RUN apk --no-cache add pkgconfig autoconf automake libtool nasm build-base zlib-dev python3 py3-pip
 
 RUN adduser -S app
 RUN mkdir /app
