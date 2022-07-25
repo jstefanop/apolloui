@@ -1,6 +1,6 @@
 {
   "15 Min Avg": "15 Min Avg",
-  "<0>* Required</0> Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "<0>* Required</0> Please set a password for this dashboard, so no unauthorized users can access your dashboard or change settings.",
+  "<0>* Required</0> Please set a password for this dashboard, so only user having the password want manage your miner or look at statistics.": "<0>* Required</0> Please set a password for this dashboard, so no unauthorized users can access your dashboard or change settings. Please note the default system login password will also be updated to this password, so write it down in a safe place!",
   "Acc": "Acc",
   "Active ASICs": "Active ASICs",
   "Active wifi": "Active wifi",
