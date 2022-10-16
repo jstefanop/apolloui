@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { push } from 'connected-react-router'
 
 import { LoadingErrorBox } from '../Loading';
-import { startMiner, restartMiner, stopMiner } from '../../actions/miner'
+import { startMiner, restartMiner, stopMiner, fetchMiner, onlineMiner } from '../../actions/miner'
 
 import { t } from '@lingui/macro';
 
@@ -14,14 +14,14 @@ class MinerManage extends Component {
       modalsWaiting: false,
       progressValue: 0,
       title: t`Please wait while miner is warming up`,
-      subtitle: t`This takes about 30 seconds after that you will be redirect to the dashboard`,
+      subtitle: t`This takes less than a minute, when miner will be ready you will be redirect to the dashboard`,
       showProgress: true,
       icon: 'fa-cog fa-spin'
     }
   }
 
   componentDidMount () {
-    let timeout = 30000;
+    let timeout = 60000;
     switch (this.props.location.pathname) {
       case '/miner/start':
         this.props.startMiner();
@@ -51,10 +51,30 @@ class MinerManage extends Component {
     }, timeout);
 
     this.intervalHandler = setInterval(() => {
-      this.setState({
-        progressValue: this.state.progressValue + 3.33
-      });
-    }, 1000);
+      this.props.fetchMiner();
+      this.props.onlineMiner();
+
+      const { minerCheck, minerError, miner } = this.props;
+
+      const statsReady = (miner.stats && miner.stats.length) || false;
+      const statusReady = (minerCheck.online && minerCheck.online.status) || false;
+
+      console.log(`Checking miner to come back: statsReady: ${statsReady}, statusReady: ${statusReady}`);
+
+      if (statusReady) this.setState({ subtitle: t`Miner is now online, we are waiting for first statistics...` });
+
+      if (statsReady && statusReady) {
+        this.setState({
+          modalsWaiting: false,
+          progressValue: 100
+        });
+        this.props.redirect();
+      } else {
+        this.setState({
+          progressValue: this.state.progressValue + 8.33
+        });
+      }
+    }, 5000);
   }
 
   componentWillUnmount () {
@@ -101,8 +121,22 @@ const mapDispatchToProps = (dispatch) => {
     },
     redirect: () => {
       dispatch(push('/miner'))
-    }
+    },
+    fetchMiner: () => {
+      dispatch(fetchMiner())
+    },
+    onlineMiner: () => {
+      dispatch(onlineMiner())
+    },
   }
 }
 
-export default connect(null, mapDispatchToProps)(MinerManage);
+const mapStateToProps = state => {
+  return {
+    miner: state.minerStats.data,
+    minerError: state.minerStats.error,
+    minerCheck: state.minerOnline.data,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MinerManage);

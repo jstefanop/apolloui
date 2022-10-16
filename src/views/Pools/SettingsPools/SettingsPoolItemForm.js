@@ -67,7 +67,9 @@ class SettingsPoolItemForm extends Component {
       errors.url = 'Required';
     } else {
       try {
-        new URL(url); // eslint-disable-line no-new
+        const fakeUrl = url.replace('stratum+tcp', 'http');
+        const parsedUrl = new URL(fakeUrl); // eslint-disable-line no-new
+        if (!parsedUrl.port) errors.url = 'Url hasn\'t any port are you sure is it right? (it should be something like stratum+tcp://stratum.slushpool.com:3333)';
       } catch (err) {
         errors.url = 'URL has to be valid URL.';
       }
@@ -129,9 +131,9 @@ class SettingsPoolItemForm extends Component {
               value={url}
               onChange={this.onChange}
             />
-            <span className="text-danger">
+            <div className="mt-2 text-danger">
               {errors.url}
-            </span>
+            </div>
           </FormGroup>
         </Col>
         <Col md={4}>
@@ -146,9 +148,9 @@ class SettingsPoolItemForm extends Component {
               value={username}
               onChange={this.onChange}
             />
-            <span className="text-danger">
+            <div className="mt-2 text-danger">
               {errors.username}
-            </span>
+            </div>
           </FormGroup>
         </Col>
         <Col md={1}>
@@ -163,9 +165,9 @@ class SettingsPoolItemForm extends Component {
               value={password}
               onChange={this.onChange}
             />
-            <span className="text-danger">
+            <div className="mt-2 text-danger">
               {errors.password}
-            </span>
+            </div>
           </FormGroup>
         </Col>
         <Col md={1}>

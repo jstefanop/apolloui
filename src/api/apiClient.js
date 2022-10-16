@@ -2,9 +2,10 @@ import axios from 'axios';
 
 import { handleApiResponse } from './shared';
 
-const { hostname } = new URL(window.location.href);
+let hostname;
+(process.env.NODE_ENV === 'development') ? hostname = process.env.REACT_APP_DEV_API : { hostname } = new URL(window.location.href);
 
-const graphqlEndpoint = `http://${hostname}:${process.env.PORT || 5000}/api/graphql`;
+const graphqlEndpoint = `http://${hostname}:${process.env.REACT_APP_API_PORT || 5000}/api/graphql`;
 
 export async function query({
   query: _query, variables, path, accessToken,

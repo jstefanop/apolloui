@@ -131,9 +131,12 @@ class Node extends Component {
       sizeSecondaryValue = (((sizeOnUsbInGb - sizeOnDiskInGb) / sizeOnUsbInGb) * 100).toFixed(2);
     }
 
+    const blockPercentage = (Math.floor((blockchainInfo.blocks / blockchainInfo.headers) * 100 * 100) / 100);
+
     let secondaryTitle = null;
     if (settings.nodeEnableTor) secondaryTitle = t`Your connection is anonymous because you are using Tor. Connections may take more time to be discovered.`
-    else if (!settings.nodeEnableTor && connectionCount < 11) secondaryTitle = t`Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address.`
+    else if (!settings.nodeEnableTor && connectionCount < 11 && (blockchainInfo.blocks + 10) >= blockchainInfo.headers) secondaryTitle = t`Only inbound connections detected, please enable port 8333 on your router port forwarding rules for your Apollo IP address.`
+    else if (blockPercentage < 99) secondaryTitle = t`Your node is still syncing...`
 
     // Truncate instead of round: secondaryValue
     // Since being stuck at 99.99% looks better than 100.00%
@@ -164,7 +167,7 @@ class Node extends Component {
                   progressColor='warning'
                   progressValue={parseInt((blockchainInfo.blocks / blockchainInfo.headers) * 100)}
                   secondaryTitle={t`Block Sync Progress`}
-                  secondaryValue={`${(Math.floor((blockchainInfo.blocks / blockchainInfo.headers) * 100 * 100) / 100).toFixed(2)}%`}
+                  secondaryValue={`${blockPercentage.toFixed(2)}%`}
                 />
               }
             </Col>
