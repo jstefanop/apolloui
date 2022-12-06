@@ -31,23 +31,19 @@ class SettingsPools extends Component {
 
     const { pools } = this.props;
 
-    let donation = false,
-        donationValue = 1;
-    pools.forEach((pool) => {
-      if (pool.enabled && pool.donation) {
-        donation = true;
-        donationValue = pool.donation;
-      }
-    });
+    let donation = false;
+    let donationValue = 1;
 
     this.state = {
       pools: cloneDeep(pools),
       donation: donation,
-      donationValue: donationValue
+      donationValue: donationValue,
+      errors: {}
     };
 
     this.handleAdd = this.handleAdd.bind(this);
     this.handleSaveAndRestart = this.handleSaveAndRestart.bind(this);
+    this.validate = this.validate.bind(this);
     
     this.marks = {
       donation: {
@@ -69,12 +65,72 @@ class SettingsPools extends Component {
     };
   }
 
+  validate() {
+    if (!this.state.pools[0]) return;
+    const errors = {};
+    const {
+      enabled,
+      donation,
+      url,
+      username,
+      password,
+      proxy,
+    } = this.state.pools[0];
+
+    this.setState({
+      errors: {},
+    });
+
+    if (!url) {
+      errors.url = 'Required';
+    } else {
+      try {
+        const fakeUrl = url.replace('stratum+tcp', 'http');
+        const parsedUrl = new URL(fakeUrl); // eslint-disable-line no-new
+        if (!parsedUrl.port) errors.url = 'Url hasn\'t any port are you sure is it right? (it should be something like stratum+tcp://stratum.slushpool.com:3333)';
+      } catch (err) {
+        errors.url = 'URL has to be valid URL.';
+      }
+    }
+
+    if (proxy) {
+      try {
+        new URL(proxy); // eslint-disable-line no-new
+      } catch (err) {
+        errors.proxy = 'Proxy has to be valid URL.';
+      }
+    }
+
+    if (!username) {
+      errors.username = 'Required';
+    } else {
+      if (username.match(/[!@"\'#$%^&*(),?:{}|<>\[\]]/g)) errors.username = 'Characters not allowed (only - , _ and .)';
+    }
+
+    if (!password) {
+      errors.password = 'Required';
+    }
+
+    if (Object.keys(errors).length !== 0) {
+      this.setState({
+        errors,
+      });
+      return;
+    }
+
+    console.log(errors)
+
+    return errors;
+  }
+
   onChangePool(event, index) {
     const { pools } = this.state;
 
     const pool = pools.find(el => el.index === index);
 
     pool[event.target.name] = event.target.value;
+
+    this.validate();
 
     this.setState({
       pools,
@@ -182,7 +238,8 @@ class SettingsPools extends Component {
     const {
       pools,
       donation,
-      donationValue
+      donationValue,
+      errors
     } = this.state;
 
     const {
@@ -192,7 +249,7 @@ class SettingsPools extends Component {
     const isChanged = !isEqual(sortBy(pools, [pool => pool.index]), sortBy(oldPools, [pool => pool.index]));
     return (
       <div className="animated fadeIn">
-        { (isChanged) &&
+        { (isChanged && !Object.keys(errors).length) &&
         <Row>
           <Col lg="12">
             <Card>
@@ -224,9 +281,10 @@ class SettingsPools extends Component {
                       onMoveUp={ () => this.handleMove({ index: pool.index, direction: 'up' }) }
                       onMoveDown={ () => this.handleMove({ index: pool.index, direction: 'down' }) }
                       onChange={ (evt) => this.onChangePool(evt, pool.index) }
+                      errors={ this.state.errors }
                     />
                   ))}
-                  { !pools.length && <SettingsPoolItemForm onAdd={this.handleAdd} /> }
+                  { !pools.length && <SettingsPoolItemForm onAdd={this.handleAdd} onValidate={this.validate} /> }
                 </CardBody>
               </Card>
 

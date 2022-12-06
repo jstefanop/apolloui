@@ -26,7 +26,8 @@ export default function (props) {
     onDelete,
     onMoveUp,
     onMoveDown,
-    onChange
+    onChange,
+    errors
   } = props;
 
   return (
@@ -35,18 +36,27 @@ export default function (props) {
         <FormGroup>
           <Label for="poolUrl"><Trans>Url</Trans></Label>
           <Input type="text" name="url" id="poolUrl" bsSize="lg" disabled={disabled} onChange={ onChange } value={url} className={ (donation) ? 'donation-color' : '' } />
+          <div className="mt-2 text-danger">
+            {errors.url}
+          </div>
         </FormGroup>
       </Col>
       <Col md={4}>
         <FormGroup>
           <Label for="poolUsername"><Trans>Username</Trans></Label>
           <Input type="text" name="username" id="poolUsername" bsSize="lg" disabled={disabled} onChange={ onChange } value={username} className={ (donation) ? 'donation-color' : '' } />
+          <div className="mt-2 text-danger">
+            {errors.username}
+          </div>
         </FormGroup>
       </Col>
       <Col md={1}>
         <FormGroup>
           <Label for="poolUsername"><Trans>Password</Trans></Label>
           <Input type="text" name="password" id="poolPassword" bsSize="lg" disabled={disabled} onChange={ onChange } value={password || ''} className={ (donation) ? 'donation-color' : '' } />
+          <div className="mt-2 text-danger">
+            {errors.password}
+          </div>
         </FormGroup>
       </Col>
       <Col md={1}>

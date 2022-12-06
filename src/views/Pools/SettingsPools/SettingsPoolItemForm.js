@@ -34,20 +34,8 @@ class SettingsPoolItemForm extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  onChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
-
-  toggleEnabled() {
-    const { enabled } = this.state;
-    this.setState({
-      enabled: !enabled,
-    });
-  }
-
-  handleAdd() {
+  validate() {
+    const errors = {};
     const {
       enabled,
       donation,
@@ -56,12 +44,6 @@ class SettingsPoolItemForm extends Component {
       password,
       proxy,
     } = this.state;
-
-    const {
-      onAdd,
-    } = this.props;
-
-    const errors = {};
 
     if (!url) {
       errors.url = 'Required';
@@ -85,11 +67,54 @@ class SettingsPoolItemForm extends Component {
 
     if (!username) {
       errors.username = 'Required';
+    } else {
+      if (username.match(/[!@"\'#$%^&*(),?:{}|<>\[\]]/g)) errors.username = 'Characters not allowed (only - , _ and .)';
     }
 
     if (!password) {
       errors.password = 'Required';
     }
+
+    return errors;
+  }
+
+  onChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+
+    const errors = this.validate();
+
+    if (Object.keys(errors).length !== 0) {
+      this.setState({
+        errors,
+      });
+      return;
+    }
+  }
+
+  toggleEnabled() {
+    const { enabled } = this.state;
+    this.setState({
+      enabled: !enabled,
+    });
+  }
+
+  handleAdd() {
+    const {
+      enabled,
+      donation,
+      url,
+      username,
+      password,
+      proxy,
+    } = this.state;
+
+    const {
+      onAdd,
+    } = this.props;
+
+    const errors = this.validate();
 
     if (Object.keys(errors).length !== 0) {
       this.setState({
