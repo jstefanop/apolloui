@@ -105,7 +105,7 @@ class Dashboard extends Component {
               <DashboardWidget 
                 bgColor="bg-dark" 
                 icon="fa fa-fire" 
-                value={ displayHashrate(_.sumBy(miner.stats, function(o) { if (o.status) return o.slots.int_0.ghs; }), 'gh') }
+                value={displayHashrate(_.sumBy(miner.stats, function (o) { if (o.status) return o.master.intervals.int_300.bySol; }), 'gh') }
                 title={t`Current hashrate`}
                 progressColor="primary"
                 progressValue="100"

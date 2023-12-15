@@ -43,7 +43,7 @@ class HashboardsTable extends Component {
               </td>
               <td>
                 <h6 className={`mb-0 ${hashboard.status ? "font-weight-bold" : "text-secondary"}`}>
-                  <i className="fa fa-fire text-secondary"></i> { displayHashrate(hashboard.status ? hashboard.slots.int_0.ghs : 0, 'gh') }
+                    <i className="fa fa-fire text-secondary"></i> {displayHashrate(hashboard.status ? hashboard.master.intervals.int_300.bySol : 0, 'gh') }
                 </h6>
               </td>
               <td>
@@ -53,7 +53,7 @@ class HashboardsTable extends Component {
                 { (hashboard.status) ? hashboard.fans.int_0.rpm[0] : '-' } { hashboard.status && <small>rpm</small>}
               </td>
               <td>
-                { (hashboard.status) ? (hashboard.slots.int_0.wattPerGHs * hashboard.slots.int_0.ghs).toFixed(0) : '-' } { hashboard.status && <small>W</small>}
+                  {(hashboard.status) ? (hashboard.master.boardsW).toFixed(0) : '-' } { hashboard.status && <small>W</small>}
               </td>
               <td>
                 { (hashboard.status) ? (hashboard.slots.int_0.wattPerGHs * hashboard.slots.int_0.ghs / _.sum(hashboard.slots.int_0.currents) * 1000).toFixed(2) : '-' } { hashboard.status && <small>v</small>}
